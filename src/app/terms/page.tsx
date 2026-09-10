@@ -39,7 +39,7 @@ export default function TermsPage() {
         </P>
         <H>3. Plans & payment</H>
         <P>
-          The Starter plan is free forever. Paid plans are billed monthly in MWK. You can
+          The Free plan is free forever. Paid plans are billed monthly in MWK. You can
           upgrade, downgrade or cancel at any time; downgrades and cancellations take
           effect at the end of the current billing month. Fees already paid are
           non-refundable except where required by law.

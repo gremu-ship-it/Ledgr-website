@@ -92,39 +92,62 @@ const testimonials = [
 
 const pricing = [
   {
-    name: "Starter",
+    name: "Free",
     price: "Free",
-    sub: "Forever",
-    features: ["1 business", "Income & expense tracking", "Basic reports", "Offline mode"],
+    sub: "50 transactions/mo",
+    features: [
+      "Basic dashboard & reports",
+      "Income & expense tracking",
+      "Up to 50 transactions/month",
+      "Community support",
+    ],
     cta: "Get Started Free",
+    href: site.registerUrl,
     highlight: false,
   },
   {
-    name: "Business",
-    price: "MWK 15,000",
+    name: "Growth",
+    price: "MWK 100,000",
     sub: "per month",
     features: [
-      "Up to 3 businesses",
-      "Invoices & PDF export",
-      "Full MRA tax suite",
-      "Payroll & inventory",
-      "All financial reports",
+      "Everything in Free",
+      "Bank reconciliation",
+      "Accounting & Organisation (full access)",
+      "Up to 500 transactions/month",
+      "Email support",
     ],
-    cta: "Start free trial",
-    highlight: true,
+    cta: "Upgrade to Growth",
+    href: site.registerUrl,
+    highlight: false,
   },
   {
     name: "Pro",
-    price: "MWK 35,000",
+    price: "MWK 200,000",
     sub: "per month",
     features: [
-      "Unlimited businesses",
-      "Multi-user access",
-      "AI insights (coming soon)",
-      "Airtel Money / Mpamba",
-      "Priority support",
+      "Everything in Growth",
+      "AI Insights & forecasting",
+      "Public API access",
+      "Webhook integrations",
+      "Up to 2,000 transactions/month",
     ],
-    cta: "Talk to us",
+    cta: "Upgrade to Pro",
+    href: site.registerUrl,
+    highlight: true,
+  },
+  {
+    name: "Enterprise",
+    price: "MWK 500,000",
+    sub: "per month",
+    features: [
+      "Everything in Pro",
+      "Unlimited transactions",
+      "Custom branding",
+      "Multi-user roles & permissions",
+      "Dedicated account manager",
+    ],
+    cta: "Contact sales",
+    href: "/contact",
     highlight: false,
   },
 ];
@@ -409,7 +432,7 @@ export default async function HomePage() {
             Start free. Upgrade only when you grow. No expensive dollar subscriptions.
           </p>
         </div>
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {pricing.map((p) => (
             <div
               key={p.name}
@@ -420,13 +443,13 @@ export default async function HomePage() {
               }`}
             >
               {p.highlight && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-500 px-3 py-1 text-xs font-semibold text-white">
-                  Most popular
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand-500 px-3 py-1 text-xs font-semibold text-white">
+                  Most Popular
                 </span>
               )}
               <h3 className="text-lg font-bold text-ink">{p.name}</h3>
               <div className="mt-3 flex items-end gap-1.5">
-                <span className="text-3xl font-extrabold text-ink">{p.price}</span>
+                <span className="text-2xl font-extrabold text-ink">{p.price}</span>
                 <span className="mb-1 text-sm text-slate-400">{p.sub}</span>
               </div>
               <ul className="mt-6 flex-1 space-y-3 text-sm text-ink-soft">
@@ -438,7 +461,7 @@ export default async function HomePage() {
                 ))}
               </ul>
               <a
-                href={site.registerUrl}
+                href={p.href}
                 className={`mt-7 rounded-xl px-5 py-3 text-center text-sm font-semibold transition ${
                   p.highlight
                     ? "bg-brand-500 text-white hover:bg-brand-600"
@@ -450,6 +473,10 @@ export default async function HomePage() {
             </div>
           ))}
         </div>
+        <p className="mx-auto mt-6 max-w-2xl text-center text-xs text-slate-500">
+          Upgrades are processed securely through <strong>PayChangu</strong> (mobile money
+          &amp; card). Downgrades take effect immediately with no charge.
+        </p>
         <div className="mt-8 text-center">
           <a
             href="/pricing"

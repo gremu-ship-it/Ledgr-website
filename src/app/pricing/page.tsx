@@ -1,51 +1,77 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/ui";
-import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Simple MWK pricing: Free Starter, Business at MWK 15,000/month, Pro at MWK 35,000/month. No dollar subscriptions, cancel anytime.",
+    "Simple MWK pricing: Free, Growth at MWK 100,000/month, Pro at MWK 200,000/month, Enterprise at MWK 500,000/month. Transaction-based plans, secure PayChangu payments.",
 };
 
 const plans = [
   {
-    name: "Starter",
+    name: "Free",
     price: "Free",
-    sub: "forever",
+    sub: "50 transactions/mo",
     desc: "For trying Ledgr and running a side hustle.",
-    features: ["1 business", "Income & expense tracking", "Basic reports", "Offline mode"],
+    features: [
+      "Basic dashboard & reports",
+      "Income & expense tracking",
+      "Up to 50 transactions/month",
+      "Community support",
+    ],
     cta: "Get Started Free",
+    href: "https://ledgr-react.vercel.app/register",
     highlight: false,
   },
   {
-    name: "Business",
-    price: "MWK 15,000",
+    name: "Growth",
+    price: "MWK 100,000",
     sub: "per month",
-    desc: "For growing businesses that invoice and employ.",
+    desc: "For growing businesses ready to reconcile and report.",
     features: [
-      "Up to 3 businesses",
-      "Invoices & PDF export",
-      "Full MRA tax suite (VAT, PAYE, WHT, TEVETA)",
-      "Payroll & inventory",
-      "All financial reports",
+      "Everything in Free",
+      "Bank reconciliation",
+      "Accounting & Organisation (full access)",
+      "Basic financial reports",
+      "Up to 500 transactions/month",
+      "Email support",
     ],
-    cta: "Start free trial",
-    highlight: true,
+    cta: "Upgrade to Growth",
+    href: "https://ledgr-react.vercel.app/register",
+    highlight: false,
   },
   {
     name: "Pro",
-    price: "MWK 35,000",
+    price: "MWK 200,000",
     sub: "per month",
-    desc: "For accountants and multi-branch operations.",
+    desc: "For data-driven businesses that want AI and integrations.",
     features: [
-      "Unlimited businesses",
-      "Multi-user access",
-      "AI insights (coming soon)",
-      "Airtel Money / Mpamba (coming soon)",
+      "Everything in Growth",
+      "AI Insights & forecasting",
+      "Public API access",
+      "Webhook integrations",
+      "Up to 2,000 transactions/month",
       "Priority support",
     ],
-    cta: "Talk to us",
+    cta: "Upgrade to Pro",
+    href: "https://ledgr-react.vercel.app/register",
+    highlight: true,
+  },
+  {
+    name: "Enterprise",
+    price: "MWK 500,000",
+    sub: "per month",
+    desc: "For multi-branch operations and compliance-heavy teams.",
+    features: [
+      "Everything in Pro",
+      "Unlimited transactions",
+      "Custom branding",
+      "Multi-user roles & permissions",
+      "Dedicated account manager",
+      "SLA & compliance support",
+    ],
+    cta: "Contact sales",
+    href: "/contact",
     highlight: false,
   },
 ];
@@ -53,15 +79,19 @@ const plans = [
 const faqs = [
   {
     q: "Is there really a free plan?",
-    a: "Yes — Starter is free forever, not a trial. Income and expense tracking, basic reports and offline mode for one business, no card required.",
+    a: "Yes — Free includes a basic dashboard and reports plus income and expense tracking for up to 50 transactions a month, with community support. No card required.",
+  },
+  {
+    q: "What counts as a transaction?",
+    a: "Each income, expense, invoice or bill you record counts as one transaction. The counter resets every month, and you can see your usage any time inside the app.",
   },
   {
     q: "How do I pay?",
-    a: "Pay by bank transfer or mobile money. Airtel Money and Mpamba in-app payments are coming soon.",
+    a: "Upgrades are processed securely through PayChangu — pay with mobile money (Airtel Money, Mpamba) or a bank card. No PayPal or dollar card needed.",
   },
   {
     q: "Can I change plans later?",
-    a: "Anytime. Upgrades apply immediately; downgrades apply at the end of your billing month. Your data is never locked.",
+    a: "Yes. Upgrades apply immediately; downgrades take effect immediately with no charge. Your data and history are never affected by plan changes.",
   },
   {
     q: "What happens to my data if I cancel?",
@@ -79,10 +109,10 @@ export default function PricingPage() {
             Priced in Kwacha, <span className="text-brand-600">for Malawian businesses</span>
           </>
         }
-        sub="Start free. Upgrade only when you grow. No expensive dollar subscriptions."
+        sub="Start free. Upgrade as your transactions grow — pay securely with mobile money or card."
       />
       <section className="mx-auto max-w-6xl px-5 pb-14">
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {plans.map((p) => (
             <div
               key={p.name}
@@ -93,13 +123,13 @@ export default function PricingPage() {
               }`}
             >
               {p.highlight && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-500 px-3 py-1 text-xs font-semibold text-white">
-                  Most popular
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand-500 px-3 py-1 text-xs font-semibold text-white">
+                  Most Popular
                 </span>
               )}
               <h2 className="text-lg font-bold text-ink">{p.name}</h2>
               <div className="mt-3 flex items-end gap-1.5">
-                <span className="text-3xl font-extrabold text-ink">{p.price}</span>
+                <span className="text-2xl font-extrabold text-ink">{p.price}</span>
                 <span className="mb-1 text-sm text-slate-400">{p.sub}</span>
               </div>
               <p className="mt-2 text-sm text-ink-soft">{p.desc}</p>
@@ -112,7 +142,7 @@ export default function PricingPage() {
                 ))}
               </ul>
               <a
-                href={site.registerUrl}
+                href={p.href}
                 className={`mt-7 rounded-xl px-5 py-3 text-center text-sm font-semibold transition ${
                   p.highlight
                     ? "bg-brand-500 text-white hover:bg-brand-600"
@@ -125,7 +155,12 @@ export default function PricingPage() {
           ))}
         </div>
 
-        <div className="mx-auto mt-14 max-w-3xl">
+        <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-ink-soft">
+          Upgrades are processed securely through <strong>PayChangu</strong> (mobile money
+          &amp; card). Downgrades take effect immediately with no charge.
+        </p>
+
+        <div className="mx-auto mt-12 max-w-3xl">
           <h2 className="text-center text-2xl font-extrabold tracking-tight text-ink">
             Pricing questions
           </h2>

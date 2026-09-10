@@ -5,7 +5,7 @@ import { useState } from "react";
 const faqs = [
   {
     q: "Is Ledgr really free?",
-    a: "Yes. The Starter plan is free forever and includes income & expense tracking, basic reports and offline mode for one business. You only pay when you need invoicing, the full MRA tax suite, payroll, inventory or multiple businesses.",
+    a: "Yes. The Free plan is free forever and includes a basic dashboard and reports plus income and expense tracking for up to 50 transactions a month. Paid plans unlock bank reconciliation, AI insights, API access and higher limits.",
   },
   {
     q: "How does offline mode work?",
