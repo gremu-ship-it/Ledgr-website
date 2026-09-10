@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHero } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -106,53 +107,59 @@ export default function PricingPage() {
         eyebrow="Pricing"
         title={
           <>
-            Priced in Kwacha, <span className="text-brand-600">for Malawian businesses</span>
+            Priced in Kwacha, <span className="text-brand-700">for Malawian businesses</span>
           </>
         }
         sub="Start free. Upgrade as your transactions grow — pay securely with mobile money or card."
       />
       <section className="mx-auto max-w-6xl px-5 pb-14">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {plans.map((p) => (
-            <div
-              key={p.name}
-              className={`relative flex flex-col rounded-2xl border p-7 ${
-                p.highlight
-                  ? "border-brand-500 bg-white shadow-xl shadow-brand-500/10 ring-1 ring-brand-500"
-                  : "border-slate-100 bg-white shadow-sm"
-              }`}
-            >
-              {p.highlight && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand-500 px-3 py-1 text-xs font-semibold text-white">
-                  Most Popular
-                </span>
-              )}
-              <h2 className="text-lg font-bold text-ink">{p.name}</h2>
-              <div className="mt-3 flex items-end gap-1.5">
-                <span className="text-2xl font-extrabold text-ink">{p.price}</span>
-                <span className="mb-1 text-sm text-slate-400">{p.sub}</span>
-              </div>
-              <p className="mt-2 text-sm text-ink-soft">{p.desc}</p>
-              <ul className="mt-6 flex-1 space-y-3 text-sm text-ink-soft">
-                {p.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2.5">
-                    <span className="text-brand-500">✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <a
-                href={p.href}
-                className={`mt-7 rounded-xl px-5 py-3 text-center text-sm font-semibold transition ${
+          {plans.map((p) => {
+            const ctaClass = `mt-7 rounded-xl px-5 py-3 text-center text-sm font-semibold transition ${
+              p.highlight
+                ? "bg-brand-700 text-white hover:bg-brand-800"
+                : "border border-slate-200 text-ink hover:border-brand-300 hover:text-brand-700"
+            }`;
+            return (
+              <div
+                key={p.name}
+                className={`relative flex flex-col rounded-2xl border p-7 ${
                   p.highlight
-                    ? "bg-brand-500 text-white hover:bg-brand-600"
-                    : "border border-slate-200 text-ink hover:border-brand-300 hover:text-brand-600"
+                    ? "border-brand-500 bg-white shadow-xl shadow-brand-500/10 ring-1 ring-brand-500"
+                    : "border-slate-100 bg-white shadow-sm"
                 }`}
               >
-                {p.cta}
-              </a>
-            </div>
-          ))}
+                {p.highlight && (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand-700 px-3 py-1 text-xs font-semibold text-white">
+                    Most Popular
+                  </span>
+                )}
+                <h2 className="text-lg font-bold text-ink">{p.name}</h2>
+                <div className="mt-3 flex items-end gap-1.5">
+                  <span className="text-2xl font-extrabold text-ink">{p.price}</span>
+                  <span className="mb-1 text-sm text-slate-500">{p.sub}</span>
+                </div>
+                <p className="mt-2 text-sm text-ink-soft">{p.desc}</p>
+                <ul className="mt-6 flex-1 space-y-3 text-sm text-ink-soft">
+                  {p.features.map((f) => (
+                    <li key={f} className="flex items-center gap-2.5">
+                      <span className="text-brand-700">✓</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                {p.href.startsWith("/") ? (
+                  <Link href={p.href} className={ctaClass}>
+                    {p.cta}
+                  </Link>
+                ) : (
+                  <a href={p.href} className={ctaClass}>
+                    {p.cta}
+                  </a>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-ink-soft">
@@ -174,9 +181,9 @@ export default function PricingPage() {
           </div>
           <p className="mt-6 text-center text-sm text-ink-soft">
             Still unsure?{" "}
-            <a href="/contact" className="font-semibold text-brand-600 hover:underline">
+            <Link href="/contact" className="font-semibold text-brand-700 hover:underline">
               Talk to us
-            </a>{" "}
+            </Link>{" "}
             — we&apos;ll help you pick the right plan.
           </p>
         </div>

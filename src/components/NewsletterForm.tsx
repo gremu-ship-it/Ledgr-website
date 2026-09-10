@@ -35,7 +35,10 @@ export default function NewsletterForm({
 
   if (status === "success") {
     return (
-      <p className="rounded-xl bg-brand-50 px-4 py-3 text-sm font-semibold text-brand-700">
+      <p
+        role="status"
+        className="rounded-xl bg-brand-50 px-4 py-3 text-sm font-semibold text-brand-700"
+      >
         ✓ You&apos;re subscribed. Welcome aboard!
       </p>
     );
@@ -44,24 +47,30 @@ export default function NewsletterForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className={compact ? "flex gap-2" : "mx-auto flex max-w-md gap-2"}
+      aria-label="Newsletter signup"
+      className={compact ? "flex flex-wrap gap-2" : "mx-auto flex max-w-md flex-wrap gap-2"}
     >
       <input
         name="email"
         type="email"
         required
+        autoComplete="email"
         placeholder="you@business.mw"
         aria-label="Email address"
-        className="w-full min-w-0 flex-1 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-ink outline-none transition placeholder:text-slate-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-200"
+        className="w-full min-w-0 flex-1 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-ink outline-none transition placeholder:text-slate-500 focus:border-brand-500 focus:ring-2 focus:ring-brand-200"
       />
       <button
         type="submit"
         disabled={status === "loading"}
-        className="shrink-0 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-60"
+        className="shrink-0 rounded-xl bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-800 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {status === "loading" ? "..." : "Subscribe"}
       </button>
-      {status === "error" && <span className="sr-only">{error}</span>}
+      {status === "error" && (
+        <p role="alert" className="w-full text-xs text-red-600">
+          {error}
+        </p>
+      )}
     </form>
   );
 }

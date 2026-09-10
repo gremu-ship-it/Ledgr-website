@@ -15,7 +15,7 @@ export default function FaqPage() {
         eyebrow="FAQ"
         title={
           <>
-            Questions? <span className="text-brand-600">Answered.</span>
+            Questions? <span className="text-brand-700">Answered.</span>
           </>
         }
         sub="The things people ask us most. Anything else — just contact us."

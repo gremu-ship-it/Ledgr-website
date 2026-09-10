@@ -32,7 +32,7 @@ export default function AboutPage() {
         eyebrow="About Ledgr"
         title={
           <>
-            World-class accounting, <span className="text-brand-600">built for Malawi</span>
+            World-class accounting, <span className="text-brand-700">built for Malawi</span>
           </>
         }
         sub="Most accounting software is built for London or New York — priced in dollars, assuming perfect internet and a finance degree. We built the opposite."
@@ -60,7 +60,7 @@ export default function AboutPage() {
               key={small}
               className="rounded-2xl border border-slate-100 bg-white p-5 text-center shadow-sm"
             >
-              <p className="text-2xl font-extrabold text-brand-600">{big}</p>
+              <p className="text-2xl font-extrabold text-brand-700">{big}</p>
               <p className="mt-1 text-xs text-ink-soft">{small}</p>
             </div>
           ))}

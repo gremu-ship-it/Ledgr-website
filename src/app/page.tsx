@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { getDb } from "@/db";
 import { sql } from "drizzle-orm";
 import WaitlistForm from "@/components/WaitlistForm";
@@ -25,7 +26,7 @@ const features = [
   {
     icon: "🏛️",
     title: "MRA tax compliance",
-    desc: "Built-in VAT (17.5%), PAYE, WHT and TEVET with automatic due-date reminders.",
+    desc: "Built-in VAT (17.5%), PAYE, WHT and TEVETA with automatic due-date reminders.",
   },
   {
     icon: "📦",
@@ -189,7 +190,7 @@ export default async function HomePage() {
             </span>
             <h1 className="mt-5 text-[clamp(2.4rem,6vw,4rem)] font-extrabold leading-[1.04] tracking-tight text-ink">
               Smart accounting for{" "}
-              <span className="text-brand-600">Malawian businesses</span>
+              <span className="text-brand-700">Malawian businesses</span>
             </h1>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-ink-soft">
               Ledgr is an MWK-first, MRA-compliant accounting app for your phone{" "}
@@ -200,13 +201,13 @@ export default async function HomePage() {
             <div className="mt-7 flex flex-wrap gap-3">
               <a
                 href={site.registerUrl}
-                className="rounded-xl bg-brand-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/30 transition hover:bg-brand-600"
+                className="rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/30 transition hover:bg-brand-800"
               >
                 Get Started Free →
               </a>
               <a
                 href={site.loginUrl}
-                className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-600"
+                className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
               >
                 View Demo
               </a>
@@ -242,11 +243,11 @@ export default async function HomePage() {
               className="relative"
             />
             <div className="absolute -right-2 top-6 hidden rotate-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-xl lg:block">
-              <p className="text-xs font-medium text-slate-400">Net profit</p>
-              <p className="text-lg font-bold text-brand-600">MWK 4.25M</p>
+              <p className="text-xs font-medium text-slate-500">Net profit</p>
+              <p className="text-lg font-bold text-brand-700">MWK 4.25M</p>
             </div>
             <div className="absolute -left-3 bottom-10 hidden -rotate-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-xl lg:block">
-              <p className="text-xs font-medium text-slate-400">VAT due in</p>
+              <p className="text-xs font-medium text-slate-500">VAT due in</p>
               <p className="text-lg font-bold text-ink">6 days</p>
             </div>
           </div>
@@ -263,7 +264,7 @@ export default async function HomePage() {
             ["MWK", "First-class currency"],
           ].map(([big, small]) => (
             <div key={small}>
-              <p className="text-2xl font-extrabold text-brand-600">{big}</p>
+              <p className="text-2xl font-extrabold text-brand-700">{big}</p>
               <p className="mt-1 text-xs text-ink-soft">{small}</p>
             </div>
           ))}
@@ -273,7 +274,7 @@ export default async function HomePage() {
       {/* FEATURES */}
       <section id="features" className="mx-auto max-w-6xl px-5 py-14">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
             Everything in one app
           </p>
           <h2 className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold tracking-tight text-ink">
@@ -300,12 +301,12 @@ export default async function HomePage() {
           ))}
         </div>
         <div className="mt-8 text-center">
-          <a
+          <Link
             href="/features"
-            className="inline-block rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-600"
+            className="inline-block rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
           >
             Explore all features →
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -314,13 +315,14 @@ export default async function HomePage() {
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 md:grid-cols-2">
           <div className="relative">
             <Image
-              src="https://images.pexels.com/photos/3906984/pexels-photo-3906984.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200"
+              src="/images/sme-owner.jpg"
               alt="Small business owner using Ledgr"
               width={1200}
               height={627}
+              sizes="(max-width: 768px) 100vw, 560px"
               className="rounded-3xl object-cover shadow-2xl"
             />
-            <div className="absolute -bottom-5 -right-3 rounded-2xl bg-brand-500 px-5 py-4 shadow-xl">
+            <div className="absolute -bottom-5 -right-3 rounded-2xl bg-brand-700 px-5 py-4 shadow-xl">
               <p className="text-xs font-medium text-brand-50">Offline transactions</p>
               <p className="text-lg font-bold">Synced ✓</p>
             </div>
@@ -332,7 +334,7 @@ export default async function HomePage() {
             <div className="mt-6 grid gap-x-6 gap-y-4 sm:grid-cols-2">
               {usps.map((u) => (
                 <div key={u.title} className="flex gap-3">
-                  <span className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-500 text-xs font-bold">
+                  <span className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-700 text-xs font-bold">
                     ✓
                   </span>
                   <div>
@@ -349,7 +351,7 @@ export default async function HomePage() {
       {/* HOW IT WORKS */}
       <section id="how" className="mx-auto max-w-6xl px-5 py-14">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
             How it works
           </p>
           <h2 className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold tracking-tight text-ink">
@@ -371,7 +373,7 @@ export default async function HomePage() {
         <div className="mt-8 flex justify-center">
           <a
             href={site.registerUrl}
-            className="rounded-xl bg-brand-500 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-600"
+            className="rounded-xl bg-brand-700 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-800"
           >
             Create your free account →
           </a>
@@ -385,7 +387,7 @@ export default async function HomePage() {
       <section className="bg-white py-14">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 md:grid-cols-2">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
               Invoicing & tax
             </p>
             <h2 className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold leading-tight text-ink">
@@ -393,19 +395,19 @@ export default async function HomePage() {
             </h2>
             <p className="mt-4 text-ink-soft">
               Create branded invoices, split VAT at 17.5% automatically and export a clean
-              PDF — all in MWK. Ledgr tracks PAYE, WHT and TEVET due dates so you never miss
+              PDF — all in MWK. Ledgr tracks PAYE, WHT and TEVETA due dates so you never miss
               an MRA deadline.
             </p>
             <ul className="mt-6 space-y-3 text-sm text-ink-soft">
               {[
                 "Automatic VAT split on every line",
                 "One-tap PDF invoice generation",
-                "PAYE, WHT & TEVET due-date reminders",
+                "PAYE, WHT & TEVETA due-date reminders",
                 "Double-entry journal & chart of accounts",
                 "Start on mobile, review on desktop — always in sync",
               ].map((t) => (
                 <li key={t} className="flex items-center gap-3">
-                  <span className="grid h-5 w-5 place-items-center rounded-full bg-brand-500 text-[10px] text-white">
+                  <span className="grid h-5 w-5 place-items-center rounded-full bg-brand-700 text-[10px] text-white">
                     ✓
                   </span>
                   {t}
@@ -422,7 +424,7 @@ export default async function HomePage() {
       {/* PRICING */}
       <section id="pricing" className="mx-auto max-w-6xl px-5 py-14">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
             Pricing
           </p>
           <h2 className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold tracking-tight text-ink">
@@ -443,33 +445,46 @@ export default async function HomePage() {
               }`}
             >
               {p.highlight && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand-500 px-3 py-1 text-xs font-semibold text-white">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand-700 px-3 py-1 text-xs font-semibold text-white">
                   Most Popular
                 </span>
               )}
               <h3 className="text-lg font-bold text-ink">{p.name}</h3>
               <div className="mt-3 flex items-end gap-1.5">
                 <span className="text-2xl font-extrabold text-ink">{p.price}</span>
-                <span className="mb-1 text-sm text-slate-400">{p.sub}</span>
+                <span className="mb-1 text-sm text-slate-500">{p.sub}</span>
               </div>
               <ul className="mt-6 flex-1 space-y-3 text-sm text-ink-soft">
                 {p.features.map((f) => (
                   <li key={f} className="flex items-center gap-2.5">
-                    <span className="text-brand-500">✓</span>
+                    <span className="text-brand-700">✓</span>
                     {f}
                   </li>
                 ))}
               </ul>
-              <a
-                href={p.href}
-                className={`mt-7 rounded-xl px-5 py-3 text-center text-sm font-semibold transition ${
-                  p.highlight
-                    ? "bg-brand-500 text-white hover:bg-brand-600"
-                    : "border border-slate-200 text-ink hover:border-brand-300 hover:text-brand-600"
-                }`}
-              >
-                {p.cta}
-              </a>
+              {p.href.startsWith("/") ? (
+                <Link
+                  href={p.href}
+                  className={`mt-7 rounded-xl px-5 py-3 text-center text-sm font-semibold transition ${
+                    p.highlight
+                      ? "bg-brand-700 text-white hover:bg-brand-800"
+                      : "border border-slate-200 text-ink hover:border-brand-300 hover:text-brand-700"
+                  }`}
+                >
+                  {p.cta}
+                </Link>
+              ) : (
+                <a
+                  href={p.href}
+                  className={`mt-7 rounded-xl px-5 py-3 text-center text-sm font-semibold transition ${
+                    p.highlight
+                      ? "bg-brand-700 text-white hover:bg-brand-800"
+                      : "border border-slate-200 text-ink hover:border-brand-300 hover:text-brand-700"
+                  }`}
+                >
+                  {p.cta}
+                </a>
+              )}
             </div>
           ))}
         </div>
@@ -478,12 +493,12 @@ export default async function HomePage() {
           &amp; card). Downgrades take effect immediately with no charge.
         </p>
         <div className="mt-8 text-center">
-          <a
+          <Link
             href="/pricing"
-            className="text-sm font-semibold text-brand-600 hover:underline"
+            className="text-sm font-semibold text-brand-700 hover:underline"
           >
             Compare plans in detail →
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -491,7 +506,7 @@ export default async function HomePage() {
       <section className="bg-white py-14">
         <div className="mx-auto max-w-6xl px-5">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
               Loved by local businesses
             </p>
             <h2 className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold tracking-tight text-ink">
@@ -504,31 +519,32 @@ export default async function HomePage() {
                 key={t.name}
                 className="flex flex-col rounded-2xl border border-slate-100 bg-brand-50/40 p-7"
               >
-                <div className="text-brand-500" aria-hidden>
+                <div className="text-brand-700" aria-hidden>
                   ★★★★★
                 </div>
+                <span className="sr-only">Rated 5 out of 5</span>
                 <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-ink-soft">
                   “{t.quote}”
                 </blockquote>
                 <figcaption className="mt-5 flex items-center gap-3">
-                  <span className="grid h-10 w-10 place-items-center rounded-full bg-brand-500 font-bold text-white">
+                  <span className="grid h-10 w-10 place-items-center rounded-full bg-brand-700 font-bold text-white">
                     {t.name[0]}
                   </span>
                   <div>
                     <p className="text-sm font-bold text-ink">{t.name}</p>
-                    <p className="text-xs text-slate-400">{t.role}</p>
+                    <p className="text-xs text-slate-500">{t.role}</p>
                   </div>
                 </figcaption>
               </figure>
             ))}
           </div>
           <div className="mt-8 text-center">
-            <a
-              href="/customers"
-              className="text-sm font-semibold text-brand-600 hover:underline"
-            >
-              Read more customer stories →
-            </a>
+          <Link
+            href="/customers"
+            className="text-sm font-semibold text-brand-700 hover:underline"
+          >
+            Read more customer stories →
+          </Link>
           </div>
         </div>
       </section>
@@ -555,7 +571,7 @@ export default async function HomePage() {
             <div className="mt-7 flex flex-wrap gap-3">
               <a
                 href={site.liveUrl}
-                className="flex items-center gap-3 rounded-xl bg-brand-500 px-5 py-3 text-sm font-semibold transition hover:bg-brand-600"
+                className="flex items-center gap-3 rounded-xl bg-brand-700 px-5 py-3 text-sm font-semibold transition hover:bg-brand-800"
               >
                 <span className="text-xl">🌐</span>
                 Open the web app

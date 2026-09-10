@@ -59,7 +59,7 @@ export default function CustomersPage() {
         eyebrow="Customers"
         title={
           <>
-            Loved by businesses <span className="text-brand-600">across Malawi</span>
+            Loved by businesses <span className="text-brand-700">across Malawi</span>
           </>
         }
         sub="From market traders to consultants — here's what happens when accounting finally fits."
@@ -71,9 +71,10 @@ export default function CustomersPage() {
               key={t.name}
               className="flex flex-col rounded-2xl border border-slate-100 bg-white p-7 shadow-sm"
             >
-              <div className="text-brand-500" aria-hidden>
+              <div className="text-brand-700" aria-hidden>
                 ★★★★★
               </div>
+              <span className="sr-only">Rated 5 out of 5</span>
               <span className="mt-3 inline-flex w-fit items-center rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-700">
                 {t.metric}
               </span>
@@ -81,12 +82,12 @@ export default function CustomersPage() {
                 “{t.quote}”
               </blockquote>
               <figcaption className="mt-5 flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-brand-500 font-bold text-white">
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-brand-700 font-bold text-white">
                   {t.name.trim()[0]}
                 </span>
                 <div>
                   <p className="text-sm font-bold text-ink">{t.name.trim()}</p>
-                  <p className="text-xs text-slate-400">{t.role}</p>
+                  <p className="text-xs text-slate-500">{t.role}</p>
                 </div>
               </figcaption>
             </figure>

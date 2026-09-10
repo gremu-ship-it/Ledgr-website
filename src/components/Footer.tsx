@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { site, socials } from "@/lib/site";
 import NewsletterForm from "@/components/NewsletterForm";
 
@@ -8,9 +9,15 @@ function FooterCol({ title, links }: { title: string; links: [string, string][] 
       <ul className="mt-4 space-y-2.5 text-sm text-ink-soft">
         {links.map(([label, href]) => (
           <li key={label}>
-            <a href={href} className="transition hover:text-brand-600">
-              {label}
-            </a>
+            {href.startsWith("/") ? (
+              <Link href={href} className="transition hover:text-brand-700">
+                {label}
+              </Link>
+            ) : (
+              <a href={href} className="transition hover:text-brand-700">
+                {label}
+              </a>
+            )}
           </li>
         ))}
       </ul>
@@ -23,16 +30,16 @@ export default function Footer() {
     <footer className="border-t border-slate-100 bg-white">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
-          <a href="/" className="flex items-center gap-2.5">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-500 text-lg font-bold text-white">
+          <Link href="/" className="flex items-center gap-2.5" aria-label="Ledgr home">
+            <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-700 text-lg font-bold text-white">
               L
             </span>
             <span className="text-xl font-bold text-ink">Ledgr</span>
-          </a>
+          </Link>
           <p className="mt-4 max-w-xs text-sm text-ink-soft">
             MWK-first accounting &amp; business management for growing Malawian SMEs.
           </p>
-          <p className="mt-3 text-xs text-slate-400">🇲🇼 Made for Malawi &amp; SADC</p>
+          <p className="mt-3 text-xs text-slate-500">🇲🇼 Made for Malawi &amp; SADC</p>
           <div className="mt-5 max-w-xs">
             <p className="text-xs font-semibold text-ink">Tax tips &amp; product news</p>
             <div className="mt-2">
@@ -47,7 +54,7 @@ export default function Footer() {
                   href={s.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-ink-soft transition hover:border-brand-300 hover:text-brand-600"
+                  className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-ink-soft transition hover:border-brand-300 hover:text-brand-700"
                 >
                   {s.label}
                 </a>
@@ -85,10 +92,10 @@ export default function Footer() {
         />
       </div>
       <div className="border-t border-slate-100">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 py-6 pb-24 text-xs text-slate-400 sm:flex-row md:pb-6">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 py-6 pb-24 text-xs text-slate-500 sm:flex-row md:pb-6">
           <p>© {new Date().getFullYear()} Ledgr. All rights reserved.</p>
           <p>
-            <a href={`mailto:${site.email}`} className="transition hover:text-brand-600">
+            <a href={`mailto:${site.email}`} className="transition hover:text-brand-700">
               {site.email}
             </a>{" "}
             · Smart accounting for Malawian businesses.

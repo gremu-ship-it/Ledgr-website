@@ -31,6 +31,7 @@ export default function BrowserMockup({
         alt={alt}
         width={1200}
         height={760}
+        sizes="(max-width: 1024px) 100vw, 620px"
         className="h-auto w-full"
         priority
       />

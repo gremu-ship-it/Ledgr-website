@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { site } from "@/lib/site";
 
 export function PageHero({
@@ -19,7 +20,7 @@ export function PageHero({
         }}
       />
       <div className="relative mx-auto max-w-3xl px-5 py-14 text-center md:py-20">
-        <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+        <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
           {eyebrow}
         </p>
         <h1 className="mt-3 text-[clamp(2rem,5vw,3.2rem)] font-extrabold leading-tight tracking-tight text-ink">
@@ -48,16 +49,16 @@ export function CtaBand({
         <div className="mt-7 flex flex-wrap justify-center gap-3">
           <a
             href={site.registerUrl}
-            className="rounded-xl bg-brand-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-brand-600"
+            className="rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-brand-800"
           >
             Get Started Free →
           </a>
-          <a
+          <Link
             href="/contact"
             className="rounded-xl border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-semibold transition hover:bg-white/10"
           >
             Talk to us
-          </a>
+          </Link>
         </div>
         <p className="mt-5 text-xs text-slate-400">Free plan · No credit card · MWK-first</p>
       </div>

@@ -62,7 +62,7 @@ export default function PrivacyPage() {
           Questions about privacy? Email{" "}
           <a
             href={`mailto:${site.email}`}
-            className="font-semibold text-brand-600 hover:underline"
+            className="font-semibold text-brand-700 hover:underline"
           >
             {site.email}
           </a>{" "}

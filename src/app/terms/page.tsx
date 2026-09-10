@@ -68,7 +68,7 @@ export default function TermsPage() {
           communicated in-app or by email. Questions? Contact us at{" "}
           <a
             href={`mailto:${site.email}`}
-            className="font-semibold text-brand-600 hover:underline"
+            className="font-semibold text-brand-700 hover:underline"
           >
             {site.email}
           </a>

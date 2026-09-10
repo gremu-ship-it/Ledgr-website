@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CtaBand } from "@/components/ui";
 import NewsletterForm from "@/components/NewsletterForm";
@@ -45,17 +46,17 @@ export default async function PostPage({
     <div>
       <section className="bg-gradient-to-b from-brand-50 via-white to-white">
         <div className="mx-auto max-w-3xl px-5 py-12 md:py-16">
-          <a
+          <Link
             href="/blog"
-            className="text-sm font-semibold text-brand-600 hover:underline"
+            className="text-sm font-semibold text-brand-700 hover:underline"
           >
             ← All guides
-          </a>
+          </Link>
           <div className="mt-4 flex items-center gap-3 text-xs">
             <span className="rounded-full bg-brand-50 px-3 py-1 font-bold text-brand-700">
               {post.category}
             </span>
-            <span className="text-slate-400">
+            <span className="text-slate-500">
               {formatPostDate(post.date)} · {post.readMinutes} min read
             </span>
           </div>
@@ -80,7 +81,7 @@ export default async function PostPage({
               <ul key={i} className="my-4 space-y-2.5">
                 {b.items.map((item) => (
                   <li key={item} className="flex gap-3 text-[1.02rem] leading-relaxed text-ink-soft">
-                    <span className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand-500 text-[10px] text-white">
+                    <span className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand-700 text-[10px] text-white">
                       ✓
                     </span>
                     {item}
@@ -124,7 +125,7 @@ export default async function PostPage({
           </p>
           <a
             href={site.registerUrl}
-            className="mt-5 inline-block rounded-xl bg-brand-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-600"
+            className="mt-5 inline-block rounded-xl bg-brand-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-800"
           >
             Get Started Free →
           </a>
@@ -132,14 +133,14 @@ export default async function PostPage({
         {related.length > 0 && (
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {related.map((r) => (
-              <a
+              <Link
                 key={r.slug}
                 href={`/blog/${r.slug}`}
                 className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition hover:border-brand-200"
               >
-                <p className="text-xs font-bold text-brand-600">{r.category}</p>
+                <p className="text-xs font-bold text-brand-700">{r.category}</p>
                 <p className="mt-1.5 text-sm font-bold leading-snug text-ink">{r.title}</p>
-              </a>
+              </Link>
             ))}
           </div>
         )}

@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: "Is Ledgr compliant with MRA tax rules?",
-    a: "Ledgr is built around Malawi Revenue Authority requirements — VAT at 17.5%, PAYE, WHT and TEVET. It calculates the splits for you and reminds you before each due date so you never miss a filing.",
+    a: "Ledgr is built around Malawi Revenue Authority requirements — VAT at 17.5%, PAYE, WHT and TEVETA. It calculates the splits for you and reminds you before each due date so you never miss a filing.",
   },
   {
     q: "Do I need to be VAT-registered to use Ledgr?",
@@ -35,7 +35,7 @@ export default function Faq() {
   return (
     <section id="faq" className="mx-auto max-w-3xl px-5 py-14">
       <div className="mx-auto max-w-2xl text-center">
-        <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+        <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
           Questions &amp; answers
         </p>
         <h2 className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold tracking-tight text-ink">
@@ -55,8 +55,8 @@ export default function Faq() {
               >
                 <span className="text-sm font-semibold text-ink sm:text-base">{f.q}</span>
                 <span
-                  className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border border-slate-200 text-brand-600 transition ${
-                    isOpen ? "rotate-45 bg-brand-500 text-white" : ""
+                  className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border border-slate-200 text-brand-700 transition ${
+                    isOpen ? "rotate-45 bg-brand-700 text-white" : ""
                   }`}
                   aria-hidden
                 >

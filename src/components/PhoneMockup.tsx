@@ -4,9 +4,10 @@ type Props = {
   src: string;
   alt: string;
   className?: string;
+  priority?: boolean;
 };
 
-export default function PhoneMockup({ src, alt, className = "" }: Props) {
+export default function PhoneMockup({ src, alt, className = "", priority = false }: Props) {
   return (
     <div
       className={`relative mx-auto w-[260px] rounded-[2.6rem] border-[10px] border-ink bg-ink p-0 shadow-2xl shadow-brand-900/30 ${className}`}
@@ -18,8 +19,9 @@ export default function PhoneMockup({ src, alt, className = "" }: Props) {
           alt={alt}
           width={520}
           height={1040}
+          sizes="260px"
           className="h-auto w-full"
-          priority
+          priority={priority}
         />
       </div>
     </div>

@@ -66,7 +66,7 @@ export default function TaxCalculator() {
     <section id="calculator" className="bg-brand-50/60 py-14">
       <div className="mx-auto max-w-5xl px-5">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
             Try it now
           </p>
           <h2 className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold tracking-tight text-ink">
@@ -88,7 +88,7 @@ export default function TaxCalculator() {
                 className={`px-4 py-4 text-sm font-semibold transition ${
                   tab === t
                     ? "bg-brand-50 text-brand-700"
-                    : "text-slate-400 hover:text-ink"
+                    : "text-slate-500 hover:text-ink"
                 }`}
               >
                 {t === "vat" ? "VAT & profit" : "PAYE (payroll)"}
@@ -122,7 +122,7 @@ export default function TaxCalculator() {
                       className={inputClass}
                     />
                   </label>
-                  <p className="text-xs text-slate-400">VAT charged at 17.5% (MRA).</p>
+                  <p className="text-xs text-slate-500">VAT charged at 17.5% (MRA).</p>
                 </div>
 
                 <div className="flex flex-col justify-center gap-3 rounded-2xl bg-ink p-6 text-white">
@@ -151,7 +151,7 @@ export default function TaxCalculator() {
                       className={inputClass}
                     />
                   </label>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-slate-500">
                     Calculated on Malawi monthly PAYE bands (0% / 25% / 30% / 35%).
                   </p>
                 </div>
@@ -169,7 +169,7 @@ export default function TaxCalculator() {
               </>
             )}
           </div>
-          <p className="px-6 pb-6 text-center text-xs text-slate-400 sm:px-8">
+          <p className="px-6 pb-6 text-center text-xs text-slate-500 sm:px-8">
             Estimates only. Ledgr applies the exact current MRA rates inside the app.
           </p>
         </div>

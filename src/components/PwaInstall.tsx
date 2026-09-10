@@ -16,6 +16,7 @@ export default function PwaInstall({
 }) {
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
   const [installed, setInstalled] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
 
   useEffect(() => {
     // Register the service worker so the site is installable & offline-capable.
@@ -42,9 +43,7 @@ export default function PwaInstall({
 
   async function handleClick() {
     if (!deferred) {
-      alert(
-        "To install: on Android, open your browser menu and tap “Add to Home screen”. On Windows or Mac, open Ledgr in Chrome or Edge and click the install icon in the address bar.",
-      );
+      setShowHelp((s) => !s);
       return;
     }
     await deferred.prompt();
@@ -53,14 +52,28 @@ export default function PwaInstall({
   }
 
   return (
-    <button
-      type="button"
-      onClick={handleClick}
-      className={className}
-      aria-label={label}
-    >
-      <span className="text-xl">📲</span>
-      {installed ? "Installed ✓" : label}
-    </button>
+    <span className="inline-flex flex-col items-stretch">
+      <button
+        type="button"
+        onClick={handleClick}
+        className={className}
+        aria-label={label}
+        aria-expanded={showHelp}
+      >
+        <span className="text-xl" aria-hidden>
+          📲
+        </span>
+        {installed ? "Installed ✓" : label}
+      </button>
+      {showHelp && !installed && (
+        <span className="mt-2 max-w-xs rounded-xl border border-slate-200 bg-white p-4 text-left text-xs leading-relaxed text-ink shadow-xl">
+          <strong>Install Ledgr:</strong>
+          <br />
+          Android — browser menu → “Add to Home screen”.
+          <br />
+          Windows / Mac — Chrome or Edge → install icon in the address bar.
+        </span>
+      )}
+    </span>
   );
 }

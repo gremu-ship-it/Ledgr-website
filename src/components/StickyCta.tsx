@@ -21,17 +21,17 @@ export default function StickyCta() {
     >
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-500 text-base font-bold text-white">
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-700 text-base font-bold text-white">
             L
           </span>
           <div className="leading-tight">
             <p className="text-xs font-semibold text-ink">Start free today</p>
-            <p className="text-[11px] text-slate-400">No card needed</p>
+            <p className="text-[11px] text-slate-500">No card needed</p>
           </div>
         </div>
         <a
           href={site.registerUrl}
-          className="ml-auto rounded-xl bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-600"
+          className="ml-auto rounded-xl bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-800"
         >
           Get Started
         </a>

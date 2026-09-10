@@ -16,7 +16,7 @@ export default function ContactPage() {
         eyebrow="Contact"
         title={
           <>
-            Talk to a <span className="text-brand-600">human</span>
+            Talk to a <span className="text-brand-700">human</span>
           </>
         }
         sub="Questions about plans, a demo for your team, or help with setup — send a message and we'll reply within one business day."
@@ -24,12 +24,12 @@ export default function ContactPage() {
       <section className="mx-auto grid max-w-6xl gap-10 px-5 pb-16 lg:grid-cols-[1fr_1.2fr]">
         <div className="space-y-5">
           <div className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
-            <h2 className="text-sm font-bold uppercase tracking-wide text-brand-600">
+            <h2 className="text-sm font-bold uppercase tracking-wide text-brand-700">
               Email us
             </h2>
             <a
               href={`mailto:${site.email}`}
-              className="mt-2 block text-lg font-bold text-ink hover:text-brand-600"
+              className="mt-2 block text-lg font-bold text-ink hover:text-brand-700"
             >
               {site.email}
             </a>
@@ -38,7 +38,7 @@ export default function ContactPage() {
             </p>
           </div>
           <div className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
-            <h2 className="text-sm font-bold uppercase tracking-wide text-brand-600">
+            <h2 className="text-sm font-bold uppercase tracking-wide text-brand-700">
               Already using Ledgr?
             </h2>
             <p className="mt-2 text-sm text-ink-soft">
@@ -47,13 +47,13 @@ export default function ContactPage() {
             <div className="mt-3 flex flex-wrap gap-2.5">
               <a
                 href={site.dashboardUrl}
-                className="rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-600"
+                className="rounded-xl bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-800"
               >
                 Open dashboard
               </a>
               <a
                 href={site.loginUrl}
-                className="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-600"
+                className="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
               >
                 Sign in
               </a>

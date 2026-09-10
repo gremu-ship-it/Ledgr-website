@@ -77,14 +77,14 @@ export default function FeaturesPage() {
         eyebrow="Features"
         title={
           <>
-            Everything to run your books, <span className="text-brand-600">nothing you don&apos;t need</span>
+            Everything to run your books, <span className="text-brand-700">nothing you don&apos;t need</span>
           </>
         }
         sub="Accounting, tax, payroll and inventory in one calm app — designed for how Malawi actually does business."
       />
       {groups.map((g) => (
         <section key={g.eyebrow} className="mx-auto max-w-6xl px-5 pb-4 pt-10">
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
             {g.eyebrow}
           </p>
           <div className="mt-5 grid gap-5 md:grid-cols-3">

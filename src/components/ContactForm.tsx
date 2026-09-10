@@ -38,8 +38,11 @@ export default function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl border border-brand-200 bg-brand-50 p-8 text-center">
-        <div className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-full bg-brand-500 text-2xl text-white">
+      <div
+        role="status"
+        className="rounded-2xl border border-brand-200 bg-brand-50 p-8 text-center"
+      >
+        <div className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-full bg-brand-700 text-2xl text-white">
           ✓
         </div>
         <h3 className="text-xl font-bold text-ink">Message received!</h3>
@@ -51,23 +54,45 @@ export default function ContactForm() {
   }
 
   const inputClass =
-    "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-ink outline-none transition placeholder:text-slate-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-200";
+    "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-ink outline-none transition placeholder:text-slate-500 focus:border-brand-500 focus:ring-2 focus:ring-brand-200";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3">
+    <form onSubmit={handleSubmit} className="space-y-3" aria-label="Contact us">
       <div className="grid gap-3 sm:grid-cols-2">
-        <input name="name" required placeholder="Your name *" className={inputClass} />
+        <input
+          name="name"
+          required
+          autoComplete="name"
+          placeholder="Your name *"
+          aria-label="Your name"
+          className={inputClass}
+        />
         <input
           name="email"
           type="email"
           required
+          autoComplete="email"
           placeholder="Email address *"
+          aria-label="Email address"
           className={inputClass}
         />
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
-        <input name="phone" placeholder="Phone (optional)" className={inputClass} />
-        <input name="company" placeholder="Business name (optional)" className={inputClass} />
+        <input
+          name="phone"
+          type="tel"
+          autoComplete="tel"
+          placeholder="Phone (optional)"
+          aria-label="Phone (optional)"
+          className={inputClass}
+        />
+        <input
+          name="company"
+          autoComplete="organization"
+          placeholder="Business name (optional)"
+          aria-label="Business name (optional)"
+          className={inputClass}
+        />
       </div>
       <select name="topic" defaultValue="general" className={inputClass} aria-label="Topic">
         {contactTopics.map((t) => (
@@ -81,10 +106,11 @@ export default function ContactForm() {
         required
         rows={5}
         placeholder="How can we help? *"
+        aria-label="Your message"
         className={`${inputClass} resize-y`}
       />
       {status === "error" && (
-        <p className="text-sm text-red-600">
+        <p role="alert" className="text-sm text-red-600">
           {error}{" "}
           <a href={`mailto:${site.email}`} className="font-semibold underline">
             Email us directly
@@ -94,7 +120,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full rounded-xl bg-brand-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-800 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {status === "loading" ? "Sending..." : "Send message"}
       </button>
