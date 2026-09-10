@@ -43,7 +43,7 @@ export default function PwaInstall({
   async function handleClick() {
     if (!deferred) {
       alert(
-        "To install: open your browser menu and tap “Add to Home screen”. On desktop, look for the install icon in the address bar.",
+        "To install: on Android, open your browser menu and tap “Add to Home screen”. On Windows or Mac, open Ledgr in Chrome or Edge and click the install icon in the address bar.",
       );
       return;
     }

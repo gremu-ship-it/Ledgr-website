@@ -43,7 +43,7 @@ export default async function Image() {
           Smart accounting for Malawian businesses
         </div>
         <div style={{ marginTop: "24px", fontSize: "30px", color: "#a7f3d0" }}>
-          MWK-first · MRA-compliant · Works offline
+          Phone &amp; desktop · MWK-first · Works offline
         </div>
       </div>
     ),

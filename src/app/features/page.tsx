@@ -64,7 +64,7 @@ const groups = [
       {
         icon: "📴",
         title: "Offline-first",
-        desc: "No signal at the market? Keep recording. Everything queues on your device and syncs when you reconnect.",
+        desc: "No signal at the market? Keep recording on your phone. Everything queues on your device and syncs to your computer the moment you reconnect.",
       },
     ],
   },

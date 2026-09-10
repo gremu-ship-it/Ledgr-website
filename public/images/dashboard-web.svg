@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" font-family="Inter, system-ui, -apple-system, sans-serif" role="img" aria-label="Ledgr dashboard on desktop showing revenue, expenses and profit in Malawian Kwacha">
+  <rect width="1200" height="760" fill="#f1f5f9"/>
+  <!-- sidebar -->
+  <rect width="250" height="760" fill="#0c1f1a"/>
+  <rect x="28" y="28" width="48" height="48" rx="14" fill="#1d9e75"/>
+  <text x="52" y="63" font-size="30" font-weight="800" fill="#fff" text-anchor="middle">L</text>
+  <text x="88" y="60" font-size="26" font-weight="800" fill="#fff">Ledgr</text>
+  <g font-size="20" font-weight="600">
+    <rect x="20" y="104" width="210" height="52" rx="14" fill="#1d9e75"/>
+    <text x="44" y="137" fill="#fff">📊  Dashboard</text>
+    <text x="44" y="189" fill="#94a3b8">🧾  Invoices</text>
+    <text x="44" y="241" fill="#94a3b8">💸  Expenses</text>
+    <text x="44" y="293" fill="#94a3b8">👥  Payroll</text>
+    <text x="44" y="345" fill="#94a3b8">📦  Inventory</text>
+    <text x="44" y="397" fill="#94a3b8">📑  Reports</text>
+  </g>
+  <rect x="20" y="660" width="210" height="72" rx="16" fill="#ffffff" opacity="0.08"/>
+  <circle cx="56" cy="696" r="20" fill="#1d9e75"/>
+  <text x="56" y="704" font-size="20" font-weight="800" fill="#fff" text-anchor="middle">C</text>
+  <text x="86" y="691" font-size="19" font-weight="700" fill="#fff">Chikondi</text>
+  <text x="86" y="714" font-size="16" fill="#94a3b8">Chikondi&#39;s Shop</text>
+  <!-- topbar -->
+  <text x="286" y="62" font-size="30" font-weight="800" fill="#0c1f1a">Dashboard</text>
+  <text x="286" y="92" font-size="18" fill="#64748b">August 2026 · All figures in MWK</text>
+  <rect x="820" y="34" width="240" height="48" rx="24" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="844" y="65" font-size="19" fill="#94a3b8">🔍  Search…</text>
+  <circle cx="1108" cy="58" r="26" fill="#1d9e75"/>
+  <text x="1108" y="67" font-size="22" font-weight="800" fill="#fff" text-anchor="middle">C</text>
+  <!-- KPI cards -->
+  <g>
+    <rect x="286" y="116" width="272" height="150" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="314" y="156" font-size="18" fill="#64748b">Income</text>
+    <text x="314" y="200" font-size="40" font-weight="800" fill="#0c1f1a">MWK 6.1M</text>
+    <text x="314" y="236" font-size="19" font-weight="700" fill="#1d9e75">▲ 12% vs July</text>
+    <rect x="578" y="116" width="272" height="150" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="606" y="156" font-size="18" fill="#64748b">Expenses</text>
+    <text x="606" y="200" font-size="40" font-weight="800" fill="#0c1f1a">MWK 1.9M</text>
+    <text x="606" y="236" font-size="19" font-weight="700" fill="#dc2626">▼ 4% vs July</text>
+    <rect x="870" y="116" width="294" height="150" rx="20" fill="#0c1f1a"/>
+    <text x="898" y="156" font-size="18" fill="#a7f3d0">Net profit</text>
+    <text x="898" y="200" font-size="40" font-weight="800" fill="#fff">MWK 4.25M</text>
+    <text x="898" y="236" font-size="19" font-weight="700" fill="#6ee7b7">▲ 18% vs July</text>
+  </g>
+  <!-- cash flow chart -->
+  <rect x="286" y="286" width="564" height="260" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="314" y="326" font-size="21" font-weight="800" fill="#0c1f1a">Cash flow</text>
+  <text x="822" y="326" font-size="17" font-weight="600" fill="#1d9e75" text-anchor="end">Full report →</text>
+  <g>
+    <rect x="330" y="430" width="42" height="70" rx="9" fill="#a7f3d0"/>
+    <rect x="388" y="400" width="42" height="100" rx="9" fill="#6ee7b7"/>
+    <rect x="446" y="418" width="42" height="82" rx="9" fill="#a7f3d0"/>
+    <rect x="504" y="376" width="42" height="124" rx="9" fill="#34d399"/>
+    <rect x="562" y="396" width="42" height="104" rx="9" fill="#6ee7b7"/>
+    <rect x="620" y="364" width="42" height="136" rx="9" fill="#1d9e75"/>
+    <rect x="678" y="388" width="42" height="112" rx="9" fill="#34d399"/>
+    <rect x="736" y="408" width="42" height="92" rx="9" fill="#6ee7b7"/>
+  </g>
+  <!-- VAT card -->
+  <rect x="870" y="286" width="294" height="260" rx="20" fill="#1d9e75"/>
+  <text x="898" y="326" font-size="19" fill="#d1fae5">VAT payable to MRA</text>
+  <text x="898" y="372" font-size="42" font-weight="800" fill="#fff">MWK 157K</text>
+  <rect x="898" y="396" width="238" height="14" rx="7" fill="#ffffff" opacity="0.25"/>
+  <rect x="898" y="396" width="160" height="14" rx="7" fill="#fff"/>
+  <text x="898" y="444" font-size="19" font-weight="700" fill="#fff">Due 25 Sept · 15 days left</text>
+  <rect x="898" y="466" width="238" height="52" rx="14" fill="#fff"/>
+  <text x="1017" y="500" font-size="20" font-weight="800" fill="#0e4435" text-anchor="middle">View VAT return</text>
+  <!-- invoices table -->
+  <rect x="286" y="566" width="878" height="158" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="314" y="606" font-size="21" font-weight="800" fill="#0c1f1a">Recent invoices</text>
+  <text x="1136" y="606" font-size="17" font-weight="600" fill="#1d9e75" text-anchor="end">View all →</text>
+  <line x1="314" y1="622" x2="1136" y2="622" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="314" y="654" font-size="19" font-weight="600" fill="#0c1f1a">INV-0241 · Acme Ltd</text>
+  <text x="314" y="680" font-size="17" fill="#64748b">10 Sept · VAT incl.</text>
+  <text x="900" y="666" font-size="21" font-weight="800" fill="#0c1f1a" text-anchor="end">MWK 850,000</text>
+  <rect x="920" y="642" width="90" height="36" rx="18" fill="#dcfce7"/>
+  <text x="965" y="666" font-size="17" font-weight="800" fill="#166534" text-anchor="middle">Paid</text>
+  <text x="314" y="712" font-size="19" font-weight="600" fill="#0c1f1a">INV-0242 · Banda &amp; Co</text>
+  <text x="900" y="706" font-size="21" font-weight="800" fill="#0c1f1a" text-anchor="end">MWK 320,000</text>
+  <rect x="920" y="684" width="110" height="36" rx="18" fill="#fef9c3"/>
+  <text x="975" y="708" font-size="17" font-weight="800" fill="#854d0e" text-anchor="middle">Pending</text>
+</svg>

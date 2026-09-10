@@ -3,6 +3,7 @@ import { getDb } from "@/db";
 import { sql } from "drizzle-orm";
 import WaitlistForm from "@/components/WaitlistForm";
 import PhoneMockup from "@/components/PhoneMockup";
+import BrowserMockup from "@/components/BrowserMockup";
 import TaxCalculator from "@/components/TaxCalculator";
 import Faq from "@/components/Faq";
 import PwaInstall from "@/components/PwaInstall";
@@ -64,7 +65,7 @@ const steps = [
 const usps = [
   { title: "Built for Malawi", desc: "MWK currency, MRA tax codes and local payment methods — by design, not retrofitted." },
   { title: "Works offline", desc: "Record transactions without internet. They queue and sync automatically." },
-  { title: "Install on your phone", desc: "Add Ledgr to your Android home screen straight from the browser." },
+  { title: "Phone, tablet & computer", desc: "One account on every screen. Capture sales on your phone, review reports on your laptop." },
   { title: "Affordable", desc: "Priced for small businesses that QuickBooks and Sage price out." },
 ];
 
@@ -158,19 +159,20 @@ export default async function HomePage() {
               "radial-gradient(60rem 30rem at 80% -10%, rgba(29,158,117,0.18), transparent 60%)",
           }}
         />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 py-12 md:grid-cols-2 md:py-16">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 py-12 md:py-16 lg:grid-cols-[1fr_1.15fr]">
           <div className="animate-fade-up">
             <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-brand-700 shadow-sm">
-              🇲🇼 Built for Malawi · MWK-first
+              🇲🇼 Built for Malawi · Phone + Desktop
             </span>
             <h1 className="mt-5 text-[clamp(2.4rem,6vw,4rem)] font-extrabold leading-[1.04] tracking-tight text-ink">
               Smart accounting for{" "}
               <span className="text-brand-600">Malawian businesses</span>
             </h1>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-ink-soft">
-              Ledgr is an MWK-first, MRA-compliant accounting app that works offline and
-              installs on your phone. Track income, expenses, tax and reports — built for
-              how Malawi actually does business.
+              Ledgr is an MWK-first, MRA-compliant accounting app for your phone{" "}
+              <em className="not-italic font-semibold text-ink">and</em> your computer.
+              Track income, expenses, tax and reports — at the shop, the market or the
+              office, online or offline.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <a
@@ -186,7 +188,12 @@ export default async function HomePage() {
                 View Demo
               </a>
             </div>
-            <div className="mt-7 flex items-center gap-4 text-sm text-ink-soft">
+            <p className="mt-5 text-sm font-medium text-ink-soft">
+              📱 Android &amp; iPhone <span className="mx-1 text-slate-300">·</span> 💻
+              Windows &amp; Mac <span className="mx-1 text-slate-300">·</span> 🌐 Any
+              browser
+            </p>
+            <div className="mt-5 flex items-center gap-4 text-sm text-ink-soft">
               <div className="flex -space-x-2">
                 {["🧑🏿‍💼", "👩🏿‍💼", "👨🏿‍🔧", "👩🏿‍🌾"].map((e, i) => (
                   <span
@@ -204,18 +211,18 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="relative flex justify-center">
+          <div className="relative">
             <div className="absolute -inset-4 rounded-[3rem] bg-gradient-to-tr from-brand-200/40 to-transparent blur-2xl" />
-            <PhoneMockup
-              src="/images/dashboard.svg"
-              alt="Ledgr dashboard showing P&L in Malawian Kwacha"
-              className="relative animate-float"
+            <BrowserMockup
+              src="/images/dashboard-web.svg"
+              alt="Ledgr dashboard on desktop showing revenue, expenses and profit in Malawian Kwacha"
+              className="relative"
             />
-            <div className="absolute -right-1 top-8 hidden rotate-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-xl lg:block">
+            <div className="absolute -right-2 top-6 hidden rotate-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-xl lg:block">
               <p className="text-xs font-medium text-slate-400">Net profit</p>
               <p className="text-lg font-bold text-brand-600">MWK 4.25M</p>
             </div>
-            <div className="absolute -left-2 bottom-12 hidden -rotate-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-xl lg:block">
+            <div className="absolute -left-3 bottom-10 hidden -rotate-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-xl lg:block">
               <p className="text-xs font-medium text-slate-400">VAT due in</p>
               <p className="text-lg font-bold text-ink">6 days</p>
             </div>
@@ -247,11 +254,12 @@ export default async function HomePage() {
             Everything in one app
           </p>
           <h2 className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold tracking-tight text-ink">
-            Run your whole business from your phone
+            Run your whole business from anywhere
           </h2>
           <p className="mt-4 text-ink-soft">
             From the first sale to your tax return — Ledgr brings accounting, invoicing,
-            payroll, inventory and reports together.
+            payroll, inventory and reports together. Start on your phone, finish on your
+            laptop: everything stays in sync.
           </p>
         </div>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -371,6 +379,7 @@ export default async function HomePage() {
                 "One-tap PDF invoice generation",
                 "PAYE, WHT & TEVET due-date reminders",
                 "Double-entry journal & chart of accounts",
+                "Start on mobile, review on desktop — always in sync",
               ].map((t) => (
                 <li key={t} className="flex items-center gap-3">
                   <span className="grid h-5 w-5 place-items-center rounded-full bg-brand-500 text-[10px] text-white">
@@ -382,7 +391,7 @@ export default async function HomePage() {
             </ul>
           </div>
           <div className="flex justify-center">
-            <PhoneMockup src="/images/invoice.svg" alt="Ledgr invoice with VAT breakdown" />
+            <PhoneMockup src="/images/invoice.svg" alt="Ledgr invoice with VAT breakdown on a phone" />
           </div>
         </div>
       </section>
@@ -500,30 +509,40 @@ export default async function HomePage() {
       {/* FAQ */}
       <Faq />
 
-      {/* DOWNLOAD / CTA + FORM */}
+      {/* EVERY SCREEN / CTA + FORM */}
       <section id="download" className="bg-ink py-14 text-white">
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-brand-200">
-              Install on your phone
+              One account, every screen
             </span>
             <h2 className="mt-5 text-[clamp(1.9rem,4vw,2.8rem)] font-extrabold leading-tight">
-              Built for Malawi.{" "}
-              <span className="text-brand-400">Works everywhere.</span>
+              On your phone. On your computer.{" "}
+              <span className="text-brand-400">Always in sync.</span>
             </h2>
             <p className="mt-4 max-w-md text-slate-300">
-              Add Ledgr to your Android home screen straight from the browser, or download
-              the APK. No app store, no hassle — and it works offline.
+              Ledgr runs in any browser and installs as an app on Android, Windows and
+              Mac. Capture sales at the market on your phone, then review reports on your
+              laptop at home — no app store, no hassle, and it works offline.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <PwaInstall className="flex items-center gap-3 rounded-xl bg-brand-500 px-5 py-3 text-sm font-semibold transition hover:bg-brand-600" />
-
+              <a
+                href={site.liveUrl}
+                className="flex items-center gap-3 rounded-xl bg-brand-500 px-5 py-3 text-sm font-semibold transition hover:bg-brand-600"
+              >
+                <span className="text-xl">🌐</span>
+                Open the web app
+              </a>
+              <PwaInstall
+                label="Install the app"
+                className="flex items-center gap-3 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold transition hover:bg-white/10"
+              />
               <a
                 href={site.liveUrl}
                 className="flex items-center gap-3 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold transition hover:bg-white/10"
               >
                 <span className="text-xl">🤖</span>
-                Download Android APK
+                Android APK
               </a>
             </div>
             <p className="mt-6 text-xs text-slate-400">

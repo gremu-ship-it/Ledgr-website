@@ -46,7 +46,7 @@ export default function AboutPage() {
           </p>
           <p>
             So we built an accounting app that speaks Kwacha first, knows the MRA rulebook,
-            works without internet, and installs on the phone already in your pocket. From
+            works without internet, and runs on the phone and computer you already have. From
             the first sale at the market to VAT filing on the 25th, Ledgr walks with you.
           </p>
         </div>
