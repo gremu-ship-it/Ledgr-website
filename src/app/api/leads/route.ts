@@ -1,4 +1,4 @@
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { leads } from "@/db/schema";
 import { sql } from "drizzle-orm";
 
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const [row] = await db
+    const [row] = await getDb()
       .insert(leads)
       .values({
         name,
@@ -60,9 +60,9 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
-    const [row] = await db.execute<{ count: number }>(
-      sql`select count(*)::int as count from ${leads}`,
-    ).then((r) => r.rows as { count: number }[]);
+    const [row] = await getDb()
+      .execute<{ count: number }>(sql`select count(*)::int as count from ${leads}`)
+      .then((r) => r.rows as { count: number }[]);
     return Response.json({ ok: true, count: row?.count ?? 0 });
   } catch {
     return Response.json({ ok: true, count: 0 });

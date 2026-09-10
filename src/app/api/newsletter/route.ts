@@ -1,4 +1,4 @@
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { newsletterSubscribers } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const existing = await db
+    const existing = await getDb()
       .select({ id: newsletterSubscribers.id })
       .from(newsletterSubscribers)
       .where(eq(newsletterSubscribers.email, email))
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
       return Response.json({ ok: true, already: true });
     }
 
-    await db.insert(newsletterSubscribers).values({ email, source });
+    await getDb().insert(newsletterSubscribers).values({ email, source });
     return Response.json({ ok: true });
   } catch {
     return Response.json(

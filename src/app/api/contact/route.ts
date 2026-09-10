@@ -1,4 +1,4 @@
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { contactMessages } from "@/db/schema";
 
 export const dynamic = "force-dynamic";
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
   const topic = (TOPICS as readonly string[]).includes(topicRaw) ? topicRaw : "general";
 
   try {
-    const [row] = await db
+    const [row] = await getDb()
       .insert(contactMessages)
       .values({
         name,

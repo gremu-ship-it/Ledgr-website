@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { sql } from "drizzle-orm";
 import WaitlistForm from "@/components/WaitlistForm";
 import PhoneMockup from "@/components/PhoneMockup";
@@ -130,7 +130,7 @@ const pricing = [
 
 async function getLeadCount(): Promise<number> {
   try {
-    const result = await db.execute<{ count: number }>(
+    const result = await getDb().execute<{ count: number }>(
       sql`select count(*)::int as count from leads`,
     );
     const rows = result.rows as { count: number }[];

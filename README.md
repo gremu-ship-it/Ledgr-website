@@ -31,7 +31,8 @@ Plus: `sitemap.xml`, `robots.txt`, OG image, PWA manifest + service worker, Plau
 | `POST /api/newsletter` | Newsletter signups (deduped) | `newsletter_subscribers` |
 | `GET /api/health` | DB health check | — |
 
-Without a database the pages still render; form submissions return a friendly error.
+No `DATABASE_URL`? Pages still render fine — the DB layer initializes lazily, so only
+form submissions are affected (they return a friendly error until a DB is connected).
 See `DEPLOY.md` for the 5-minute production database setup.
 
 ## Local development
