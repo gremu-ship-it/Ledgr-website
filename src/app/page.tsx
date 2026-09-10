@@ -5,7 +5,6 @@ import WaitlistForm from "@/components/WaitlistForm";
 import PhoneMockup from "@/components/PhoneMockup";
 import TaxCalculator from "@/components/TaxCalculator";
 import Faq from "@/components/Faq";
-import StickyCta from "@/components/StickyCta";
 import PwaInstall from "@/components/PwaInstall";
 import { site } from "@/lib/site";
 
@@ -147,39 +146,6 @@ export default async function HomePage() {
 
   return (
     <div className="overflow-x-hidden">
-      {/* NAV */}
-      <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/80 backdrop-blur-md">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
-          <a href="#top" className="flex items-center gap-2.5">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-500 text-lg font-bold text-white shadow-md shadow-brand-500/30">
-              L
-            </span>
-            <span className="text-xl font-bold tracking-tight text-ink">Ledgr</span>
-          </a>
-          <div className="hidden items-center gap-6 text-sm font-medium text-ink-soft md:flex">
-            <a href="#features" className="transition hover:text-brand-600">Features</a>
-            <a href="#calculator" className="transition hover:text-brand-600">Calculator</a>
-            <a href="#pricing" className="transition hover:text-brand-600">Pricing</a>
-            <a href="#faq" className="transition hover:text-brand-600">FAQ</a>
-            <a href="#download" className="transition hover:text-brand-600">Download</a>
-          </div>
-          <div className="flex items-center gap-2.5">
-            <a
-              href={site.loginUrl}
-              className="hidden rounded-xl px-4 py-2 text-sm font-semibold text-ink-soft transition hover:text-brand-600 sm:block"
-            >
-              Sign in
-            </a>
-            <a
-              href={site.registerUrl}
-              className="rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-brand-500/25 transition hover:bg-brand-600"
-            >
-              Get Started Free
-            </a>
-          </div>
-        </nav>
-      </header>
-
       {/* HERO */}
       <section
         id="top"
@@ -241,7 +207,7 @@ export default async function HomePage() {
           <div className="relative flex justify-center">
             <div className="absolute -inset-4 rounded-[3rem] bg-gradient-to-tr from-brand-200/40 to-transparent blur-2xl" />
             <PhoneMockup
-              src="/images/dashboard.png"
+              src="/images/dashboard.svg"
               alt="Ledgr dashboard showing P&L in Malawian Kwacha"
               className="relative animate-float"
             />
@@ -301,6 +267,14 @@ export default async function HomePage() {
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">{f.desc}</p>
             </div>
           ))}
+        </div>
+        <div className="mt-8 text-center">
+          <a
+            href="/features"
+            className="inline-block rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-600"
+          >
+            Explore all features →
+          </a>
         </div>
       </section>
 
@@ -408,7 +382,7 @@ export default async function HomePage() {
             </ul>
           </div>
           <div className="flex justify-center">
-            <PhoneMockup src="/images/invoice.png" alt="Ledgr invoice with VAT breakdown" />
+            <PhoneMockup src="/images/invoice.svg" alt="Ledgr invoice with VAT breakdown" />
           </div>
         </div>
       </section>
@@ -467,6 +441,14 @@ export default async function HomePage() {
             </div>
           ))}
         </div>
+        <div className="mt-8 text-center">
+          <a
+            href="/pricing"
+            className="text-sm font-semibold text-brand-600 hover:underline"
+          >
+            Compare plans in detail →
+          </a>
+        </div>
       </section>
 
       {/* TESTIMONIALS */}
@@ -503,6 +485,14 @@ export default async function HomePage() {
                 </figcaption>
               </figure>
             ))}
+          </div>
+          <div className="mt-8 text-center">
+            <a
+              href="/customers"
+              className="text-sm font-semibold text-brand-600 hover:underline"
+            >
+              Read more customer stories →
+            </a>
           </div>
         </div>
       </section>
@@ -552,74 +542,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* FOOTER */}
-      <footer className="border-t border-slate-100 bg-white">
-        <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-500 text-lg font-bold text-white">
-                L
-              </span>
-              <span className="text-xl font-bold text-ink">Ledgr</span>
-            </div>
-            <p className="mt-4 max-w-xs text-sm text-ink-soft">
-              MWK-first accounting &amp; business management for growing Malawian SMEs.
-            </p>
-            <p className="mt-4 text-xs text-slate-400">🇲🇼 Made for Malawi &amp; SADC</p>
-          </div>
-          <FooterCol
-            title="Product"
-            links={[
-              ["Features", "#features"],
-              ["Pricing", "#pricing"],
-              ["How it works", "#how"],
-              ["Download", "#download"],
-            ]}
-          />
-          <FooterCol
-            title="Company"
-            links={[
-              ["Demo", site.loginUrl],
-              ["Get started", site.registerUrl],
-              ["Dashboard", site.dashboardUrl],
-            ]}
-          />
-          <FooterCol
-            title="Legal"
-            links={[
-              ["Privacy", "#"],
-              ["Terms", "#"],
-              ["MRA compliance", "#"],
-            ]}
-          />
-        </div>
-        <div className="border-t border-slate-100">
-          <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 py-6 pb-24 text-xs text-slate-400 sm:flex-row md:pb-6">
-            <p>© {new Date().getFullYear()} Ledgr. All rights reserved.</p>
-            <p>Smart accounting for Malawian businesses.</p>
-          </div>
-        </div>
-      </footer>
-
-      <StickyCta />
-    </div>
-  );
-}
-
-function FooterCol({ title, links }: { title: string; links: [string, string][] }) {
-  return (
-    <div>
-      <h4 className="text-sm font-bold text-ink">{title}</h4>
-      <ul className="mt-4 space-y-2.5 text-sm text-ink-soft">
-        {links.map(([label, href]) => (
-          <li key={label}>
-            <a href={href} className="transition hover:text-brand-600">
-              {label}
-            </a>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }

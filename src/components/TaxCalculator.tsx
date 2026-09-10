@@ -4,12 +4,12 @@ import { useMemo, useState } from "react";
 
 const VAT_RATE = 0.175;
 
-// Malawi monthly PAYE brackets (illustrative, MWK).
+// MRA monthly PAYE bands, effective January 2026 (MWK).
 const PAYE_BANDS = [
-  { upTo: 150_000, rate: 0 },
-  { upTo: 500_000, rate: 0.25 },
-  { upTo: 2_550_000, rate: 0.3 },
-  { upTo: Infinity, rate: 0.35 },
+  { upTo: 170_000, rate: 0 },
+  { upTo: 1_570_000, rate: 0.3 },
+  { upTo: 10_000_000, rate: 0.35 },
+  { upTo: Infinity, rate: 0.4 },
 ];
 
 function mwk(n: number): string {

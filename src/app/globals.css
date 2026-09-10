@@ -43,3 +43,29 @@ body {
 .animate-fade-up {
   animation: fade-up 0.7s ease-out both;
 }
+
+/* Premium polish */
+::selection {
+  background: #1d9e75;
+  color: #fff;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 2px solid #1d9e75;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-fade-up {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

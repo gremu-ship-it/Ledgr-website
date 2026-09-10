@@ -1,7 +1,7 @@
 // Lightweight service worker for the Ledgr marketing PWA.
 // Enables installability and basic offline caching of visited pages/assets.
-const CACHE = "ledgr-site-v1";
-const PRECACHE = ["/", "/manifest.webmanifest", "/icons/icon-192.png"];
+const CACHE = "ledgr-site-v2";
+const PRECACHE = ["/", "/manifest.webmanifest", "/icons/icon.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
