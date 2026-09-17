@@ -6,10 +6,11 @@ import WaitlistForm from "@/components/WaitlistForm";
 import BrowserMockup from "@/components/BrowserMockup";
 import TaxCalculator from "@/components/TaxCalculator";
 import ProductTour from "@/components/ProductTour";
+import PricingPlans from "@/components/PricingPlans";
 import ContactStrip from "@/components/ContactStrip";
 import Faq from "@/components/Faq";
 import PwaInstall from "@/components/PwaInstall";
-import { site } from "@/lib/site";
+import { demo, site, tryUrl } from "@/lib/site";
 import { faqs } from "@/lib/faqs";
 import { faqSchema, softwareSchema, JsonLd } from "@/lib/schema";
 
@@ -73,89 +74,6 @@ const usps = [
   { title: "Affordable", desc: "Priced for small businesses that QuickBooks and Sage price out." },
 ];
 
-const testimonials = [
-  {
-    quote:
-      "Ledgr is the first accounting tool that actually understands how we trade in Malawi. VAT and PAYE just work.",
-    name: "Chimwemwe B.",
-    role: "Retailer, Blantyre",
-  },
-  {
-    quote:
-      "I record sales at the market with no signal and it syncs when I get home. Game changer for my shop.",
-    name: "Tadala M.",
-    role: "Trader, Lilongwe",
-  },
-  {
-    quote:
-      "Finally proper P&L and cash flow reports without paying in dollars. My accountant loves it too.",
-    name: "Yamikani K.",
-    role: "Consultant, Mzuzu",
-  },
-];
-
-const pricing = [
-  {
-    name: "Free",
-    price: "Free",
-    sub: "50 transactions/mo",
-    features: [
-      "Basic dashboard & reports",
-      "Income & expense tracking",
-      "Up to 50 transactions/month",
-      "Community support",
-    ],
-    cta: "Get Started Free",
-    href: site.registerUrl,
-    highlight: false,
-  },
-  {
-    name: "Growth",
-    price: "MWK 100,000",
-    sub: "per month",
-    features: [
-      "Everything in Free",
-      "Bank reconciliation",
-      "Accounting & Organisation (full access)",
-      "Up to 500 transactions/month",
-      "Email support",
-    ],
-    cta: "Upgrade to Growth",
-    href: site.registerUrl,
-    highlight: false,
-  },
-  {
-    name: "Pro",
-    price: "MWK 200,000",
-    sub: "per month",
-    features: [
-      "Everything in Growth",
-      "AI Insights & forecasting",
-      "Public API access",
-      "Webhook integrations",
-      "Up to 2,000 transactions/month",
-    ],
-    cta: "Upgrade to Pro",
-    href: site.registerUrl,
-    highlight: true,
-  },
-  {
-    name: "Enterprise",
-    price: "MWK 500,000",
-    sub: "per month",
-    features: [
-      "Everything in Pro",
-      "Unlimited transactions",
-      "Custom branding",
-      "Multi-user roles & permissions",
-      "Dedicated account manager",
-    ],
-    cta: "Contact sales",
-    href: "/contact",
-    highlight: false,
-  },
-];
-
 async function getLeadCount(): Promise<number> {
   try {
     const result = await getDb().execute<{ count: number }>(
@@ -210,10 +128,11 @@ export default async function HomePage() {
                 Get Started Free →
               </a>
               <a
-                href="#tour"
+                href={demo.available ? tryUrl : "#tour"}
+                {...(demo.available ? { target: "_blank", rel: "noreferrer" } : {})}
                 className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
               >
-                See it in action
+                {demo.available ? "Try it yourself" : "See it in action"}
               </a>
             </div>
             <p className="mt-5 text-sm font-medium text-ink-soft">
@@ -411,71 +330,11 @@ export default async function HomePage() {
             Affordable for every business
           </h2>
           <p className="mt-4 text-ink-soft">
-            Start free. Upgrade only when you grow. No expensive dollar subscriptions.
+            Start free. Upgrade only when you grow. No expensive dollar subscriptions —
+            and two months free if you pay yearly.
           </p>
         </div>
-        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {pricing.map((p) => (
-            <div
-              key={p.name}
-              className={`relative flex flex-col rounded-2xl border p-7 ${
-                p.highlight
-                  ? "border-brand-500 bg-white shadow-xl shadow-brand-500/10 ring-1 ring-brand-500"
-                  : "border-slate-100 bg-white shadow-sm"
-              }`}
-            >
-              {p.highlight && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand-700 px-3 py-1 text-xs font-semibold text-white">
-                  Most Popular
-                </span>
-              )}
-              <h3 className="text-lg font-bold text-ink">{p.name}</h3>
-              <div className="mt-3 flex items-end gap-1.5">
-                <span className="text-2xl font-extrabold text-ink">{p.price}</span>
-                <span className="mb-1 text-sm text-slate-500">{p.sub}</span>
-              </div>
-              <ul className="mt-6 flex-1 space-y-3 text-sm text-ink-soft">
-                {p.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2.5">
-                    <span className="text-brand-700">✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              {p.href.startsWith("/") ? (
-                <Link
-                  href={p.href}
-                  className={`mt-7 rounded-xl px-5 py-3 text-center text-sm font-semibold transition ${
-                    p.highlight
-                      ? "bg-brand-700 text-white hover:bg-brand-800"
-                      : "border border-slate-200 text-ink hover:border-brand-300 hover:text-brand-700"
-                  }`}
-                >
-                  {p.cta}
-                </Link>
-              ) : (
-                <a
-                  href={p.href}
-                  className={`mt-7 rounded-xl px-5 py-3 text-center text-sm font-semibold transition ${
-                    p.highlight
-                      ? "bg-brand-700 text-white hover:bg-brand-800"
-                      : "border border-slate-200 text-ink hover:border-brand-300 hover:text-brand-700"
-                  }`}
-                >
-                  {p.cta}
-                </a>
-              )}
-            </div>
-          ))}
-        </div>
-        <p className="mx-auto mt-6 max-w-2xl text-center text-sm text-ink-soft">
-          Every paid plan starts on the Free plan — sign up without a card and upgrade
-          in-app only when you outgrow it.
-        </p>
-        <p className="mx-auto mt-2 max-w-2xl text-center text-xs text-slate-500">
-          Upgrades are processed securely through <strong>PayChangu</strong> (mobile money
-          &amp; card). Downgrades take effect immediately with no charge.
-        </p>
+        <PricingPlans />
         <div className="mt-8 text-center">
           <Link
             href="/pricing"
@@ -483,53 +342,6 @@ export default async function HomePage() {
           >
             Compare plans in detail →
           </Link>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section className="bg-white py-14">
-        <div className="mx-auto max-w-6xl px-5">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
-              Loved by local businesses
-            </p>
-            <h2 className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold tracking-tight text-ink">
-              Trusted across Malawi
-            </h2>
-          </div>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {testimonials.map((t) => (
-              <figure
-                key={t.name}
-                className="flex flex-col rounded-2xl border border-slate-100 bg-brand-50/40 p-7"
-              >
-                <div className="text-brand-700" aria-hidden>
-                  ★★★★★
-                </div>
-                <span className="sr-only">Rated 5 out of 5</span>
-                <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-ink-soft">
-                  “{t.quote}”
-                </blockquote>
-                <figcaption className="mt-5 flex items-center gap-3">
-                  <span className="grid h-10 w-10 place-items-center rounded-full bg-brand-700 font-bold text-white">
-                    {t.name[0]}
-                  </span>
-                  <div>
-                    <p className="text-sm font-bold text-ink">{t.name}</p>
-                    <p className="text-xs text-slate-500">{t.role}</p>
-                  </div>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-          <div className="mt-8 text-center">
-          <Link
-            href="/customers"
-            className="text-sm font-semibold text-brand-700 hover:underline"
-          >
-            Read more customer stories →
-          </Link>
-          </div>
         </div>
       </section>
 

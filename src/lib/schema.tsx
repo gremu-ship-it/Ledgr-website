@@ -1,4 +1,5 @@
 import { site } from "@/lib/site";
+import { annualTotal, plans } from "@/lib/pricing";
 import type { FaqItem } from "@/lib/faqs";
 
 export type { FaqItem };
@@ -53,11 +54,23 @@ export function softwareSchema() {
     operatingSystem: "Web, Android, iOS, Windows, macOS",
     description:
       "MWK-first accounting for Malawian SMEs: invoicing with automatic 17.5% VAT, PAYE and WHT tracking, inventory, payroll and financial reports. Works offline.",
-    offers: [
-      { "@type": "Offer", name: "Free", price: "0", priceCurrency: "MWK" },
-      { "@type": "Offer", name: "Growth", price: "100000", priceCurrency: "MWK" },
-      { "@type": "Offer", name: "Pro", price: "200000", priceCurrency: "MWK" },
-      { "@type": "Offer", name: "Enterprise", price: "500000", priceCurrency: "MWK" },
-    ],
+    offers: plans.flatMap((p) => {
+      const monthly = {
+        "@type": "Offer",
+        name: `${p.name} (monthly)`,
+        price: String(p.monthly),
+        priceCurrency: "MWK",
+      };
+      if (p.free) return [monthly];
+      return [
+        monthly,
+        {
+          "@type": "Offer",
+          name: `${p.name} (yearly)`,
+          price: String(annualTotal(p.monthly)),
+          priceCurrency: "MWK",
+        },
+      ];
+    }),
   };
 }

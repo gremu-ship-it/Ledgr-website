@@ -15,6 +15,33 @@ export const site = {
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+265 881 444 487",
 };
 
+/**
+ * Public demo account — a pre-seeded, read-only sample business visitors can
+ * open without registering. This does NOT exist yet: the app is Supabase-auth
+ * only and has no demo mode, so nothing works until the demo user is created
+ * and these env vars are set. See DEMO.md for the step-by-step.
+ *
+ * Until then `hasDemo` is false and every CTA falls back to free registration —
+ * we never advertise a demo that would fail at the login screen.
+ */
+export const demo = {
+  url: process.env.NEXT_PUBLIC_DEMO_URL?.trim() || "",
+  email: process.env.NEXT_PUBLIC_DEMO_EMAIL?.trim() || "",
+  password: process.env.NEXT_PUBLIC_DEMO_PASSWORD?.trim() || "",
+  /** True when a demo entry point is configured. */
+  get available() {
+    return this.url.length > 0;
+  },
+  /** Credentials are only shown if BOTH are set. */
+  get showCredentials() {
+    return Boolean(this.email && this.password);
+  },
+};
+
+/** Where "try it" CTAs point: the demo when available, else free signup. */
+export const tryUrl = demo.url || site.registerUrl;
+export const tryLabel = demo.url ? "Try the live demo" : "Try it yourself free";
+
 // wa.me deep link (digits only) with a friendly prefilled message.
 export const whatsappUrl = `https://wa.me/${site.whatsappNumber.replace(
   /\D/g,

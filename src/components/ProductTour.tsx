@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import BrowserMockup from "@/components/BrowserMockup";
 import PhoneMockup from "@/components/PhoneMockup";
-import { site } from "@/lib/site";
+import { demo, site, tryLabel, tryUrl } from "@/lib/site";
 
 type Tab = {
   id: string;
@@ -107,11 +107,12 @@ export default function ProductTour() {
             See it in action
           </p>
           <h2 className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold tracking-tight text-ink">
-            Look inside Ledgr before you sign up
+            Try it yourself before you sign up
           </h2>
           <p className="mt-4 text-ink-soft">
-            Real screens from the app — no sign-up, no sales call. Tap through and see
-            exactly what you would be using.
+            Real screens from the app. {demo.available
+              ? "Open the live demo and click around a sample business — no sign-up, no sales call."
+              : "Tap through the screens below, or start a free account and use it for real in under a minute."}
           </p>
         </div>
 
@@ -176,18 +177,49 @@ export default function ProductTour() {
             </ul>
             <div className="mt-7 flex flex-wrap gap-3">
               <a
-                href={site.registerUrl}
+                href={tryUrl}
+                {...(demo.available
+                  ? { target: "_blank", rel: "noreferrer" }
+                  : {})}
                 className="rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-800"
               >
-                Get Started Free →
+                {tryLabel} →
+              </a>
+              <a
+                href={site.registerUrl}
+                className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
+              >
+                Create a free account
               </a>
               <Link
                 href="/features"
-                className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
+                className="rounded-xl px-6 py-3.5 text-sm font-semibold text-ink-soft transition hover:text-brand-700"
               >
                 See every feature
               </Link>
             </div>
+
+            {demo.available && demo.showCredentials && (
+              <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+                <p className="text-xs font-bold uppercase tracking-wide text-slate-500">
+                  Demo login
+                </p>
+                <p className="mt-1.5 text-sm text-ink-soft">
+                  Email{" "}
+                  <code className="rounded bg-white px-1.5 py-0.5 font-mono text-xs text-ink ring-1 ring-slate-200">
+                    {demo.email}
+                  </code>{" "}
+                  · Password{" "}
+                  <code className="rounded bg-white px-1.5 py-0.5 font-mono text-xs text-ink ring-1 ring-slate-200">
+                    {demo.password}
+                  </code>
+                </p>
+                <p className="mt-1.5 text-xs text-slate-500">
+                  A sample business with realistic figures. Please don&apos;t enter real
+                  financial data.
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="order-1 lg:order-2">
@@ -221,7 +253,7 @@ export default function ProductTour() {
               href="/customers"
               className="font-semibold text-brand-700 hover:underline"
             >
-              See how others use it →
+              See what it does for your kind of business →
             </Link>
           </p>
         </div>

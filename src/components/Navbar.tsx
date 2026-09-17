@@ -28,7 +28,7 @@ const links = [
   { label: "Features", href: "/features" },
   { label: "Pricing", href: "/pricing" },
   { label: "Calculator", href: "/#calculator" },
-  { label: "Customers", href: "/customers" },
+  { label: "Who it's for", href: "/customers" },
   { label: "Blog", href: "/blog" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },

@@ -1,54 +1,82 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHero, CtaBand } from "@/components/ui";
+import { site, whatsappUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Customers",
+  title: "Who it's for",
   description:
-    "Malawian retailers, traders and consultants on Ledgr — offline sales capture, painless VAT and reports their accountants love.",
+    "How Malawian shops, wholesalers, contractors, consultants and service businesses use Ledgr — offline sales capture, painless VAT and reports your accountant can read.",
 };
 
-const stories = [
+/**
+ * NOTE: this page used to show six invented customer testimonials with names,
+ * cities and 5-star ratings. Ledgr has no published reviews yet, so writing our
+ * own would be fabricated social proof — the page now describes who the product
+ * is for and what it does for each kind of business. When real, attributable
+ * reviews exist, swap this back to quotes.
+ */
+
+const segments = [
   {
-    quote:
-      "Ledgr is the first accounting tool that actually understands how we trade in Malawi. VAT and PAYE just work.",
-    name: "Chimwemwe B.",
-    role: "Retailer, Blantyre",
-    metric: "VAT return in minutes",
+    icon: "🛒",
+    who: "Shops & traders",
+    problem: "Sales happen all day, bookkeeping happens never.",
+    fixed: [
+      "Log a sale in seconds, even with no signal",
+      "See today's takings and profit without a calculator",
+      "Know what stock is actually left on the shelf",
+    ],
   },
   {
-    quote:
-      "I record sales at the market with no signal and it syncs when I get home. Game changer for my shop.",
-    name: "Tadala M.",
-    role: "Trader, Lilongwe",
-    metric: "100% offline capture",
+    icon: "📦",
+    who: "Wholesalers",
+    problem: "VAT on bulk purchases and sales is easy to get wrong.",
+    fixed: [
+      "17.5% VAT split automatically on every transaction",
+      "Input VAT on purchases tracked, so your return is ready",
+      "Customer and supplier balances in one place",
+    ],
   },
   {
-    quote:
-      "Finally proper P&L and cash flow reports without paying in dollars. My accountant loves it too.",
-    name: "Yamikani K.",
-    role: "Consultant, Mzuzu",
-    metric: "Reports in 1 click",
+    icon: "🧱",
+    who: "Contractors",
+    problem: "Withholding tax and TEVETA catch you out at filing time.",
+    fixed: [
+      "WHT and TEVETA tracked with due-date reminders",
+      "Quote, invoice and get paid on one platform",
+      "Real P&L per project from double-entry books",
+    ],
   },
   {
-    quote:
-      "Invoicing used to take my Sunday afternoons. Now I send a VAT-correct PDF before the customer reaches their car.",
-    name: "Blessings P.",
-    role: "Hardware supplier, Zomba",
-    metric: "2-minute invoices",
+    icon: "💼",
+    who: "Consultants",
+    problem: "Clients pay in dollars, but the books are in Kwacha.",
+    fixed: [
+      "MWK-first books so your accountant is never guessing",
+      "Professional PDF invoices in a couple of taps",
+      "Clean reports you can hand over at year end",
+    ],
   },
   {
-    quote:
-      "Payday for six staff took a whole day of calculator maths. With Ledgr payroll it takes twenty minutes.",
-    name: "Mphatso N.",
-    role: "Restaurant owner, Blantyre",
-    metric: "Payroll in 20 min",
+    icon: "🍲",
+    who: "Restaurants & lodges",
+    problem: "Payroll, stock and daily cash never reconcile.",
+    fixed: [
+      "Payroll with PAYE and pension worked out for you",
+      "Daily expenses captured as they happen",
+      "Cash flow you can trust at month end",
+    ],
   },
   {
-    quote:
-      "The due-date reminders alone are worth it. I have not missed an MRA deadline since I switched.",
-    name: "Dalitso C.",
-    role: "Contractor, Lilongwe",
-    metric: "Zero missed deadlines",
+    icon: "🚚",
+    who: "Service businesses",
+    problem: "You're too busy serving customers to do admin.",
+    fixed: [
+      "Invoice on your phone before you leave the site",
+      "Payment status tracked so you stop chasing blind",
+      "One dashboard instead of a shoebox of receipts",
+    ],
   },
 ];
 
@@ -56,47 +84,86 @@ export default function CustomersPage() {
   return (
     <div>
       <PageHero
-        eyebrow="Customers"
+        eyebrow="Who it's for"
         title={
           <>
-            Loved by businesses <span className="text-brand-700">across Malawi</span>
+            Built for how Malawian businesses{" "}
+            <span className="text-brand-700">actually trade</span>
           </>
         }
-        sub="From market traders to consultants — here's what happens when accounting finally fits."
+        sub="Ledgr isn't a general accounting tool with Malawi bolted on. Here's what it does for the kinds of businesses running on it."
       />
+
       <section className="mx-auto max-w-6xl px-5 pb-14">
-        <div className="grid gap-6 md:grid-cols-3">
-          {stories.map((t) => (
-            <figure
-              key={t.name}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {segments.map((s) => (
+            <article
+              key={s.who}
               className="flex flex-col rounded-2xl border border-slate-100 bg-white p-7 shadow-sm"
             >
-              <div className="text-brand-700" aria-hidden>
-                ★★★★★
-              </div>
-              <span className="sr-only">Rated 5 out of 5</span>
-              <span className="mt-3 inline-flex w-fit items-center rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-700">
-                {t.metric}
+              <span
+                className="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-2xl"
+                aria-hidden
+              >
+                {s.icon}
               </span>
-              <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-ink-soft">
-                “{t.quote}”
-              </blockquote>
-              <figcaption className="mt-5 flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-brand-700 font-bold text-white">
-                  {t.name.trim()[0]}
-                </span>
-                <div>
-                  <p className="text-sm font-bold text-ink">{t.name.trim()}</p>
-                  <p className="text-xs text-slate-500">{t.role}</p>
-                </div>
-              </figcaption>
-            </figure>
+              <h2 className="mt-4 text-lg font-bold text-ink">{s.who}</h2>
+              <p className="mt-2 text-sm italic text-slate-500">{s.problem}</p>
+              <ul className="mt-4 space-y-2.5 text-sm text-ink-soft">
+                {s.fixed.map((f) => (
+                  <li key={f} className="flex items-start gap-2.5">
+                    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand-700 text-[10px] text-white">
+                      ✓
+                    </span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </article>
           ))}
         </div>
+
+        {/* Honest note — no reviews exist yet. */}
+        <div className="mt-10 rounded-3xl border border-slate-100 bg-brand-50/50 p-7 text-center sm:p-9">
+          <h2 className="text-xl font-bold text-ink">
+            We&apos;re new, so there are no reviews here yet
+          </h2>
+          <p className="mx-auto mt-2 max-w-2xl text-sm leading-relaxed text-ink-soft">
+            Rather than write our own testimonials, we&apos;d rather you judge it
+            yourself. Create a free account and use Ledgr on your real numbers — if it
+            isn&apos;t right for your business, you&apos;ve lost nothing but a few
+            minutes. Using it already? We&apos;d genuinely like to hear how it&apos;s
+            going.
+          </p>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <a
+              href={site.registerUrl}
+              className="rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-800"
+            >
+              Try it yourself free →
+            </a>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
+            >
+              Tell us how it&apos;s going
+            </a>
+          </div>
+          <p className="mt-4 text-xs text-slate-500">
+            Want to see how it works first?{" "}
+            <Link href="/#tour" className="font-semibold text-brand-700 hover:underline">
+              Take the product tour
+            </Link>
+            .
+          </p>
+        </div>
       </section>
+
       <CtaBand
-        title="Your story could be next"
-        sub="Join free today — set up in minutes and send your first invoice before lunch."
+        title="See it on your own numbers"
+        sub="Free to start, no card, and setup takes minutes. If it isn't a fit, you've lost nothing."
       />
     </div>
   );
