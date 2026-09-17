@@ -1,10 +1,12 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
 export const alt = "Ledgr — Smart accounting for Malawian businesses";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// Note: satori cannot consume the self-hosted woff2 ("Unsupported OpenType
+// signature wOF2"), so this renders in next/og's bundled default font. Shipping
+// a TTF just for the OG image isn't worth the extra binary.
 export default async function Image() {
   return new ImageResponse(
     (

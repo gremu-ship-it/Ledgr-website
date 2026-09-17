@@ -33,7 +33,12 @@ Plus: `sitemap.xml`, `robots.txt`, OG image, PWA manifest + service worker, Plau
 
 No `DATABASE_URL`? Pages still render fine — the DB layer initializes lazily, so only
 form submissions are affected (they return a friendly error until a DB is connected).
-See `DEPLOY.md` for the 5-minute production database setup.
+
+## Deployment
+
+Deployed on **Vercel** — standard Next.js preset, no `vercel.json` needed. See
+**[`DEPLOY.md`](./DEPLOY.md)** for the full walkthrough (env vars, the 5-minute Postgres
+setup, migrations, custom domain, verification).
 
 ## Local development
 
@@ -54,6 +59,7 @@ Other commands: `npm run build`, `npm run lint`, `npm run typecheck`,
 src/
 ├── app/                    # Pages + API routes (+ sitemap, robots, OG image)
 │   ├── api/{leads,contact,newsletter,health}/
+│   ├── fonts/              # Self-hosted Inter variable font (woff2) + OFL license
 │   └── blog/[slug]/
 ├── components/             # Navbar, Footer, forms, calculator, PWA, UI kit
 ├── db/                     # Drizzle client + schema (3 tables)
