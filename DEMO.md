@@ -43,16 +43,22 @@ Set these in **Vercel → Project → Settings → Environment Variables** (and 
 `.env.local` for local testing), then redeploy:
 
 ```
-NEXT_PUBLIC_DEMO_URL=https://ledgr-react.vercel.app/login
 NEXT_PUBLIC_DEMO_EMAIL=demo@ledgr.mw
 NEXT_PUBLIC_DEMO_PASSWORD=ledgr-demo-2026
 ```
 
-- `NEXT_PUBLIC_DEMO_URL` — where the "Try the live demo" button goes. If the app later
-  gains a one-click demo route (e.g. `/demo`), set it here and the button upgrades with
-  no code change.
-- `NEXT_PUBLIC_DEMO_EMAIL` / `NEXT_PUBLIC_DEMO_PASSWORD` — optional. If both are set,
-  the site shows the login details next to the button so people can type them in.
+That's the whole switch — two values. The "Try the live demo" button then points at the
+app's login page and the credentials are shown next to it, so visitors can get in
+without registering.
+
+Optional third value:
+
+```
+NEXT_PUBLIC_DEMO_URL=https://ledgr-react.vercel.app/demo
+```
+
+Set this only if you build a one-click demo route (see the last section). It takes
+priority over the login-page default, so the button upgrades with no code change.
 
 ## What changes when it's switched on
 

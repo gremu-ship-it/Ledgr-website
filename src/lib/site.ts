@@ -17,17 +17,25 @@ export const site = {
 
 /**
  * Public demo account — a pre-seeded, read-only sample business visitors can
- * open without registering. This does NOT exist yet: the app is Supabase-auth
- * only and has no demo mode, so nothing works until the demo user is created
- * and these env vars are set. See DEMO.md for the step-by-step.
+ * open without registering. The app is Supabase-auth only and has no standalone
+ * demo mode, so this is switched on with env vars once the demo user exists:
+ * set NEXT_PUBLIC_DEMO_EMAIL + NEXT_PUBLIC_DEMO_PASSWORD and the button goes to
+ * the app's login page; set NEXT_PUBLIC_DEMO_URL instead (or as well) if you
+ * add a one-click demo route later. See DEMO.md.
  *
- * Until then `hasDemo` is false and every CTA falls back to free registration —
- * we never advertise a demo that would fail at the login screen.
+ * Until then `demo.available` is false and every CTA falls back to free
+ * registration — the site never advertises a demo that would fail at the login
+ * screen.
  */
+const demoUrlEnv = process.env.NEXT_PUBLIC_DEMO_URL?.trim() || "";
+const demoEmail = process.env.NEXT_PUBLIC_DEMO_EMAIL?.trim() || "";
+const demoPassword = process.env.NEXT_PUBLIC_DEMO_PASSWORD?.trim() || "";
+
 export const demo = {
-  url: process.env.NEXT_PUBLIC_DEMO_URL?.trim() || "",
-  email: process.env.NEXT_PUBLIC_DEMO_EMAIL?.trim() || "",
-  password: process.env.NEXT_PUBLIC_DEMO_PASSWORD?.trim() || "",
+  /** Explicit demo route, else the app login page once credentials exist. */
+  url: demoUrlEnv || (demoEmail && demoPassword ? site.loginUrl : ""),
+  email: demoEmail,
+  password: demoPassword,
   /** True when a demo entry point is configured. */
   get available() {
     return this.url.length > 0;
