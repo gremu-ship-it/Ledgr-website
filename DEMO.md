@@ -85,8 +85,15 @@ its own business — which is exactly what you want.
 
 ## Recommended: a one-click demo route in the app
 
-Typing credentials is friction, and it's the main reason demo accounts get ignored. A
-small addition to `Ledgr-react` removes it: a `/demo` route that signs in with the demo
-credentials (read from env, not hardcoded) and redirects to the dashboard. Then set
-`NEXT_PUBLIC_DEMO_URL=https://ledgr-react.vercel.app/demo` in Vercel and visitors land
-inside the product with one tap. The website already prefers that URL when it's set.
+Typing credentials is friction, and it's the main reason demo accounts get ignored. That
+change is **already drafted** — see [`docs/README.md`](./docs/README.md) and
+[`docs/demo-route.patch`](./docs/demo-route.patch).
+
+It adds `/demo` to the app, which signs in with the env-held credentials and drops the
+visitor on the dashboard, plus an in-app banner inviting them to create their own account.
+Once applied, set `NEXT_PUBLIC_DEMO_URL=https://ledgr-react.vercel.app/demo` here and the
+website picks it up automatically — no website code change.
+
+The patch was verified against the app's own tooling (`tsc`, `eslint`, 384 tests, and a
+production build), but the login itself still needs one manual check after applying,
+because this sandbox can't reach Supabase.

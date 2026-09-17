@@ -1,0 +1,577 @@
+diff --git a/.env.example b/.env.example
+index 5ceed51..e0dd6c5 100644
+--- a/.env.example
++++ b/.env.example
+@@ -65,6 +65,16 @@ CRON_SECRET=a_long_random_string_here
+ SUPABASE_PROJECT_REF=your_project_ref_here
+ SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_here
+ 
++# ── Public demo account (optional) ──────────────────────────────────────────
++# When BOTH are set, /demo signs a visitor straight into a shared sample
++# business — no typing, no sign-up. They are compiled into the public bundle,
++# so the account must contain SAMPLE DATA ONLY and must never hold elevated
++# privileges (no platform admin, no partner admin, no membership of a real
++# business). Delete or blank them and /demo explains that it is switched off.
++# See DEMO.md in the Ledgr-website repo.
++# VITE_DEMO_EMAIL=demo@ledgr.test
++# VITE_DEMO_PASSWORD=
++
+ # Optional: Supabase Client Keys (used by the frontend)
+ # VITE_SUPABASE_URL=https://your-project-ref.supabase.co
+ # VITE_SUPABASE_ANON_KEY=your_anon_key_here
+\ No newline at end of file
+diff --git a/scripts/check-env.mjs b/scripts/check-env.mjs
+index fcdc133..fd04a02 100644
+--- a/scripts/check-env.mjs
++++ b/scripts/check-env.mjs
+@@ -28,6 +28,20 @@ if (process.env.SKIP_ENV_CHECK === '1' || process.env.SKIP_ENV_CHECK === 'true')
+   process.exit(0);
+ }
+ 
++// Optional /demo account: a half-configured pair is a silent trap — the page
++// would render as "not switched on" for every visitor while the operator
++// believes they enabled it. Warn loudly at build time; never fail the build,
++// because leaving the demo off is a perfectly valid configuration.
++const demoEmail = String(process.env.VITE_DEMO_EMAIL || '').trim();
++const demoPassword = String(process.env.VITE_DEMO_PASSWORD || '').trim();
++if (Boolean(demoEmail) !== Boolean(demoPassword)) {
++  console.warn(
++    `[check-env] WARN — /demo is half-configured: VITE_DEMO_EMAIL is ${demoEmail ? 'set' : 'MISSING'} ` +
++      `but VITE_DEMO_PASSWORD is ${demoPassword ? 'set' : 'MISSING'}. ` +
++      'The demo route needs both, and will report itself as switched off until they match.',
++  );
++}
++
+ const missing = REQUIRED.filter((k) => !process.env[k] || !String(process.env[k]).trim());
+ 
+ if (missing.length === 0) {
+diff --git a/src/App.tsx b/src/App.tsx
+index 49e1b58..7663949 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -47,6 +47,7 @@ function lazyPage<K extends string, T extends Record<K, ComponentType<never>>>(
+ }
+ 
+ const LoginPage = lazyPage(() => import('@/pages/LoginPage'), 'LoginPage');
++const DemoPage = lazyPage(() => import('@/pages/DemoPage'), 'DemoPage');
+ const RegisterPage = lazyPage(() => import('@/pages/RegisterPage'), 'RegisterPage');
+ const TermsAndConditionsPage = lazyPage(() => import('@/pages/TermsAndConditionsPage'), 'TermsAndConditionsPage');
+ const CreateBusinessPage = lazyPage(() => import('@/pages/CreateBusinessPage'), 'CreateBusinessPage');
+@@ -177,6 +178,11 @@ function App() {
+           {/* Lazy route chunks resolve here; fullScreen keeps layout stable. */}
+           <Suspense fallback={<LoadingSpinner fullScreen label="Loading…" />}>
+           <Routes>
++            {/* Public demo entry point. Deliberately outside PublicOnlyRoute:
++                a visitor who is already signed in should be told so, not bounced
++                to their dashboard or silently switched into another account. */}
++            <Route path="/demo" element={<DemoPage />} />
++
+             {/* Public-only */}
+             <Route element={<PublicOnlyRoute />}>
+               <Route path="/login" element={<LoginPage />} />
+diff --git a/src/components/demo/DemoModeBanner.tsx b/src/components/demo/DemoModeBanner.tsx
+new file mode 100644
+index 0000000..663e621
+--- /dev/null
++++ b/src/components/demo/DemoModeBanner.tsx
+@@ -0,0 +1,48 @@
++import { useState } from 'react';
++import { useTranslation } from 'react-i18next';
++import { useAppStore } from '@/store/useAppStore';
++import { isDemoUser } from '@/lib/demo';
++
++/**
++ * Reminds anyone exploring the shared demo business that the figures are
++ * samples, and gives them the one action that matters: create their own
++ * account. Renders nothing at all for normal users.
++ */
++export function DemoModeBanner() {
++  const { t } = useTranslation();
++  const email = useAppStore((s) => s.currentUser?.email);
++  const [dismissed, setDismissed] = useState(false);
++
++  if (dismissed || !isDemoUser(email)) return null;
++
++  return (
++    <div
++      role="status"
++      className="flex flex-wrap items-center justify-between gap-3 border-b border-amber-200 bg-amber-50 px-4 py-2.5 text-sm text-amber-900 sm:px-6"
++    >
++      <p className="min-w-0">
++        <span aria-hidden="true">👋</span>{' '}
++        {t(
++          'demo.bannerText',
++          'You are exploring a demo business with sample data. Feel free to click around.',
++        )}
++      </p>
++      <div className="flex items-center gap-3">
++        <a
++          href="/register"
++          className="whitespace-nowrap rounded-lg bg-amber-700 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-amber-800"
++        >
++          {t('demo.bannerCta', 'Create your own account')}
++        </a>
++        <button
++          type="button"
++          onClick={() => setDismissed(true)}
++          aria-label={t('demo.bannerDismiss', 'Dismiss demo notice')}
++          className="rounded p-1 text-amber-800 transition hover:bg-amber-100"
++        >
++          <span aria-hidden="true">✕</span>
++        </button>
++      </div>
++    </div>
++  );
++}
+diff --git a/src/components/layout/AppLayout.tsx b/src/components/layout/AppLayout.tsx
+index bad2878..e66f13c 100644
+--- a/src/components/layout/AppLayout.tsx
++++ b/src/components/layout/AppLayout.tsx
+@@ -19,6 +19,7 @@ import { useRenewalReminder } from '@/hooks/useRenewalReminder';
+ import { InactivityWarningModal } from '@/components/auth/InactivityWarningModal';
+ import { Assistant } from '@/components/ai/Assistant';
+ import { CommandPalette } from './CommandPalette';
++import { DemoModeBanner } from '@/components/demo/DemoModeBanner';
+ 
+ export function AppLayout() {
+   const { t } = useTranslation();
+@@ -63,6 +64,8 @@ export function AppLayout() {
+         >
+           {(!isMobile || showMobileHeader) && <Header />}
+ 
++          <DemoModeBanner />
++
+           <main
+             id="main-content"
+             tabIndex={-1}
+diff --git a/src/lib/demo.ts b/src/lib/demo.ts
+new file mode 100644
+index 0000000..3bc1f87
+--- /dev/null
++++ b/src/lib/demo.ts
+@@ -0,0 +1,35 @@
++/**
++ * Public demo account configuration for the /demo route.
++ *
++ * These values are compiled into the public bundle, which is intentional:
++ * /demo signs visitors in automatically so they never have to type
++ * credentials. That is only safe because of two hard rules:
++ *
++ *   1. The account must contain SAMPLE DATA ONLY. Everything it can see is
++ *      effectively public, because anyone can read these credentials out of
++ *      the bundle or the network tab.
++ *   2. The account must NEVER hold elevated privileges — no platform admin,
++ *      no partner admin, and no membership of a real business. Keep it a
++ *      throwaway sample business that owns nothing else.
++ *
++ * Both values must be set for /demo to work; if either is missing the page
++ * explains how to enable it instead of half-working. See DEMO.md in the
++ * Ledgr-website repo for the checklist.
++ */
++
++const email = (import.meta.env.VITE_DEMO_EMAIL ?? '').trim();
++const password = (import.meta.env.VITE_DEMO_PASSWORD ?? '').trim();
++
++export const demoCredentials = { email, password } as const;
++
++/** True when /demo has both credentials it needs. */
++export const isDemoConfigured = Boolean(email && password);
++
++/**
++ * Is this the shared demo account? Used to show the demo banner inside the
++ * app and to avoid clobbering a real user's session on /demo.
++ */
++export function isDemoUser(userEmail: string | null | undefined): boolean {
++  if (!isDemoConfigured || !userEmail) return false;
++  return userEmail.trim().toLowerCase() === email.toLowerCase();
++}
+diff --git a/src/pages/DemoPage.tsx b/src/pages/DemoPage.tsx
+new file mode 100644
+index 0000000..b42fa92
+--- /dev/null
++++ b/src/pages/DemoPage.tsx
+@@ -0,0 +1,209 @@
++import { useCallback, useEffect, useRef, useState } from 'react';
++import { Link, useNavigate } from 'react-router';
++import { useTranslation } from 'react-i18next';
++import { supabase } from '@/lib/supabase';
++import { createLogger } from '@/lib/logger';
++import { demoCredentials, isDemoConfigured } from '@/lib/demo';
++import { AuthShell } from '@/components/auth/AuthShell';
++import { AuthAlert } from '@/components/auth/AuthUI';
++import { LoadingSpinner } from '@/components/LoadingSpinner';
++
++const log = createLogger('DemoPage');
++
++type Status =
++  | { kind: 'working' }
++  | { kind: 'prompt' }        // someone else is already signed in
++  | { kind: 'error'; message: string }
++  | { kind: 'not-configured' };
++
++/**
++ * Public demo entry point. The marketing site links here (NEXT_PUBLIC_DEMO_URL)
++ * so a visitor lands inside a real, populated business without typing anything.
++ *
++ * It deliberately does NOT live behind PublicOnlyRoute: a signed-in user who
++ * opens /demo should be told who they are signed in as, not silently bounced or
++ * silently switched to another account.
++ */
++export function DemoPage() {
++  const { t } = useTranslation();
++  const navigate = useNavigate();
++  const [status, setStatus] = useState<Status>({ kind: 'working' });
++  // Guards against React 18/19 StrictMode double-invocation in dev firing two
++  // sign-ins, and against a click racing the initial check.
++  const startedRef = useRef(false);
++
++  const goToDashboard = useCallback(() => {
++    // replace: visitors should not be able to hit "back" into the demo
++    // splash and get re-signed-in in a loop.
++    navigate('/dashboard', { replace: true });
++  }, [navigate]);
++
++  const signIn = useCallback(async () => {
++    setStatus({ kind: 'working' });
++
++    const { data, error } = await supabase.auth.signInWithPassword({
++      email: demoCredentials.email,
++      password: demoCredentials.password,
++    });
++
++    if (error) {
++      log.warn('Demo sign-in failed', { code: error.code, status: error.status });
++      // Supabase reports a bad password, a non-existent user and an
++      // unconfirmed email as different things — say which one it is, because
++      // only one of them is fixable by the visitor.
++      if (error.code === 'email_not_confirmed') {
++        setStatus({
++          kind: 'error',
++          message: t(
++            'demo.errorUnconfirmed',
++            'The demo account has not been confirmed yet. Please tell us via the website contact form and we will fix it.',
++          ),
++        });
++        return;
++      }
++      if (error.code === 'invalid_credentials') {
++        setStatus({
++          kind: 'error',
++          message: t(
++            'demo.errorCredentials',
++            'The demo sign-in details are out of date. Please tell us via the website contact form and we will fix it.',
++          ),
++        });
++        return;
++      }
++      setStatus({
++        kind: 'error',
++        message: t(
++          'demo.errorService',
++          'We could not reach the demo right now. Please try again, or create a free account instead.',
++        ),
++      });
++      return;
++    }
++
++    // No error but no session means a second factor is required. The demo
++    // account must have MFA switched off, or nobody can get in.
++    if (!data.session) {
++      setStatus({
++        kind: 'error',
++        message: t(
++          'demo.errorMfa',
++          'This demo account is asking for a verification code. Please tell us via the website contact form and we will fix it.',
++        ),
++      });
++      return;
++    }
++
++    goToDashboard();
++  }, [goToDashboard, t]);
++
++  // On mount: an existing session wins. Never sign a real user out of their own
++  // account to show them a demo — that would lose their unsaved work.
++  useEffect(() => {
++    if (startedRef.current) return;
++    startedRef.current = true;
++
++    async function start() {
++      if (!isDemoConfigured) {
++        setStatus({ kind: 'not-configured' });
++        return;
++      }
++
++      const { data } = await supabase.auth.getSession();
++      const existingEmail = data.session?.user?.email ?? null;
++
++      if (data.session) {
++        if (existingEmail && existingEmail.toLowerCase() === demoCredentials.email.toLowerCase()) {
++          goToDashboard();
++          return;
++        }
++        setStatus({ kind: 'prompt' });
++        return;
++      }
++
++      await signIn();
++    }
++
++    void start();
++  }, [goToDashboard, signIn]);
++
++  return (
++    <AuthShell title={t('demo.title', 'Opening the Ledgr demo…')}>
++      {status.kind === 'working' && (
++        <div className="flex flex-col items-center gap-3 py-2">
++          <LoadingSpinner label={t('demo.signingIn', 'Signing you into a sample business…')} />
++          <p className="text-center text-sm text-gray-500">
++            {t('demo.noAccount', 'No account needed, and nothing to install.')}
++          </p>
++        </div>
++      )}
++
++      {status.kind === 'not-configured' && (
++        <AuthAlert
++          type="error"
++          message={t(
++            'demo.notConfigured',
++            'The demo is not switched on for this deployment. Set VITE_DEMO_EMAIL and VITE_DEMO_PASSWORD, then redeploy.',
++          )}
++        />
++      )}
++
++      {status.kind === 'prompt' && (
++        <div className="space-y-4">
++          <AuthAlert
++            type="info"
++            message={t(
++              'demo.alreadySignedIn',
++              'You are already signed in to Ledgr on this device.',
++            )}
++          />
++          <p className="text-sm text-gray-600">
++            {t(
++              'demo.alreadySignedInBody',
++              'Opening the demo would sign you out of your own account, so we have stopped here. Use a private window to explore the demo without losing your session.',
++            )}
++          </p>
++          <div className="flex flex-col gap-2">
++            <button
++              type="button"
++              onClick={() => {
++                void supabase.auth.signOut().then(() => signIn());
++              }}
++              className="w-full rounded-lg bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-800"
++            >
++              {t('demo.signOutAndContinue', 'Sign out and open the demo')}
++            </button>
++            <button
++              type="button"
++              onClick={goToDashboard}
++              className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:border-gray-300"
++            >
++              {t('demo.backToMyAccount', 'Take me back to my account')}
++            </button>
++          </div>
++        </div>
++      )}
++
++      {status.kind === 'error' && (
++        <div className="space-y-4">
++          <AuthAlert type="error" message={status.message} />
++          <div className="flex flex-col gap-2">
++            <button
++              type="button"
++              onClick={() => void signIn()}
++              className="w-full rounded-lg bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-800"
++            >
++              {t('demo.retry', 'Try again')}
++            </button>
++            <Link
++              to="/register"
++              className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-center text-sm font-semibold text-gray-700 transition hover:border-gray-300"
++            >
++              {t('demo.createAccount', 'Create a free account instead')}
++            </Link>
++          </div>
++        </div>
++      )}
++    </AuthShell>
++  );
++}
+diff --git a/src/pages/__tests__/DemoPage.test.tsx b/src/pages/__tests__/DemoPage.test.tsx
+new file mode 100644
+index 0000000..c6ee735
+--- /dev/null
++++ b/src/pages/__tests__/DemoPage.test.tsx
+@@ -0,0 +1,153 @@
++// @vitest-environment jsdom
++import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
++import { render, screen, waitFor } from '@testing-library/react';
++import { MemoryRouter, Routes, Route } from 'react-router';
++
++/**
++ * /demo is the marketing site's primary "try before you buy" path, so the
++ * failure modes matter more than the happy path:
++ *
++ *  - it must never sign a REAL user out of their own account,
++ *  - it must never leave a visitor staring at a spinner with no explanation,
++ *  - and it must refuse to pretend it works when it isn't configured.
++ */
++
++const getSessionMock = vi.fn();
++const signInMock = vi.fn();
++const signOutMock = vi.fn();
++
++vi.mock('@/lib/supabase', () => ({
++  supabase: {
++    auth: {
++      getSession: (...args: unknown[]) => getSessionMock(...args),
++      signInWithPassword: (...args: unknown[]) => signInMock(...args),
++      signOut: (...args: unknown[]) => signOutMock(...args),
++    },
++  },
++}));
++
++vi.mock('react-i18next', () => ({
++  useTranslation: () => ({
++    t: (_key: string, fallback?: string) => fallback ?? _key,
++  }),
++}));
++
++vi.mock('@/partner/PartnerContext', () => ({ usePartner: () => ({ partner: null }) }));
++vi.mock('@/partner/usePartnerTheme', () => ({
++  usePartnerTheme: () => ({
++    appName: 'Ledgr',
++    primaryColour: '#1d9e75',
++    logoUrl: null,
++    supportEmail: null,
++  }),
++}));
++
++const DEMO_EMAIL = 'demo@ledgr.test';
++const DEMO_PASSWORD = 'gremu@1989';
++
++async function renderDemo() {
++  const { DemoPage } = await import('../DemoPage');
++  return render(
++    <MemoryRouter initialEntries={['/demo']}>
++      <Routes>
++        <Route path="/demo" element={<DemoPage />} />
++        <Route path="/dashboard" element={<h1>Dashboard</h1>} />
++        <Route path="/register" element={<h1>Register</h1>} />
++      </Routes>
++    </MemoryRouter>,
++  );
++}
++
++beforeEach(() => {
++  vi.resetModules();
++  vi.stubEnv('VITE_DEMO_EMAIL', DEMO_EMAIL);
++  vi.stubEnv('VITE_DEMO_PASSWORD', DEMO_PASSWORD);
++  getSessionMock.mockReset();
++  signInMock.mockReset();
++  signOutMock.mockReset();
++});
++
++afterEach(() => {
++  vi.unstubAllEnvs();
++});
++
++describe('DemoPage', () => {
++  it('signs in with the demo credentials and lands on the dashboard', async () => {
++    getSessionMock.mockResolvedValue({ data: { session: null } });
++    signInMock.mockResolvedValue({
++      data: { session: { user: { email: DEMO_EMAIL } } },
++      error: null,
++    });
++
++    await renderDemo();
++
++    await waitFor(() => expect(screen.getByText('Dashboard')).toBeTruthy());
++    expect(signInMock).toHaveBeenCalledWith({
++      email: DEMO_EMAIL,
++      password: DEMO_PASSWORD,
++    });
++  });
++
++  it('goes straight through when the session is already the demo user', async () => {
++    getSessionMock.mockResolvedValue({
++      data: { session: { user: { email: DEMO_EMAIL } } },
++    });
++
++    await renderDemo();
++
++    await waitFor(() => expect(screen.getByText('Dashboard')).toBeTruthy());
++    expect(signInMock).not.toHaveBeenCalled();
++  });
++
++  it('never silently switches a real user into the demo account', async () => {
++    getSessionMock.mockResolvedValue({
++      data: { session: { user: { email: 'owner@realbusiness.mw' } } },
++    });
++
++    await renderDemo();
++
++    // Offers an explicit choice instead of hijacking the session.
++    await waitFor(() =>
++      expect(screen.getByText('Sign out and open the demo')).toBeTruthy(),
++    );
++    expect(signInMock).not.toHaveBeenCalled();
++    expect(signOutMock).not.toHaveBeenCalled();
++  });
++
++  it('explains an unconfirmed demo account rather than hanging', async () => {
++    getSessionMock.mockResolvedValue({ data: { session: null } });
++    signInMock.mockResolvedValue({
++      data: { session: null },
++      error: { code: 'email_not_confirmed', status: 400, message: 'Email not confirmed' },
++    });
++
++    await renderDemo();
++
++    await waitFor(() =>
++      expect(screen.getByText(/has not been confirmed/i)).toBeTruthy(),
++    );
++  });
++
++  it('treats a missing session without an error as MFA and says so', async () => {
++    getSessionMock.mockResolvedValue({ data: { session: null } });
++    signInMock.mockResolvedValue({ data: { session: null }, error: null });
++
++    await renderDemo();
++
++    await waitFor(() =>
++      expect(screen.getByText(/verification code/i)).toBeTruthy(),
++    );
++  });
++
++  it('flags a misconfigured deployment instead of pretending to work', async () => {
++    vi.stubEnv('VITE_DEMO_EMAIL', '');
++    vi.stubEnv('VITE_DEMO_PASSWORD', '');
++
++    await renderDemo();
++
++    await waitFor(() =>
++      expect(screen.getByText(/not switched on for this deployment/i)).toBeTruthy(),
++    );
++    expect(signInMock).not.toHaveBeenCalled();
++  });
++});
+diff --git a/src/vite-env.d.ts b/src/vite-env.d.ts
+index 64251fb..67ef893 100644
+--- a/src/vite-env.d.ts
++++ b/src/vite-env.d.ts
+@@ -1,2 +1,11 @@
+ /// <reference types="vite/client" />
+ /// <reference types="vite-plugin-pwa/client" />
++
++/**
++ * Optional public demo account used by the /demo route. Both must be set for
++ * the route to work. See src/lib/demo.ts for why these are public by design.
++ */
++interface ImportMetaEnv {
++  readonly VITE_DEMO_EMAIL?: string;
++  readonly VITE_DEMO_PASSWORD?: string;
++}
