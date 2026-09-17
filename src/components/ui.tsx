@@ -21,7 +21,7 @@ export function PageHero({
 }: {
   eyebrow: string;
   title: React.ReactNode;
-  sub?: string;
+  sub?: React.ReactNode;
 }) {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-brand-50 via-white to-white">
