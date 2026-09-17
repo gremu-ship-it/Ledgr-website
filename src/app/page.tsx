@@ -10,7 +10,7 @@ import PricingPlans from "@/components/PricingPlans";
 import ContactStrip from "@/components/ContactStrip";
 import Faq from "@/components/Faq";
 import PwaInstall from "@/components/PwaInstall";
-import { demo, site, tryUrl } from "@/lib/site";
+import { demo, site } from "@/lib/site";
 import { faqs } from "@/lib/faqs";
 import { faqSchema, softwareSchema, JsonLd } from "@/lib/schema";
 
@@ -128,13 +128,24 @@ export default async function HomePage() {
                 Get Started Free →
               </a>
               <a
-                href={demo.available ? tryUrl : "#tour"}
-                {...(demo.available ? { target: "_blank", rel: "noreferrer" } : {})}
+                href={demo.available ? demo.link("hero") : "#tour"}
                 className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
               >
-                {demo.available ? "Try it yourself" : "See it in action"}
+                {demo.available ? "Try the live demo" : "See it in action"}
               </a>
             </div>
+            {demo.available && (
+              <p className="mt-3 text-sm text-ink-soft">
+                Opens a full sample business — invoices, payroll, VAT and reports — with
+                no sign-up.{" "}
+                <a
+                  href={demo.tourUrl}
+                  className="font-semibold text-brand-700 hover:underline"
+                >
+                  See the 1-minute tour →
+                </a>
+              </p>
+            )}
             <p className="mt-5 text-sm font-medium text-ink-soft">
               📱 Android &amp; iPhone <span className="mx-1 text-slate-300">·</span> 💻
               Windows &amp; Mac <span className="mx-1 text-slate-300">·</span> 🌐 Any

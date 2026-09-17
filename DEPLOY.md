@@ -28,6 +28,10 @@ want working forms there):
 |---|---|---|
 | `DATABASE_URL` | for forms | `postgresql://USER:PASS@HOST-pooler.REGION.aws.neon.tech/DB?sslmode=require` |
 | `NEXT_PUBLIC_SITE_URL` | yes | `https://ledgr.mw` — canonical URL for sitemap + OG tags |
+| `NEXT_PUBLIC_APP_URL` | recommended | the app's origin, e.g. `https://app.ledgr.com` — one variable drives the demo, register, login and dashboard links (defaults to the app's current domain) |
+| `NEXT_PUBLIC_DEMO_ENABLED` | optional | `false` hides every demo call to action and falls back to free signup |
+| `NEXT_PUBLIC_DEMO_URL` | optional | overrides the one-click demo URL (default `<app>/demo/enter`) |
+| `NEXT_PUBLIC_DEMO_EMAIL` | optional | labels the demo identity in the copy (default `demo@ledgr.test`) |
 | `NEXT_PUBLIC_CONTACT_EMAIL` | optional | defaults to `gremu.consultancy@gmail.com` |
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | optional | direct-enquiries WhatsApp; defaults to `+265 881 444 487` |
 | `NEXT_PUBLIC_WHATSAPP_URL` | optional | override the footer WhatsApp link entirely |

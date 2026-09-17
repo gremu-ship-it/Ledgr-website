@@ -22,6 +22,19 @@ https://ledgr-react.vercel.app — this repo is the public website that links to
 
 Plus: `sitemap.xml`, `robots.txt`, OG image, PWA manifest + service worker, Plausible analytics (env-gated).
 
+## The live demo
+
+Every "try it" call to action opens the app's **one-click demo** (`<app>/demo/enter`):
+a sample Malawian business is seeded into the visitor's own browser, they are signed in
+as the sample owner and land on the dashboard — no account, no password, nothing sent to
+a server. `<app>/demo` is a static, read-only tour for visitors who would rather just
+look, and both are offered side by side (hero, product tour, pricing, blog, every CTA
+band, and the FAQ).
+
+Both URLs derive from `NEXT_PUBLIC_APP_URL` in `src/lib/site.ts`, so moving the app to a
+custom domain is one env var. See **[`DEMO.md`](./DEMO.md)** for the tagged-link map,
+the kill switch (`NEXT_PUBLIC_DEMO_ENABLED=false`) and what to re-verify.
+
 ## APIs (all real, Postgres-backed)
 
 | Endpoint | Purpose | Table |
@@ -74,5 +87,9 @@ All site config lives in `src/lib/site.ts`. Public env vars (see `.env.example`)
 
 - `NEXT_PUBLIC_SITE_URL` — canonical URL (sitemap/OG)
 - `NEXT_PUBLIC_CONTACT_EMAIL` — shown on Contact page + footer
+- `NEXT_PUBLIC_APP_URL` — the app's origin; drives the demo, sign-up, sign-in and
+  dashboard links (defaults to the current app domain)
+- `NEXT_PUBLIC_DEMO_ENABLED` — `false` removes every demo call to action, no code change
+- `NEXT_PUBLIC_DEMO_URL`, `NEXT_PUBLIC_DEMO_EMAIL` — optional demo overrides
 - `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` — set to enable analytics
 - `NEXT_PUBLIC_{X,LINKEDIN,FACEBOOK,WHATSAPP}_URL` — socials (footer shows only set ones)

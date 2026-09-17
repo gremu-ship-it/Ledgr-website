@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import BrowserMockup from "@/components/BrowserMockup";
 import PhoneMockup from "@/components/PhoneMockup";
-import { demo, site, tryLabel, tryUrl } from "@/lib/site";
+import { demo, site } from "@/lib/site";
 
 type Tab = {
   id: string;
@@ -177,20 +177,26 @@ export default function ProductTour() {
             </ul>
             <div className="mt-7 flex flex-wrap gap-3">
               <a
-                href={tryUrl}
-                {...(demo.available
-                  ? { target: "_blank", rel: "noreferrer" }
-                  : {})}
+                href={demo.available ? demo.link("product-tour") : site.registerUrl}
                 className="rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-800"
               >
-                {tryLabel} →
+                {demo.available ? "Try the live demo" : "Try it yourself free"} →
               </a>
-              <a
-                href={site.registerUrl}
-                className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
-              >
-                Create a free account
-              </a>
+              {demo.available ? (
+                <a
+                  href={site.registerUrl}
+                  className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
+                >
+                  Create a free account
+                </a>
+              ) : (
+                <Link
+                  href="/pricing"
+                  className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
+                >
+                  See pricing
+                </Link>
+              )}
               <Link
                 href="/features"
                 className="rounded-xl px-6 py-3.5 text-sm font-semibold text-ink-soft transition hover:text-brand-700"
@@ -199,25 +205,32 @@ export default function ProductTour() {
               </Link>
             </div>
 
-            {demo.available && demo.showCredentials && (
+            {demo.available && demo.showEmail && (
               <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
                 <p className="text-xs font-bold uppercase tracking-wide text-slate-500">
-                  Demo login
+                  No sign-up, no password
                 </p>
                 <p className="mt-1.5 text-sm text-ink-soft">
-                  Email{" "}
+                  The demo opens the full app signed in as{" "}
                   <code className="rounded bg-white px-1.5 py-0.5 font-mono text-xs text-ink ring-1 ring-slate-200">
                     {demo.email}
                   </code>{" "}
-                  · Password{" "}
-                  <code className="rounded bg-white px-1.5 py-0.5 font-mono text-xs text-ink ring-1 ring-slate-200">
-                    {demo.password}
-                  </code>
+                  on a sample business with realistic Malawian figures. It lives in
+                  your own browser, so nothing is sent anywhere — and please don&apos;t
+                  enter real financial data.
                 </p>
-                <p className="mt-1.5 text-xs text-slate-500">
-                  A sample business with realistic figures. Please don&apos;t enter real
-                  financial data.
-                </p>
+                {demo.tourUrl && (
+                  <p className="mt-2 text-xs text-slate-500">
+                    Prefer to just look?{" "}
+                    <a
+                      href={demo.tourUrl}
+                      className="font-semibold text-brand-700 hover:underline"
+                    >
+                      See the 1-minute tour
+                    </a>{" "}
+                    — real screens, and nothing is written.
+                  </p>
+                )}
               </div>
             )}
           </div>

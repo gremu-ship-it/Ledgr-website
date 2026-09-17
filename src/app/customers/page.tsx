@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, CtaBand } from "@/components/ui";
-import { site, whatsappUrl } from "@/lib/site";
+import { demo, site, whatsappUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Who it's for",
@@ -153,10 +153,34 @@ export default function CustomersPage() {
           </div>
           <p className="mt-4 text-xs text-slate-500">
             Want to see how it works first?{" "}
-            <Link href="/#tour" className="font-semibold text-brand-700 hover:underline">
-              Take the product tour
-            </Link>
-            .
+            {demo.available ? (
+              <>
+                <a
+                  href={demo.link("customers")}
+                  className="font-semibold text-brand-700 hover:underline"
+                >
+                  Open the live demo
+                </a>{" "}
+                — a full sample business, no sign-up — or{" "}
+                <Link
+                  href="/#tour"
+                  className="font-semibold text-brand-700 hover:underline"
+                >
+                  take the product tour
+                </Link>
+                .
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/#tour"
+                  className="font-semibold text-brand-700 hover:underline"
+                >
+                  Take the product tour
+                </Link>
+                .
+              </>
+            )}
           </p>
         </div>
       </section>

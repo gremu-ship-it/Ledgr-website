@@ -146,14 +146,25 @@ export default function PricingPlans() {
         <p className="mx-auto mt-6 max-w-2xl text-center text-sm text-ink-soft">
           Not ready to pick a plan?{" "}
           <a
-            href={demo.url}
-            target="_blank"
-            rel="noreferrer"
+            href={demo.link("pricing")}
             className="font-semibold text-brand-700 hover:underline"
           >
             Open the live demo
           </a>{" "}
-          — a sample business with sample figures, no sign-up, nothing to pay.
+          — a full sample business with realistic figures, no sign-up and nothing to
+          pay.{" "}
+          {demo.tourUrl && (
+            <>
+              Prefer to just look?{" "}
+              <a
+                href={demo.tourUrl}
+                className="font-semibold text-brand-700 hover:underline"
+              >
+                See the 1-minute tour
+              </a>
+              .
+            </>
+          )}
         </p>
       )}
     </div>
