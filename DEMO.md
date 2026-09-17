@@ -58,12 +58,11 @@ check the business it lands on:
 
 If the account turns out to hold anything real, create a fresh dedicated one instead.
 
-### Also worth doing: change the password
+### Password reuse — settled
 
-`gremu@1989` looks like a password someone might reuse. It's now in a public GitHub repo
-and in public HTML forever. **If there's any chance it's used anywhere else, rotate it** —
-change it on the demo user in Supabase, then set `NEXT_PUBLIC_DEMO_PASSWORD` in Vercel to
-the new value. No code change, and the old one stops being advertised.
+`gremu@1989` is dedicated to the demo account and isn't used anywhere else (confirmed by
+the owner), so being public is fine. If it ever changes, update it on the Supabase user
+and set `NEXT_PUBLIC_DEMO_PASSWORD` in Vercel — no code change needed.
 
 ---
 

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { demo } from "@/lib/site";
 import {
   ANNUAL_DISCOUNT_PERCENT,
   ANNUAL_MONTHS_FREE,
@@ -139,6 +140,22 @@ export default function PricingPlans() {
           );
         })}
       </div>
+
+      {/* Pre-purchase escape hatch: look around before committing to a plan. */}
+      {demo.available && (
+        <p className="mx-auto mt-6 max-w-2xl text-center text-sm text-ink-soft">
+          Not ready to pick a plan?{" "}
+          <a
+            href={demo.url}
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold text-brand-700 hover:underline"
+          >
+            Open the live demo
+          </a>{" "}
+          — a sample business with sample figures, no sign-up, nothing to pay.
+        </p>
+      )}
     </div>
   );
 }
