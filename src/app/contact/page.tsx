@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/ui";
+import { PageHero, WhatsAppIcon } from "@/components/ui";
 import ContactForm from "@/components/ContactForm";
-import { site } from "@/lib/site";
+import { site, whatsappUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -23,6 +23,33 @@ export default function ContactPage() {
       />
       <section className="mx-auto grid max-w-6xl gap-10 px-5 pb-16 lg:grid-cols-[1fr_1.2fr]">
         <div className="space-y-5">
+          <div className="rounded-2xl border border-[#25D366]/40 bg-[#25D366]/10 p-6">
+            <h2 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-[#128C7E]">
+              <WhatsAppIcon className="h-4 w-4" />
+              WhatsApp us
+            </h2>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-2 block text-lg font-bold text-ink hover:text-[#128C7E]"
+            >
+              {site.whatsappNumber}
+            </a>
+            <p className="mt-1 text-sm text-ink-soft">
+              Fastest for quick questions — we usually reply within minutes during
+              business hours (CAT).
+            </p>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1ebe5b]"
+            >
+              <WhatsAppIcon className="h-4 w-4" />
+              Chat on WhatsApp
+            </a>
+          </div>
           <div className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
             <h2 className="text-sm font-bold uppercase tracking-wide text-brand-700">
               Email us

@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { site } from "@/lib/site";
+import { site, whatsappUrl } from "@/lib/site";
+import { WhatsAppIcon } from "@/components/ui";
 
 export default function StickyCta() {
   const [show, setShow] = useState(false);
@@ -29,12 +30,23 @@ export default function StickyCta() {
             <p className="text-[11px] text-slate-500">No card needed</p>
           </div>
         </div>
-        <a
-          href={site.registerUrl}
-          className="ml-auto rounded-xl bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-800"
-        >
-          Get Started
-        </a>
+        <div className="ml-auto flex items-center gap-2">
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Chat with Ledgr on WhatsApp (${site.whatsappNumber})`}
+            className="grid h-10 w-10 place-items-center rounded-xl bg-[#25D366] text-white transition hover:bg-[#1ebe5b]"
+          >
+            <WhatsAppIcon className="h-5 w-5" />
+          </a>
+          <a
+            href={site.registerUrl}
+            className="rounded-xl bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-800"
+          >
+            Get Started
+          </a>
+        </div>
       </div>
     </div>
   );

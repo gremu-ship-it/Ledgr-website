@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,7 +8,13 @@ import StickyCta from "@/components/StickyCta";
 import Analytics from "@/components/Analytics";
 import { site } from "@/lib/site";
 
-const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
+// Inter is self-hosted (variable font, latin subset, wght axis) so builds never
+// depend on reaching fonts.googleapis.com. See src/app/fonts/README.md.
+const inter = localFont({
+  src: "./fonts/inter-latin-wght.woff2",
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.siteUrl),
