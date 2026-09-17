@@ -54,10 +54,10 @@ export default function WaitlistForm({ source = "waitlist", variant = "card" }: 
         <div className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-full bg-brand-700 text-2xl text-white">
           ✓
         </div>
-        <h3 className="text-xl font-semibold text-ink">You&apos;re on the list! 🎉</h3>
+        <h3 className="text-xl font-semibold text-ink">Thanks — message received ✓</h3>
         <p className="mt-2 text-sm text-ink-soft">
-          Thanks for your interest in Ledgr. We&apos;ll reach out with early access and
-          setup help. In the meantime, you can start using Ledgr right now.
+          We&apos;ll be in touch within one business day to help you get set up. You can
+          also start using Ledgr right away — the Free plan needs no card.
         </p>
         <a
           href="https://ledgr-react.vercel.app/register"
@@ -73,7 +73,7 @@ export default function WaitlistForm({ source = "waitlist", variant = "card" }: 
     "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-ink outline-none transition placeholder:text-slate-500 focus:border-brand-500 focus:ring-2 focus:ring-brand-200";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3" aria-label="Early access signup">
+    <form onSubmit={handleSubmit} className="space-y-3" aria-label="Request setup help">
       <div className={variant === "card" ? "grid gap-3 sm:grid-cols-2" : "grid gap-3"}>
         <input
           name="name"
@@ -137,7 +137,7 @@ export default function WaitlistForm({ source = "waitlist", variant = "card" }: 
         disabled={status === "loading"}
         className="w-full rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-800 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {status === "loading" ? "Sending..." : "Join the early access list"}
+        {status === "loading" ? "Sending..." : "Request free setup help"}
       </button>
       <p className="text-center text-xs text-slate-500">
         No spam. We&apos;ll only contact you about Ledgr.

@@ -3,7 +3,26 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { site } from "@/lib/site";
+import { site, whatsappUrl } from "@/lib/site";
+import { WhatsAppIcon } from "@/components/ui";
+
+function MailIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <rect x="2.5" y="4.5" width="19" height="15" rx="3" />
+      <path d="m3.5 7 7.4 5.3a2 2 0 0 0 2.2 0L20.5 7" />
+    </svg>
+  );
+}
 
 const links = [
   { label: "Features", href: "/features" },
@@ -75,7 +94,8 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="border-t border-slate-100 bg-white px-5 pb-5 pt-2 lg:hidden">
+        // Scrollable so the contact block stays reachable on short screens.
+        <div className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-slate-100 bg-white px-5 pb-5 pt-2 lg:hidden">
           {links.map((l) => (
             <Link
               key={l.href}
@@ -99,6 +119,46 @@ export default function Navbar() {
             >
               Get Started Free
             </a>
+          </div>
+
+          {/* Direct contact details — one tap away from any page on mobile. */}
+          <div className="mt-4 rounded-2xl border border-slate-100 bg-slate-50/70 p-3">
+            <p className="px-1 text-[11px] font-bold uppercase tracking-wide text-slate-500">
+              Talk to us
+            </p>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-2 flex items-center gap-3 rounded-xl bg-[#25D366] px-3.5 py-3 text-sm font-semibold text-white transition hover:bg-[#1ebe5b]"
+            >
+              <WhatsAppIcon className="h-5 w-5 shrink-0" />
+              <span className="min-w-0">
+                <span className="block leading-tight">WhatsApp</span>
+                <span className="block truncate text-xs font-medium text-white/90">
+                  {site.whatsappNumber}
+                </span>
+              </span>
+            </a>
+            <a
+              href={`mailto:${site.email}`}
+              className="mt-2 flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
+            >
+              <MailIcon className="h-5 w-5 shrink-0 text-brand-700" />
+              <span className="min-w-0">
+                <span className="block leading-tight">Email</span>
+                <span className="block truncate text-xs font-medium text-slate-500">
+                  {site.email}
+                </span>
+              </span>
+            </a>
+            <Link
+              href="/contact"
+              onClick={() => setOpen(false)}
+              className="mt-2 block px-1 text-xs font-semibold text-brand-700 hover:underline"
+            >
+              Or send a message from the contact form →
+            </Link>
           </div>
         </div>
       )}

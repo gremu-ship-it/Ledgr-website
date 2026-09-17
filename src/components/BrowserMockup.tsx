@@ -5,6 +5,8 @@ type Props = {
   alt: string;
   url?: string;
   className?: string;
+  /** Only the above-the-fold hero should be prioritised. */
+  priority?: boolean;
 };
 
 export default function BrowserMockup({
@@ -12,6 +14,7 @@ export default function BrowserMockup({
   alt,
   url = "ledgr-react.vercel.app/dashboard",
   className = "",
+  priority = false,
 }: Props) {
   return (
     <div
@@ -33,7 +36,7 @@ export default function BrowserMockup({
         height={760}
         sizes="(max-width: 1024px) 100vw, 620px"
         className="h-auto w-full"
-        priority
+        priority={priority}
       />
     </div>
   );

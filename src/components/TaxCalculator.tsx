@@ -152,7 +152,8 @@ export default function TaxCalculator() {
                     />
                   </label>
                   <p className="text-xs text-slate-500">
-                    Calculated on Malawi monthly PAYE bands (0% / 25% / 30% / 35%).
+                    Malawi monthly PAYE bands, effective January 2026: 0% up to MWK
+                    170,000, then 30% / 35% / 40%. The old 25% band was removed.
                   </p>
                 </div>
 

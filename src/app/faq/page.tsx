@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, CtaBand } from "@/components/ui";
 import Faq from "@/components/Faq";
+import { faqs } from "@/lib/faqs";
+import { faqSchema, JsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "FAQ",
@@ -12,6 +14,7 @@ export const metadata: Metadata = {
 export default function FaqPage() {
   return (
     <div>
+      <JsonLd data={faqSchema(faqs)} />
       <PageHero
         eyebrow="FAQ"
         title={
