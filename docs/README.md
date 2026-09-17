@@ -62,6 +62,13 @@ website code changes are needed.
 - **Half-configured builds are caught.** `check-env.mjs` warns during the build if only
   one of the two vars is set, which is otherwise a silent trap.
 
+### Credentials in the repo
+
+The patch's test fixtures are deliberately fake (`demo@example.test` /
+`not-the-real-password`) — they only need to prove the page signs in with whatever the
+env vars hold. The real demo credential lives in exactly one place: the deployment's env
+config. `.env.example` shows the variable names with no values.
+
 ### Verified before writing the patch
 
 Run inside a clone of the app at `main` (no other modifications):

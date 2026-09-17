@@ -402,10 +402,10 @@ index 0000000..b42fa92
 +}
 diff --git a/src/pages/__tests__/DemoPage.test.tsx b/src/pages/__tests__/DemoPage.test.tsx
 new file mode 100644
-index 0000000..c6ee735
+index 0000000..3709340
 --- /dev/null
 +++ b/src/pages/__tests__/DemoPage.test.tsx
-@@ -0,0 +1,153 @@
+@@ -0,0 +1,156 @@
 +// @vitest-environment jsdom
 +import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 +import { render, screen, waitFor } from '@testing-library/react';
@@ -450,8 +450,11 @@ index 0000000..c6ee735
 +  }),
 +}));
 +
-+const DEMO_EMAIL = 'demo@ledgr.test';
-+const DEMO_PASSWORD = 'gremu@1989';
++// Deliberately fake: these only need to prove the page signs in with whatever
++// the env vars hold. Keeping the real credential out of the repo means it lives
++// in exactly one place (the deployment's env config).
++const DEMO_EMAIL = 'demo@example.test';
++const DEMO_PASSWORD = 'not-the-real-password';
 +
 +async function renderDemo() {
 +  const { DemoPage } = await import('../DemoPage');
