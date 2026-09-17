@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import DemoLink from "@/components/DemoLink";
 import { demo } from "@/lib/site";
 import {
   ANNUAL_DISCOUNT_PERCENT,
@@ -145,23 +146,23 @@ export default function PricingPlans() {
       {demo.available && (
         <p className="mx-auto mt-6 max-w-2xl text-center text-sm text-ink-soft">
           Not ready to pick a plan?{" "}
-          <a
+          <DemoLink
             href={demo.link("pricing")}
             className="font-semibold text-brand-700 hover:underline"
           >
             Open the live demo
-          </a>{" "}
+          </DemoLink>{" "}
           — a full sample business with realistic figures, no sign-up and nothing to
           pay.{" "}
           {demo.tourUrl && (
             <>
               Prefer to just look?{" "}
-              <a
+              <DemoLink
                 href={demo.tourUrl}
                 className="font-semibold text-brand-700 hover:underline"
               >
                 See the 1-minute tour
-              </a>
+              </DemoLink>
               .
             </>
           )}

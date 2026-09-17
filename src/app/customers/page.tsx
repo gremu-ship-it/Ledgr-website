@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, CtaBand } from "@/components/ui";
+import DemoLink from "@/components/DemoLink";
 import { demo, site, whatsappUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -155,12 +156,12 @@ export default function CustomersPage() {
             Want to see how it works first?{" "}
             {demo.available ? (
               <>
-                <a
+                <DemoLink
                   href={demo.link("customers")}
                   className="font-semibold text-brand-700 hover:underline"
                 >
                   Open the live demo
-                </a>{" "}
+                </DemoLink>{" "}
                 — a full sample business, no sign-up — or{" "}
                 <Link
                   href="/#tour"

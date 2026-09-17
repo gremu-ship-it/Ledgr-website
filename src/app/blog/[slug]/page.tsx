@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CtaBand } from "@/components/ui";
+import DemoLink from "@/components/DemoLink";
 import NewsletterForm from "@/components/NewsletterForm";
 import { posts, getPost, formatPostDate } from "@/lib/posts";
 import { demo, site } from "@/lib/site";
@@ -131,12 +132,12 @@ export default async function PostPage({
               Get Started Free →
             </a>
             {demo.available && (
-              <a
+              <DemoLink
                 href={demo.link("blog")}
                 className="inline-block rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
               >
                 Open the live demo
-              </a>
+              </DemoLink>
             )}
           </div>
         </div>

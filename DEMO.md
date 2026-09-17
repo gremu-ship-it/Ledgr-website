@@ -31,14 +31,64 @@ moving the app to a custom domain is one env var, not a hunt through components.
 | Who it's for | "Open the live demo" | `?ref=customers` |
 | FAQ (`src/lib/faqs.ts`, and its JSON-LD) | "Can I try Ledgr without creating an account?" | — |
 
-Two rules, both structural:
+Every row that points at the app renders through
+[`DemoLink`](./src/components/DemoLink.tsx) — nine links in total (five
+`demo.link(ref)` entry points, three `demo.tourUrl` tour links, and the hero's pair). The
+FAQ row is copy plus JSON-LD, so it has no link to wrap.
 
-- **Link, never embed.** A cross-origin `<iframe>` of the app is blocked by the app's own
-  `frame-ancestors 'self'` CSP, so there is no embeddable widget — every CTA is a plain
-  `<a>` opening in the same tab.
+Three rules, all structural:
+
+- **Link, never embed.** The app refuses to be framed (`X-Frame-Options: DENY` plus a
+  `frame-ancestors 'none'` CSP), so there is no embeddable widget and no inline demo —
+  every CTA is a link out.
+- **Escape the frame, then relax.** [`src/components/DemoLink.tsx`](./src/components/DemoLink.tsx)
+  renders `target="_blank"` in the server HTML and relaxes to `target="_self"` once the
+  browser confirms the document is top-level. All nine demo links go through it. See
+  below for why — getting this wrong is what turns a demo click into a login page.
 - **Tag the surface.** `demo.link("hero")` appends `?ref=hero`; the app preserves query
   parameters on the entry route, so the same mechanism handles campaign links like
   `?ref=instagram-bio`. That is how the demo funnel is measured per placement.
+
+## Why a demo click can land on the login page
+
+Two independent causes. Neither is the link's `href` — both were confirmed against the
+deployed app, which serves `/demo` and `/demo/enter` correctly from a cold browser.
+
+**1. This site is being viewed inside a frame.** Preview tools, embeds and link
+unfurlers render the marketing site in an `<iframe>`. A same-tab click then navigates
+*the frame*, and the app — which forbids framing — will not render there. The visitor
+gets a blank box or the app's cached shell, and because the app redirects any route it
+does not recognise to `/login`, the shell lands on the login page. This is fixed here by
+`DemoLink`: `target="_blank"` escapes to a real top-level tab, where the demo works.
+
+**2. A stale service-worker shell in the visitor's browser.** This is the app's bug and
+it needs no change on this site. The app's PWA precaches with `navigateFallback:
+'/index.html'`, so a browser that visited the app *before* the demo shipped serves that
+old bundle from cache for any navigation, including `/demo/enter`. The old bundle has no
+`/demo` route, and the app sends unknown paths to `/login` — verified: requesting
+`/this-route-does-not-exist-xyz` on the deployed app redirects to `/login`. So a
+returning visitor can click a perfectly correct link and still land on the sign-in page.
+
+The durable fix is one line in the **app repo**'s `vite.config.ts` — tell the workbox
+plugin to never serve the precached shell for these paths, so they reach the network:
+
+```ts
+navigateFallbackDenylist: [/^\/api\//, /^\/demo\//],
+```
+
+Written up as a patch note in [`docs/README.md`](./docs/README.md) because it belongs to
+`gremu-ship-it/Ledgr-react`, not here. Until it ships, the workaround for anyone hitting
+this is a hard reload, or unregistering the service worker in DevTools → Application →
+Service Workers.
+
+### Known gap
+
+`DemoLink` covers the nine demo links. The **register** links (`Get Started Free →`,
+"Create a free account") still render as plain anchors, so inside a framed preview they
+have the same failure mode. They were deliberately left alone to keep this change scoped
+to the demo — wrap them in `DemoLink` the same way if framed previews turn out to be a
+common way people reach this site.
+
 
 ## What the visitor gets
 
@@ -95,6 +145,13 @@ Checked from this repo on 2026-09-17 against the deployed app:
 
 Not verified from here, and worth a look before relying on it:
 
+- **The framing headers.** `X-Frame-Options: DENY` / `frame-ancestors 'none'` were
+  observed in a real browser, but this repo's sandbox cannot reach the app's hostname at
+  all (`curl https://ledgr-react.vercel.app/` fails in the TLS handshake while
+  `github.com` answers 200 — egress is blocked to Vercel, not a DNS problem). The claim
+  is therefore carried on report, not re-checked here. `DemoLink` is safe either way:
+  if the app ever does allow framing, a top-level visitor still gets `target="_self"`
+  and an embedded one opens a new tab, which works regardless.
 - **The custom domain.** `app.ledgr.com` did not resolve from this sandbox (neither did
   `ledgr.mw`), so the committed default is the Vercel domain above. If the app is already
   served on `app.ledgr.com`, set `NEXT_PUBLIC_APP_URL` and every link follows.

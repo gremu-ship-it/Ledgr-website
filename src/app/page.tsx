@@ -8,6 +8,7 @@ import TaxCalculator from "@/components/TaxCalculator";
 import ProductTour from "@/components/ProductTour";
 import PricingPlans from "@/components/PricingPlans";
 import ContactStrip from "@/components/ContactStrip";
+import DemoLink from "@/components/DemoLink";
 import Faq from "@/components/Faq";
 import PwaInstall from "@/components/PwaInstall";
 import { demo, site } from "@/lib/site";
@@ -127,23 +128,36 @@ export default async function HomePage() {
               >
                 Get Started Free →
               </a>
-              <a
-                href={demo.available ? demo.link("hero") : "#tour"}
-                className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
-              >
-                {demo.available ? "Try the live demo" : "See it in action"}
-              </a>
+              {/*
+                The demo leaves this site for the app, so it goes through
+                DemoLink; the fallback is an on-page anchor and must not.
+              */}
+              {demo.available ? (
+                <DemoLink
+                  href={demo.link("hero")}
+                  className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
+                >
+                  Try the live demo
+                </DemoLink>
+              ) : (
+                <a
+                  href="#tour"
+                  className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
+                >
+                  See it in action
+                </a>
+              )}
             </div>
             {demo.available && (
               <p className="mt-3 text-sm text-ink-soft">
                 Opens a full sample business — invoices, payroll, VAT and reports — with
                 no sign-up.{" "}
-                <a
+                <DemoLink
                   href={demo.tourUrl}
                   className="font-semibold text-brand-700 hover:underline"
                 >
                   See the 1-minute tour →
-                </a>
+                </DemoLink>
               </p>
             )}
             <p className="mt-5 text-sm font-medium text-ink-soft">
