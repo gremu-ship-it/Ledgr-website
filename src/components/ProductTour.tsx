@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
+import DemoLink from "@/components/DemoLink";
 import BrowserMockup from "@/components/BrowserMockup";
 import PhoneMockup from "@/components/PhoneMockup";
 import { demo, site } from "@/lib/site";
@@ -176,12 +177,26 @@ export default function ProductTour() {
               ))}
             </ul>
             <div className="mt-7 flex flex-wrap gap-3">
-              <a
-                href={demo.available ? demo.link("product-tour") : site.registerUrl}
-                className="rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-800"
-              >
-                {demo.available ? "Try the live demo" : "Try it yourself free"} →
-              </a>
+              {/*
+                The demo leaves this site for the app and goes through
+                DemoLink; the register fallback is left as a plain anchor so
+                the demo change stays scoped to demo links.
+              */}
+              {demo.available ? (
+                <DemoLink
+                  href={demo.link("product-tour")}
+                  className="rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-800"
+                >
+                  Try the live demo →
+                </DemoLink>
+              ) : (
+                <a
+                  href={site.registerUrl}
+                  className="rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-800"
+                >
+                  Try it yourself free →
+                </a>
+              )}
               {demo.available ? (
                 <a
                   href={site.registerUrl}
@@ -222,12 +237,12 @@ export default function ProductTour() {
                 {demo.tourUrl && (
                   <p className="mt-2 text-xs text-slate-500">
                     Prefer to just look?{" "}
-                    <a
+                    <DemoLink
                       href={demo.tourUrl}
                       className="font-semibold text-brand-700 hover:underline"
                     >
                       See the 1-minute tour
-                    </a>{" "}
+                    </DemoLink>{" "}
                     — real screens, and nothing is written.
                   </p>
                 )}
