@@ -26,22 +26,44 @@ export const site = {
  * the whole internet to see. Override with env vars (no code change needed).
  * See DEMO.md.
  */
+const DEFAULT_DEMO_EMAIL = "demo@ledgr.test";
+const DEFAULT_DEMO_PASSWORD = "gremu@1989";
+
+/**
+ * Kill switch. Defaults to ON (the demo is enabled out of the box), but
+ * NEXT_PUBLIC_DEMO_ENABLED=false removes every demo call to action on the site
+ * without a code change — which is what you want if the demo login ever breaks,
+ * because the login is not something this site can verify.
+ */
+const demoDisabled = ["0", "false", "off", "no"].includes(
+  (process.env.NEXT_PUBLIC_DEMO_ENABLED ?? "true").trim().toLowerCase(),
+);
+
+// `undefined` (var not set at all) → use the committed default.
+// A deliberately empty value is respected, so an explicit "" also turns off the
+// credential display rather than silently resurrecting the default.
+const demoEmailRaw = process.env.NEXT_PUBLIC_DEMO_EMAIL;
+const demoPasswordRaw = process.env.NEXT_PUBLIC_DEMO_PASSWORD;
+const demoEmail = demoDisabled
+  ? ""
+  : (demoEmailRaw === undefined ? DEFAULT_DEMO_EMAIL : demoEmailRaw.trim());
+const demoPassword = demoDisabled
+  ? ""
+  : (demoPasswordRaw === undefined ? DEFAULT_DEMO_PASSWORD : demoPasswordRaw.trim());
 const demoUrlEnv = process.env.NEXT_PUBLIC_DEMO_URL?.trim() || "";
-const demoEmail = process.env.NEXT_PUBLIC_DEMO_EMAIL?.trim() || "demo@ledgr.test";
-const demoPassword = process.env.NEXT_PUBLIC_DEMO_PASSWORD?.trim() || "gremu@1989";
 
 export const demo = {
-  /** Explicit demo route, else the app login page. */
-  url: demoUrlEnv || site.loginUrl,
+  /** Explicit demo route, else the app login page. Empty once disabled. */
+  url: demoDisabled ? "" : demoUrlEnv || site.loginUrl,
   email: demoEmail,
   password: demoPassword,
   /** True when a demo entry point is configured. */
   get available() {
-    return this.url.length > 0;
+    return !demoDisabled && this.url.length > 0;
   },
-  /** Credentials are only shown if BOTH are set. */
+  /** Credentials are only shown if BOTH are set *and* the demo is enabled. */
   get showCredentials() {
-    return Boolean(this.email && this.password);
+    return !demoDisabled && Boolean(this.email && this.password);
   },
 };
 

@@ -18,8 +18,18 @@ NEXT_PUBLIC_DEMO_PASSWORD=...
 NEXT_PUBLIC_DEMO_URL=...   # optional: a one-click demo route, takes priority
 ```
 
-If both email and password are blank, the site falls back to "See it in action" →
-free registration and shows no credentials, so it can never advertise a broken demo.
+### Turning it off (no code change)
+
+```
+NEXT_PUBLIC_DEMO_ENABLED=false
+```
+
+Redeploy and every demo call to action disappears — the hero falls back to "See it in
+action", the tour to "Try it yourself free", and no credentials are shown anywhere. Use
+this if the demo login ever breaks.
+
+> Note: setting the email/password vars to *blank* is **not** enough, because the site
+> falls back to the committed defaults when they are unset. Use the flag above.
 
 ---
 
