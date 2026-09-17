@@ -76,7 +76,7 @@ export default function Footer() {
           title="Company"
           links={[
             ["About", "/about"],
-            ["Customers", "/customers"],
+            ["Who it's for", "/customers"],
             ["Blog", "/blog"],
             ["Contact", "/contact"],
             ["Sign in", site.loginUrl],

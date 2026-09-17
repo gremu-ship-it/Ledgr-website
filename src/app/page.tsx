@@ -3,12 +3,16 @@ import Link from "next/link";
 import { getDb } from "@/db";
 import { sql } from "drizzle-orm";
 import WaitlistForm from "@/components/WaitlistForm";
-import PhoneMockup from "@/components/PhoneMockup";
 import BrowserMockup from "@/components/BrowserMockup";
 import TaxCalculator from "@/components/TaxCalculator";
+import ProductTour from "@/components/ProductTour";
+import PricingPlans from "@/components/PricingPlans";
+import ContactStrip from "@/components/ContactStrip";
 import Faq from "@/components/Faq";
 import PwaInstall from "@/components/PwaInstall";
-import { site } from "@/lib/site";
+import { demo, site, tryUrl } from "@/lib/site";
+import { faqs } from "@/lib/faqs";
+import { faqSchema, softwareSchema, JsonLd } from "@/lib/schema";
 
 export const dynamic = "force-dynamic";
 
@@ -70,89 +74,6 @@ const usps = [
   { title: "Affordable", desc: "Priced for small businesses that QuickBooks and Sage price out." },
 ];
 
-const testimonials = [
-  {
-    quote:
-      "Ledgr is the first accounting tool that actually understands how we trade in Malawi. VAT and PAYE just work.",
-    name: "Chimwemwe B.",
-    role: "Retailer, Blantyre",
-  },
-  {
-    quote:
-      "I record sales at the market with no signal and it syncs when I get home. Game changer for my shop.",
-    name: "Tadala M.",
-    role: "Trader, Lilongwe",
-  },
-  {
-    quote:
-      "Finally proper P&L and cash flow reports without paying in dollars. My accountant loves it too.",
-    name: "Yamikani K.",
-    role: "Consultant, Mzuzu",
-  },
-];
-
-const pricing = [
-  {
-    name: "Free",
-    price: "Free",
-    sub: "50 transactions/mo",
-    features: [
-      "Basic dashboard & reports",
-      "Income & expense tracking",
-      "Up to 50 transactions/month",
-      "Community support",
-    ],
-    cta: "Get Started Free",
-    href: site.registerUrl,
-    highlight: false,
-  },
-  {
-    name: "Growth",
-    price: "MWK 100,000",
-    sub: "per month",
-    features: [
-      "Everything in Free",
-      "Bank reconciliation",
-      "Accounting & Organisation (full access)",
-      "Up to 500 transactions/month",
-      "Email support",
-    ],
-    cta: "Upgrade to Growth",
-    href: site.registerUrl,
-    highlight: false,
-  },
-  {
-    name: "Pro",
-    price: "MWK 200,000",
-    sub: "per month",
-    features: [
-      "Everything in Growth",
-      "AI Insights & forecasting",
-      "Public API access",
-      "Webhook integrations",
-      "Up to 2,000 transactions/month",
-    ],
-    cta: "Upgrade to Pro",
-    href: site.registerUrl,
-    highlight: true,
-  },
-  {
-    name: "Enterprise",
-    price: "MWK 500,000",
-    sub: "per month",
-    features: [
-      "Everything in Pro",
-      "Unlimited transactions",
-      "Custom branding",
-      "Multi-user roles & permissions",
-      "Dedicated account manager",
-    ],
-    cta: "Contact sales",
-    href: "/contact",
-    highlight: false,
-  },
-];
-
 async function getLeadCount(): Promise<number> {
   try {
     const result = await getDb().execute<{ count: number }>(
@@ -167,10 +88,11 @@ async function getLeadCount(): Promise<number> {
 
 export default async function HomePage() {
   const leadCount = await getLeadCount();
-  const joined = 180 + leadCount;
 
   return (
     <div className="overflow-x-hidden">
+      <JsonLd data={faqSchema(faqs)} />
+      <JsonLd data={softwareSchema()} />
       {/* HERO */}
       <section
         id="top"
@@ -206,10 +128,11 @@ export default async function HomePage() {
                 Get Started Free →
               </a>
               <a
-                href={site.loginUrl}
+                href={demo.available ? tryUrl : "#tour"}
+                {...(demo.available ? { target: "_blank", rel: "noreferrer" } : {})}
                 className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
               >
-                View Demo
+                {demo.available ? "Try it yourself" : "See it in action"}
               </a>
             </div>
             <p className="mt-5 text-sm font-medium text-ink-soft">
@@ -229,8 +152,18 @@ export default async function HomePage() {
                 ))}
               </div>
               <span>
-                <strong className="text-ink">{joined.toLocaleString()}+</strong> businesses
-                getting started
+                {leadCount > 0 ? (
+                  <>
+                    <strong className="text-ink">{leadCount.toLocaleString()}</strong>{" "}
+                    {leadCount === 1 ? "business has" : "businesses have"} joined the
+                    waitlist
+                  </>
+                ) : (
+                  <>
+                    <strong className="text-ink">Free</strong> to start · no card · set up
+                    in minutes
+                  </>
+                )}
               </span>
             </div>
           </div>
@@ -241,6 +174,7 @@ export default async function HomePage() {
               src="/images/dashboard-web.svg"
               alt="Ledgr dashboard on desktop showing revenue, expenses and profit in Malawian Kwacha"
               className="relative"
+              priority
             />
             <div className="absolute -right-2 top-6 hidden rotate-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-xl lg:block">
               <p className="text-xs font-medium text-slate-500">Net profit</p>
@@ -270,6 +204,9 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
+
+      {/* PRODUCT TOUR — answer "what does it actually look like?" up front */}
+      <ProductTour />
 
       {/* FEATURES */}
       <section id="features" className="mx-auto max-w-6xl px-5 py-14">
@@ -383,44 +320,6 @@ export default async function HomePage() {
       {/* TAX CALCULATOR */}
       <TaxCalculator />
 
-      {/* INVOICE SHOWCASE */}
-      <section className="bg-white py-14">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 md:grid-cols-2">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
-              Invoicing & tax
-            </p>
-            <h2 className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold leading-tight text-ink">
-              Professional invoices with VAT done right
-            </h2>
-            <p className="mt-4 text-ink-soft">
-              Create branded invoices, split VAT at 17.5% automatically and export a clean
-              PDF — all in MWK. Ledgr tracks PAYE, WHT and TEVETA due dates so you never miss
-              an MRA deadline.
-            </p>
-            <ul className="mt-6 space-y-3 text-sm text-ink-soft">
-              {[
-                "Automatic VAT split on every line",
-                "One-tap PDF invoice generation",
-                "PAYE, WHT & TEVETA due-date reminders",
-                "Double-entry journal & chart of accounts",
-                "Start on mobile, review on desktop — always in sync",
-              ].map((t) => (
-                <li key={t} className="flex items-center gap-3">
-                  <span className="grid h-5 w-5 place-items-center rounded-full bg-brand-700 text-[10px] text-white">
-                    ✓
-                  </span>
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="flex justify-center">
-            <PhoneMockup src="/images/invoice.svg" alt="Ledgr invoice with VAT breakdown on a phone" />
-          </div>
-        </div>
-      </section>
-
       {/* PRICING */}
       <section id="pricing" className="mx-auto max-w-6xl px-5 py-14">
         <div className="mx-auto max-w-2xl text-center">
@@ -431,67 +330,11 @@ export default async function HomePage() {
             Affordable for every business
           </h2>
           <p className="mt-4 text-ink-soft">
-            Start free. Upgrade only when you grow. No expensive dollar subscriptions.
+            Start free. Upgrade only when you grow. No expensive dollar subscriptions —
+            and two months free if you pay yearly.
           </p>
         </div>
-        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {pricing.map((p) => (
-            <div
-              key={p.name}
-              className={`relative flex flex-col rounded-2xl border p-7 ${
-                p.highlight
-                  ? "border-brand-500 bg-white shadow-xl shadow-brand-500/10 ring-1 ring-brand-500"
-                  : "border-slate-100 bg-white shadow-sm"
-              }`}
-            >
-              {p.highlight && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand-700 px-3 py-1 text-xs font-semibold text-white">
-                  Most Popular
-                </span>
-              )}
-              <h3 className="text-lg font-bold text-ink">{p.name}</h3>
-              <div className="mt-3 flex items-end gap-1.5">
-                <span className="text-2xl font-extrabold text-ink">{p.price}</span>
-                <span className="mb-1 text-sm text-slate-500">{p.sub}</span>
-              </div>
-              <ul className="mt-6 flex-1 space-y-3 text-sm text-ink-soft">
-                {p.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2.5">
-                    <span className="text-brand-700">✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              {p.href.startsWith("/") ? (
-                <Link
-                  href={p.href}
-                  className={`mt-7 rounded-xl px-5 py-3 text-center text-sm font-semibold transition ${
-                    p.highlight
-                      ? "bg-brand-700 text-white hover:bg-brand-800"
-                      : "border border-slate-200 text-ink hover:border-brand-300 hover:text-brand-700"
-                  }`}
-                >
-                  {p.cta}
-                </Link>
-              ) : (
-                <a
-                  href={p.href}
-                  className={`mt-7 rounded-xl px-5 py-3 text-center text-sm font-semibold transition ${
-                    p.highlight
-                      ? "bg-brand-700 text-white hover:bg-brand-800"
-                      : "border border-slate-200 text-ink hover:border-brand-300 hover:text-brand-700"
-                  }`}
-                >
-                  {p.cta}
-                </a>
-              )}
-            </div>
-          ))}
-        </div>
-        <p className="mx-auto mt-6 max-w-2xl text-center text-xs text-slate-500">
-          Upgrades are processed securely through <strong>PayChangu</strong> (mobile money
-          &amp; card). Downgrades take effect immediately with no charge.
-        </p>
+        <PricingPlans />
         <div className="mt-8 text-center">
           <Link
             href="/pricing"
@@ -502,59 +345,17 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section className="bg-white py-14">
-        <div className="mx-auto max-w-6xl px-5">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
-              Loved by local businesses
-            </p>
-            <h2 className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold tracking-tight text-ink">
-              Trusted across Malawi
-            </h2>
-          </div>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {testimonials.map((t) => (
-              <figure
-                key={t.name}
-                className="flex flex-col rounded-2xl border border-slate-100 bg-brand-50/40 p-7"
-              >
-                <div className="text-brand-700" aria-hidden>
-                  ★★★★★
-                </div>
-                <span className="sr-only">Rated 5 out of 5</span>
-                <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-ink-soft">
-                  “{t.quote}”
-                </blockquote>
-                <figcaption className="mt-5 flex items-center gap-3">
-                  <span className="grid h-10 w-10 place-items-center rounded-full bg-brand-700 font-bold text-white">
-                    {t.name[0]}
-                  </span>
-                  <div>
-                    <p className="text-sm font-bold text-ink">{t.name}</p>
-                    <p className="text-xs text-slate-500">{t.role}</p>
-                  </div>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-          <div className="mt-8 text-center">
-          <Link
-            href="/customers"
-            className="text-sm font-semibold text-brand-700 hover:underline"
-          >
-            Read more customer stories →
-          </Link>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ */}
       <Faq />
 
-      {/* EVERY SCREEN / CTA + FORM */}
+      {/* TALK TO A HUMAN — for people who won't self-serve */}
+      <ContactStrip
+        note="No pressure and no scripts — just ask. We'll tell you honestly if Ledgr isn't a fit for your business."
+      />
+
+      {/* EVERY SCREEN / FINAL CTA */}
       <section id="download" className="bg-ink py-14 text-white">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
+        <div className="mx-auto grid max-w-6xl items-start gap-12 px-5 lg:grid-cols-2">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-brand-200">
               One account, every screen
@@ -564,39 +365,55 @@ export default async function HomePage() {
               <span className="text-brand-400">Always in sync.</span>
             </h2>
             <p className="mt-4 max-w-md text-slate-300">
-              Ledgr runs in any browser and installs as an app on Android, Windows and
-              Mac. Capture sales at the market on your phone, then review reports on your
-              laptop at home — no app store, no hassle, and it works offline.
+              Ledgr runs in any browser and installs to your home screen or desktop in
+              two taps — no app store, no download queue. Capture sales at the market on
+              your phone, then review reports on your laptop at home. It keeps working
+              when the network doesn&apos;t.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <a
-                href={site.liveUrl}
+                href={site.registerUrl}
                 className="flex items-center gap-3 rounded-xl bg-brand-700 px-5 py-3 text-sm font-semibold transition hover:bg-brand-800"
               >
-                <span className="text-xl">🌐</span>
-                Open the web app
+                <span className="text-xl" aria-hidden>
+                  🚀
+                </span>
+                Create your free account
               </a>
               <PwaInstall
                 label="Install the app"
                 className="flex items-center gap-3 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold transition hover:bg-white/10"
               />
-              <a
-                href={site.liveUrl}
-                className="flex items-center gap-3 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold transition hover:bg-white/10"
-              >
-                <span className="text-xl">🤖</span>
-                Android APK
-              </a>
             </div>
+            <ul className="mt-7 grid gap-2.5 text-sm text-slate-300 sm:grid-cols-2">
+              {[
+                "Free plan, no card required",
+                "Works offline, syncs automatically",
+                "MWK-first with MRA tax built in",
+                "Android, iPhone, Windows & Mac",
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-2.5">
+                  <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand-700 text-[10px] text-white">
+                    ✓
+                  </span>
+                  {t}
+                </li>
+              ))}
+            </ul>
             <p className="mt-6 text-xs text-slate-400">
-              Airtel Money &amp; Mpamba integration · AI insights — coming soon.
+              Already have an account?{" "}
+              <a href={site.loginUrl} className="font-semibold text-brand-200 hover:underline">
+                Sign in
+              </a>
+              .
             </p>
           </div>
 
           <div className="rounded-3xl bg-white p-6 text-ink shadow-2xl sm:p-8">
-            <h3 className="text-xl font-bold">Get early access &amp; setup help</h3>
+            <h3 className="text-xl font-bold">Prefer a hand getting set up?</h3>
             <p className="mt-1.5 text-sm text-ink-soft">
-              Join the list and we&apos;ll help you get your books set up for free.
+              Leave your details and we&apos;ll help you load your business, tax settings
+              and opening balances — free, on WhatsApp or a call.
             </p>
             <div className="mt-5">
               <WaitlistForm source="download-cta" />

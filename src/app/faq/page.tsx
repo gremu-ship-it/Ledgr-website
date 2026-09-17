@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHero, CtaBand } from "@/components/ui";
 import Faq from "@/components/Faq";
+import { faqs } from "@/lib/faqs";
+import { faqSchema, JsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "FAQ",
@@ -11,6 +14,7 @@ export const metadata: Metadata = {
 export default function FaqPage() {
   return (
     <div>
+      <JsonLd data={faqSchema(faqs)} />
       <PageHero
         eyebrow="FAQ"
         title={
@@ -18,7 +22,18 @@ export default function FaqPage() {
             Questions? <span className="text-brand-700">Answered.</span>
           </>
         }
-        sub="The things people ask us most. Anything else — just contact us."
+        sub={
+          <>
+            The things people ask us most. Anything else —{" "}
+            <Link
+              href="/contact"
+              className="font-semibold text-brand-700 underline decoration-brand-300 underline-offset-4 transition hover:decoration-brand-700"
+            >
+              contact us
+            </Link>
+            .
+          </>
+        }
       />
       <div className="-mt-6">
         <Faq />

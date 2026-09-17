@@ -1,33 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-const faqs = [
-  {
-    q: "Is Ledgr really free?",
-    a: "Yes. The Free plan is free forever and includes a basic dashboard and reports plus income and expense tracking for up to 50 transactions a month. Paid plans unlock bank reconciliation, AI insights, API access and higher limits.",
-  },
-  {
-    q: "How does offline mode work?",
-    a: "Ledgr stores your transactions on your device using secure on-device storage. When you have no internet, everything keeps working — entries queue up and sync automatically the moment you reconnect. Nothing is lost.",
-  },
-  {
-    q: "Is Ledgr compliant with MRA tax rules?",
-    a: "Ledgr is built around Malawi Revenue Authority requirements — VAT at 17.5%, PAYE, WHT and TEVETA. It calculates the splits for you and reminds you before each due date so you never miss a filing.",
-  },
-  {
-    q: "Do I need to be VAT-registered to use Ledgr?",
-    a: "No. Ledgr works whether or not you're VAT-registered. If you are registered, switch on VAT in your tax settings and Ledgr handles the 17.5% split on every transaction automatically.",
-  },
-  {
-    q: "Is my financial data safe?",
-    a: "Your data is encrypted in transit and stored securely in the cloud, with a copy cached on your own device for offline access. Only you and the users you invite to your business can see your books.",
-  },
-  {
-    q: "Can I use Ledgr outside Malawi?",
-    a: "Yes. Ledgr is MWK-first but works across the SADC region — Zambia, Zimbabwe, Tanzania and Kenya. The accounting engine, reports and offline features work everywhere.",
-  },
-];
+import { faqs } from "@/lib/faqs";
 
 export default function Faq() {
   const [open, setOpen] = useState<number | null>(0);
