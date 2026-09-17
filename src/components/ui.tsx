@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { site } from "@/lib/site";
+import { demo, site } from "@/lib/site";
 
 export function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -66,6 +66,14 @@ export function CtaBand({
           >
             Get Started Free →
           </a>
+          {demo.available && (
+            <a
+              href={demo.link("cta-band")}
+              className="rounded-xl border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-semibold transition hover:bg-white/10"
+            >
+              Try the live demo
+            </a>
+          )}
           <Link
             href="/contact"
             className="rounded-xl border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-semibold transition hover:bg-white/10"
@@ -73,7 +81,10 @@ export function CtaBand({
             Talk to us
           </Link>
         </div>
-        <p className="mt-5 text-xs text-slate-400">Free plan · No credit card · MWK-first</p>
+        <p className="mt-5 text-xs text-slate-400">
+          Free plan · No credit card · MWK-first
+          {demo.available && " · Demo needs no sign-up"}
+        </p>
       </div>
     </section>
   );

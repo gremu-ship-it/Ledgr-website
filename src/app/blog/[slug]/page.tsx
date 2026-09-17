@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { CtaBand } from "@/components/ui";
 import NewsletterForm from "@/components/NewsletterForm";
 import { posts, getPost, formatPostDate } from "@/lib/posts";
-import { site } from "@/lib/site";
+import { demo, site } from "@/lib/site";
 
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
@@ -123,12 +123,22 @@ export default async function PostPage({
           <p className="mx-auto mt-1.5 max-w-md text-sm text-ink-soft">
             Everything in this guide — calculated, tracked and reminded. Start free.
           </p>
-          <a
-            href={site.registerUrl}
-            className="mt-5 inline-block rounded-xl bg-brand-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-800"
-          >
-            Get Started Free →
-          </a>
+          <div className="mt-5 flex flex-wrap justify-center gap-3">
+            <a
+              href={site.registerUrl}
+              className="inline-block rounded-xl bg-brand-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-800"
+            >
+              Get Started Free →
+            </a>
+            {demo.available && (
+              <a
+                href={demo.link("blog")}
+                className="inline-block rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
+              >
+                Open the live demo
+              </a>
+            )}
+          </div>
         </div>
         {related.length > 0 && (
           <div className="mt-8 grid gap-4 sm:grid-cols-2">

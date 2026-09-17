@@ -1,109 +1,108 @@
-# Public demo account
+# The live demo
 
-The website offers a **"Try it yourself"** path that opens the live app with a public
-demo login, so visitors can look around before registering.
-
-The credentials are committed as defaults in `src/lib/site.ts`:
-
-```
-demo@ledgr.test / gremu@1989
-```
-
-They are **public by design** — they get rendered into the page HTML for anyone to read.
-Both can be overridden with env vars (no code change needed):
+The website's "try it" path opens the app's **one-click public demo**. A visitor taps
+once and is inside a full set of books — no account, no password, no Supabase user, no
+credentials to type or leak:
 
 ```
-NEXT_PUBLIC_DEMO_EMAIL=...
-NEXT_PUBLIC_DEMO_PASSWORD=...
-NEXT_PUBLIC_DEMO_URL=...   # optional: a one-click demo route, takes priority
+<app>/demo/enter   ← seeds a sample business, signs them in, lands on /dashboard
+<app>/demo         ← static, read-only 1-minute tour (a lighter option)
 ```
 
-### Turning it off (no code change)
+Both are built from `site.appUrl` in [`src/lib/site.ts`](./src/lib/site.ts), which is
+`NEXT_PUBLIC_APP_URL` when set. Nothing else on this site knows the app's hostname —
+moving the app to a custom domain is one env var, not a hunt through components.
+
+> **This site's entire side of the integration is a link.** The sample books are
+> generated inside the visitor's browser and stored in their `localStorage`, so there is
+> no API call, no token exchange, no shared secret and nothing to configure in the app's
+> Supabase project. See the app repo's own `DEMO.md` for the seeded dataset and the
+> in-app guardrails.
+
+## Where the demo is linked from
+
+| Surface | Call to action | Tagged |
+|---|---|---|
+| Home hero | "Try the live demo" · "See the 1-minute tour →" | `?ref=hero` |
+| Product tour (`/#tour`) | primary CTA + a "no sign-up, no password" panel | `?ref=product-tour` |
+| Pricing (home page and `/pricing`) | "Open the live demo" under the plans | `?ref=pricing` |
+| `CtaBand` — features, about, FAQ, customers, blog index | "Try the live demo" | `?ref=cta-band` |
+| Blog guides | "Open the live demo" beside "Get Started Free" | `?ref=blog` |
+| Who it's for | "Open the live demo" | `?ref=customers` |
+| FAQ (`src/lib/faqs.ts`, and its JSON-LD) | "Can I try Ledgr without creating an account?" | — |
+
+Two rules, both structural:
+
+- **Link, never embed.** A cross-origin `<iframe>` of the app is blocked by the app's own
+  `frame-ancestors 'self'` CSP, so there is no embeddable widget — every CTA is a plain
+  `<a>` opening in the same tab.
+- **Tag the surface.** `demo.link("hero")` appends `?ref=hero`; the app preserves query
+  parameters on the entry route, so the same mechanism handles campaign links like
+  `?ref=instagram-bio`. That is how the demo funnel is measured per placement.
+
+## What the visitor gets
+
+| Surface | Behaviour in demo mode |
+|---|---|
+| Persistent amber banner | "Demo account — sample data, not your books", time until reset, plus **Reset data**, **Create free account**, **Exit demo** |
+| Header | `Demo` badge instead of the plan badge; *Sign out* exits the demo |
+| Reads & writes | Fully functional against the seeded books, stored in `localStorage` for this browser only |
+| Billing & subscriptions | Replaced by an explanation + **Create free account** |
+| Team invitations | Replaced by an explanation (invites would send real email) |
+| API keys, webhooks | Replaced by an explanation (they would be inert against a fake tenant) |
+| Password change, account deletion | Replaced by an explanation (`demo@ledgr.test` has no password) |
+| Idle logout | Disabled, so a visitor walking through screens is never signed out |
+| Offline cache (IndexedDB) | Bypassed, so demo data never mixes into a real user's cache |
+| AI insights | Work offline against the seeded numbers |
+
+The seeded snapshot regenerates automatically once it is more than 24 hours old
+(`DEMO_RESET_AFTER_MS` in the app), so the books always look current, and *Reset data* in
+the banner reseeds immediately. Because state is per browser, two visitors never see each
+other's changes.
+
+## Turning the demo off
 
 ```
 NEXT_PUBLIC_DEMO_ENABLED=false
 ```
 
-Redeploy and every demo call to action disappears — the hero falls back to "See it in
-action", the tour to "Try it yourself free", and no credentials are shown anywhere. Use
-this if the demo login ever breaks.
+Redeploy and every demo call to action disappears: the hero falls back to "See it in
+action", the tour to "Try it yourself free", the `CtaBand` and pricing escape hatches
+vanish, and no demo copy or identity is rendered anywhere. Use this if the demo route
+ever breaks — it needs no code change.
 
-> Note: setting the email/password vars to *blank* is **not** enough, because the site
-> falls back to the committed defaults when they are unset. Use the flag above.
+## Pointing the demo elsewhere
 
----
+```
+NEXT_PUBLIC_APP_URL=https://app.ledgr.com   # moves demo + register + login + dashboard
+NEXT_PUBLIC_DEMO_URL=https://…/demo/enter   # overrides just the demo entry point
+```
 
-## ✅ Two things to check before this goes live
+`NEXT_PUBLIC_DEMO_EMAIL` only changes the identity shown in the copy (default
+`demo@ledgr.test`, matching the app's demo login). `NEXT_PUBLIC_*` values are inlined at
+build time, so any change here needs a redeploy.
 
-The site is wired up, but the credentials themselves have not been verified from here —
-the build sandbox can't reach `ledgr-react.vercel.app` or Supabase. Please confirm both:
+## Verified, and worth re-checking
 
-### 1. Does the login actually work?
+Checked from this repo on 2026-09-17 against the deployed app:
 
-Click **"Try the live demo"** on the deployed site and sign in. Watch out for:
+- `<app>/demo` renders the static tour and links to `<app>/demo/enter`.
+- `<app>/demo/enter` lands on `/dashboard` in demo mode: the amber "Demo account — sample
+  data, not your books" banner, `demo@ledgr.test`, "Saved in this browser only · resets in
+  24h", and **Reset data** / **Create free account** / **Exit demo** all present.
+- The app's own login page links to the demo too ("Or try the public demo"), so the
+  sign-in route does not dead-end a curious visitor.
 
-- **`demo@ledgr.test` can never receive email.** `.test` is a reserved, non-routable
-  domain (RFC 2606). If the Supabase user isn't already confirmed, signing in fails with
-  *"email not confirmed"* and no fix is possible by email — the user must be created with
-  **Auto Confirm User** switched on, or given a real mailbox instead.
-- **MFA must be off** for that user, otherwise the login stops at a TOTP prompt.
-- Expect to type the credentials in manually: the app's login page doesn't read them from
-  the URL, so we can't prefill them (see "one-click route" below).
+Not verified from here, and worth a look before relying on it:
 
-If the login fails, tell me and I'll switch the site back to the free-registration
-fallback in one edit.
-
-### 2. Is the data safe to make public?
-
-**Everyone on the internet will have these credentials**, including anyone who views the
-page source or reads this public repo. Before enabling it, sign in as the demo user and
-check the business it lands on:
-
-- Contains **only sample data** — no real customer names, invoices, payroll or bank
-  figures.
-- Is **not** an account with elevated access (owner/admin of a real business, or anything
-  that can see other businesses' data).
-- Has **some** data seeded. An empty demo is worse than no demo — a visitor should land
-  on a dashboard with invoices, expenses, customers and a payroll run already in it.
-
-If the account turns out to hold anything real, create a fresh dedicated one instead.
-
-### Password reuse — settled
-
-`gremu@1989` is dedicated to the demo account and isn't used anywhere else (confirmed by
-the owner), so being public is fine. If it ever changes, update it on the Supabase user
-and set `NEXT_PUBLIC_DEMO_PASSWORD` in Vercel — no code change needed.
-
----
-
-## Creating the demo user (if it doesn't exist yet)
-
-In the Supabase dashboard for the app project → **Authentication → Users → Add user**:
-
-| Field | Value |
-|---|---|
-| Email | `demo@ledgr.test` |
-| Password | `gremu@1989` (or a rotated one) |
-| Auto-confirm | **on** — required, see above |
-
-Then sign in as that user once, create a business (e.g. *"Demo Trading Ltd"*) and add
-sample data: a handful of invoices, expenses, a couple of customers and products, and one
-employee so Payroll isn't empty.
-
-If your Supabase project has RLS policies scoping rows per user, the demo user only sees
-its own business — which is exactly what you want.
-
-## Recommended: a one-click demo route in the app
-
-Typing credentials is friction, and it's the main reason demo accounts get ignored. That
-change is **already drafted** — see [`docs/README.md`](./docs/README.md) and
-[`docs/demo-route.patch`](./docs/demo-route.patch).
-
-It adds `/demo` to the app, which signs in with the env-held credentials and drops the
-visitor on the dashboard, plus an in-app banner inviting them to create their own account.
-Once applied, set `NEXT_PUBLIC_DEMO_URL=https://ledgr-react.vercel.app/demo` here and the
-website picks it up automatically — no website code change.
-
-The patch was verified against the app's own tooling (`tsc`, `eslint`, 384 tests, and a
-production build), but the login itself still needs one manual check after applying,
-because this sandbox can't reach Supabase.
+- **The custom domain.** `app.ledgr.com` did not resolve from this sandbox (neither did
+  `ledgr.mw`), so the committed default is the Vercel domain above. If the app is already
+  served on `app.ledgr.com`, set `NEXT_PUBLIC_APP_URL` and every link follows.
+- **The sample business name.** The deployed demo currently opens *Lilongwe Trading Ltd*,
+  while the app's demo notes describe *Zikomo Foods Ltd*. No website copy names the
+  business, deliberately — pricing, FAQ and hero copy say "a sample business".
+- **The old password login.** This site no longer publishes a demo password and
+  `NEXT_PUBLIC_DEMO_PASSWORD` is no longer read anywhere. If the Supabase user
+  `demo@ledgr.test` still exists from the earlier password-based demo, it is now unused
+  by the website and can be deleted or disabled — but check it holds no real books first,
+  in case anything else still signs in as it.
