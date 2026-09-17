@@ -3,7 +3,8 @@ export const site = {
   tagline: "Smart accounting for Malawian businesses",
   siteUrl:
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://ledgr.mw",
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@ledgr.mw",
+  email:
+    process.env.NEXT_PUBLIC_CONTACT_EMAIL || "gremu.consultancy@gmail.com",
   liveUrl: "https://ledgr-react.vercel.app",
   registerUrl: "https://ledgr-react.vercel.app/register",
   loginUrl: "https://ledgr-react.vercel.app/login",

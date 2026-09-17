@@ -28,7 +28,7 @@ want working forms there):
 |---|---|---|
 | `DATABASE_URL` | for forms | `postgresql://USER:PASS@HOST-pooler.REGION.aws.neon.tech/DB?sslmode=require` |
 | `NEXT_PUBLIC_SITE_URL` | yes | `https://ledgr.mw` — canonical URL for sitemap + OG tags |
-| `NEXT_PUBLIC_CONTACT_EMAIL` | optional | defaults to `hello@ledgr.mw` |
+| `NEXT_PUBLIC_CONTACT_EMAIL` | optional | defaults to `gremu.consultancy@gmail.com` |
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | optional | direct-enquiries WhatsApp; defaults to `+265 881 444 487` |
 | `NEXT_PUBLIC_WHATSAPP_URL` | optional | override the footer WhatsApp link entirely |
 | `NEXT_PUBLIC_X_URL` | optional | footer shows only the socials you set |
