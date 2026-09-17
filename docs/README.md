@@ -8,6 +8,11 @@ own tooling before being written down.
 
 ## `demo-route.patch` — one-click public demo (`/demo`)
 
+> **Status:** filed as [Ledgr-react issue #151](https://github.com/gremu-ship-it/Ledgr-react/issues/151)
+> with the patch attached, since this session can only push to the website branch. Anyone
+> with access to the app repo can open the PR from there in one click.
+
+
 Today the website sends "Try the live demo" to the app's **login page** and prints the
 credentials, so visitors have to type them in. This patch adds a `/demo` route that signs
 them straight into the sample business instead — one tap, no typing, and no credentials
