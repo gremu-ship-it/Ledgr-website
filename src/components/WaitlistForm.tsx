@@ -30,6 +30,7 @@ export default function WaitlistForm({ source = "waitlist", variant = "card" }: 
           phone: data.get("phone"),
           businessName: data.get("businessName"),
           businessType: data.get("businessType"),
+          marketingOptIn: data.get("marketingOptIn") === "yes",
           source,
         }),
       });
@@ -125,6 +126,20 @@ export default function WaitlistForm({ source = "waitlist", variant = "card" }: 
           </option>
         ))}
       </select>
+
+      {/* Unticked by default: permission has to be given, not taken. */}
+      <label className="flex items-start gap-2.5 rounded-xl bg-slate-50 px-3 py-2.5 text-xs text-ink-soft">
+        <input
+          type="checkbox"
+          name="marketingOptIn"
+          value="yes"
+          className="mt-0.5 h-4 w-4 shrink-0 rounded border-slate-300 text-brand-700 focus:ring-brand-500"
+        />
+        <span>
+          Send me occasional tips on VAT, PAYE and bookkeeping for Malawian businesses. You can
+          unsubscribe in one click at any time.
+        </span>
+      </label>
 
       {status === "error" && (
         <p role="alert" className="text-sm text-red-600">

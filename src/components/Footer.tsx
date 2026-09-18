@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { site, socials } from "@/lib/site";
+import CookieSettingsButton from "@/components/CookieSettingsButton";
 import NewsletterForm from "@/components/NewsletterForm";
 
 function FooterCol({ title, links }: { title: string; links: [string, string][] }) {
@@ -93,7 +94,13 @@ export default function Footer() {
       </div>
       <div className="border-t border-slate-100">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 py-6 pb-24 text-xs text-slate-500 sm:flex-row md:pb-6">
-          <p>© {new Date().getFullYear()} Ledgr. All rights reserved.</p>
+          <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <span>© {new Date().getFullYear()} Ledgr. All rights reserved.</span>
+            <span aria-hidden className="text-slate-300">
+              ·
+            </span>
+            <CookieSettingsButton />
+          </p>
           <p>
             <a href={`mailto:${site.email}`} className="transition hover:text-brand-700">
               {site.email}

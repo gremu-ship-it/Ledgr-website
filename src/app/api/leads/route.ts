@@ -1,6 +1,7 @@
 import { getDb } from "@/db";
 import { leads } from "@/db/schema";
 import { sql } from "drizzle-orm";
+import { identifyContact } from "@/lib/contacts";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +25,8 @@ export async function POST(request: Request) {
   const message = typeof body.message === "string" ? body.message.trim() : "";
   const source =
     typeof body.source === "string" && body.source.trim() ? body.source.trim() : "waitlist";
+  // Only ever true when the visitor ticked the marketing box themselves.
+  const marketingOptIn = body.marketingOptIn === true;
 
   if (!name) {
     return Response.json({ ok: false, error: "Please enter your name." }, { status: 400 });
@@ -48,6 +51,21 @@ export async function POST(request: Request) {
         source,
       })
       .returning({ id: leads.id });
+
+    // Add the person to the marketing layer and stitch their browsing to them.
+    // Best effort by design: if this fails, the lead is still safely stored.
+    await identifyContact({
+      email,
+      name,
+      phone,
+      businessName,
+      businessType,
+      source,
+      marketingOptIn,
+      event: "form_submit",
+      eventName: source,
+      request,
+    });
 
     return Response.json({ ok: true, id: row.id });
   } catch {

@@ -2,10 +2,6 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import StickyCta from "@/components/StickyCta";
-import Analytics from "@/components/Analytics";
 import { site } from "@/lib/site";
 
 // Inter is self-hosted (variable font, latin subset, wght axis) so builds never
@@ -60,11 +56,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={inter.variable}>
       <body className="bg-white font-sans text-ink antialiased">
-        <Analytics />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <StickyCta />
+        {/* Chrome, analytics and the cookie banner live in the (site) layout so
+            the internal dashboard at /admin stays clean and untracked. */}
+        {children}
       </body>
     </html>
   );

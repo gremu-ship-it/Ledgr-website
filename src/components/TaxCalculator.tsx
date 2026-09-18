@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
+import { track } from "@/lib/tracker";
 
 const VAT_RATE = 0.175;
 
@@ -35,6 +36,18 @@ function calcPaye(gross: number): number {
 
 export default function TaxCalculator() {
   const [tab, setTab] = useState<"vat" | "paye">("vat");
+
+  /**
+   * Fires once per page view, the first time a visitor touches any field.
+   * "Used the calculator" is one of the strongest intent signals on the site,
+   * so it's worth an event of its own.
+   */
+  const usedRef = useRef(false);
+  const markUsed = useCallback(() => {
+    if (usedRef.current) return;
+    usedRef.current = true;
+    track({ type: "calculator_use", name: "tax-calculator" });
+  }, []);
 
   // VAT mode
   const [sales, setSales] = useState("1,500,000");
@@ -107,7 +120,10 @@ export default function TaxCalculator() {
                     <input
                       inputMode="numeric"
                       value={sales}
-                      onChange={(e) => setSales(e.target.value)}
+                      onChange={(e) => {
+                        markUsed();
+                        setSales(e.target.value);
+                      }}
                       className={inputClass}
                     />
                   </label>
@@ -118,7 +134,10 @@ export default function TaxCalculator() {
                     <input
                       inputMode="numeric"
                       value={expenses}
-                      onChange={(e) => setExpenses(e.target.value)}
+                      onChange={(e) => {
+                        markUsed();
+                        setExpenses(e.target.value);
+                      }}
                       className={inputClass}
                     />
                   </label>
@@ -147,7 +166,10 @@ export default function TaxCalculator() {
                     <input
                       inputMode="numeric"
                       value={salary}
-                      onChange={(e) => setSalary(e.target.value)}
+                      onChange={(e) => {
+                        markUsed();
+                        setSalary(e.target.value);
+                      }}
                       className={inputClass}
                     />
                   </label>

@@ -1,6 +1,7 @@
 import { getDb } from "@/db";
 import { newsletterSubscribers } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { identifyContact } from "@/lib/contacts";
 
 export const dynamic = "force-dynamic";
 
@@ -33,10 +34,33 @@ export async function POST(request: Request) {
       .limit(1);
 
     if (existing.length > 0) {
+      // Somebody signing up again after opting out is a real, deliberate
+      // opt-in — the marketing layer records it as such and clears the
+      // suppression, which is why this still runs on a repeat signup.
+      await identifyContact({
+        email,
+        source,
+        // Joining a list *is* the opt-in: the field is labelled as such on
+        // every form that posts here.
+        marketingOptIn: true,
+        event: "newsletter_signup",
+        eventName: source,
+        request,
+      });
       return Response.json({ ok: true, already: true });
     }
 
     await getDb().insert(newsletterSubscribers).values({ email, source });
+
+    await identifyContact({
+      email,
+      source,
+      marketingOptIn: true,
+      event: "newsletter_signup",
+      eventName: source,
+      request,
+    });
+
     return Response.json({ ok: true });
   } catch {
     return Response.json(
