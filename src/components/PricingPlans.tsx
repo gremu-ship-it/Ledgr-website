@@ -127,12 +127,24 @@ export default function PricingPlans() {
                 ))}
               </ul>
 
+              {/* data-track/data-plan feed the analytics: which plan people
+                  actually reach for, and which page they were on. */}
               {p.href.startsWith("/") ? (
-                <Link href={p.href} className={ctaClass}>
+                <Link
+                  href={p.href}
+                  className={ctaClass}
+                  data-track={`plan-${p.name.toLowerCase().split(" ")[0]}`}
+                  data-plan={p.name}
+                >
                   {p.cta}
                 </Link>
               ) : (
-                <a href={p.href} className={ctaClass}>
+                <a
+                  href={p.href}
+                  className={ctaClass}
+                  data-track={`plan-${p.name.toLowerCase().split(" ")[0]}`}
+                  data-plan={p.name}
+                >
                   {p.cta}
                 </a>
               )}
@@ -147,6 +159,7 @@ export default function PricingPlans() {
           Not ready to pick a plan?{" "}
           <a
             href={demo.link("pricing")}
+            data-track="pricing-demo"
             className="font-semibold text-brand-700 hover:underline"
           >
             Open the live demo

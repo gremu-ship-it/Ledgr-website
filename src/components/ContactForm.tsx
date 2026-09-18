@@ -24,6 +24,7 @@ export default function ContactForm() {
           company: data.get("company"),
           topic: data.get("topic"),
           message: data.get("message"),
+          marketingOptIn: data.get("marketingOptIn") === "yes",
         }),
       });
       const json = await res.json();
@@ -109,6 +110,20 @@ export default function ContactForm() {
         aria-label="Your message"
         className={`${inputClass} resize-y`}
       />
+      {/* Unticked by default: permission has to be given, not taken. */}
+      <label className="flex items-start gap-2.5 rounded-xl bg-slate-50 px-3 py-2.5 text-xs text-ink-soft">
+        <input
+          type="checkbox"
+          name="marketingOptIn"
+          value="yes"
+          className="mt-0.5 h-4 w-4 shrink-0 rounded border-slate-300 text-brand-700 focus:ring-brand-500"
+        />
+        <span>
+          Keep me posted on Ledgr news and practical tax tips for Malawian businesses. One
+          click to unsubscribe, any time.
+        </span>
+      </label>
+
       {status === "error" && (
         <p role="alert" className="text-sm text-red-600">
           {error}{" "}

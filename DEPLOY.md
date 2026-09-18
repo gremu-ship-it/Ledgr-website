@@ -38,8 +38,21 @@ want working forms there):
 | `NEXT_PUBLIC_X_URL` | optional | footer shows only the socials you set |
 | `NEXT_PUBLIC_LINKEDIN_URL` | optional | ↑ |
 | `NEXT_PUBLIC_FACEBOOK_URL` | optional | ↑ |
-| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | optional | e.g. `ledgr.mw` — set to switch analytics on |
-| `NEXT_PUBLIC_PLAUSIBLE_SRC` | optional | defaults to `https://plausible.io/js/script.js` |
+| `ADMIN_PASSWORD` | for /admin | switches on the analytics dashboard. **With no password the dashboard stays locked** and shows setup instructions instead of data |
+| `ADMIN_USER` | optional | defaults to `admin` |
+| `ADMIN_SECRET` | optional | keeps sessions valid when you rotate `ADMIN_PASSWORD` |
+| `ANALYTICS_SALT` | recommended | salts the IP hashes (raw IPs are never stored) |
+| `NEXT_PUBLIC_ANALYTICS_ENABLED` | optional | `false` removes the tracker from the site entirely |
+| `NEXT_PUBLIC_ANALYTICS_ANONYMOUS_BEFORE_CONSENT` | optional | defaults to `true`: count a cookieless pageview before the banner is answered. `false` records nothing until Accept |
+| `ANALYTICS_RETENTION_DAYS` | optional | defaults to `180` — raw events older than this are pruned |
+| `CRON_SECRET` | optional | enables `/api/cron/retention` (Vercel Cron sends it as a Bearer token) |
+| `RESEND_API_KEY` / `BREVO_API_KEY` | optional | **one** of these switches bulk marketing email on; without a key the composer still works |
+| `MARKETING_FROM_EMAIL` | with the above | a verified sender, e.g. `hello@ledgr.mw`. Bulk sending stays off until this is set |
+| `MARKETING_FROM_NAME` | optional | defaults to `Ledgr` |
+| `MARKETING_REPLY_TO` | optional | replies go here instead of the sender |
+| `MARKETING_SENDER_NAME` | optional | signs the templates; defaults to `Khwima` |
+| `MARKETING_DRY_RUN` | recommended once | `true` validates and logs sends without delivering — run one campaign this way first |
+| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | optional | e.g. `ledgr.mw` — adds Plausible *alongside* the built-in analytics |
 
 `NEXT_PUBLIC_*` values are inlined at **build time** — redeploy after changing them.
 
@@ -56,8 +69,10 @@ want working forms there):
      DATABASE_URL="postgresql://...neon.tech/ledgr?sslmode=require" npm run db:migrate
      ```
    - **From the Neon SQL editor**: paste the contents of
-     [`drizzle/0000_small_magik.sql`](./drizzle/0000_small_magik.sql). It creates
-     `leads`, `contact_messages` and `newsletter_subscribers`.
+     [`drizzle/0000_small_magik.sql`](./drizzle/0000_small_magik.sql) and then
+     [`drizzle/0001_dark_hemingway.sql`](./drizzle/0001_dark_hemingway.sql). Between them
+     they create `leads`, `contact_messages`, `newsletter_subscribers` and the seven
+     analytics/marketing tables.
 4. Set `DATABASE_URL` in Vercel and redeploy.
 
 > Migrations are **not** run by the build on purpose — `next build` stays read-only and
@@ -71,6 +86,30 @@ curl https://YOUR-PROJECT.vercel.app/api/health   # → {"ok":true}
 
 `{"ok":false}` means `DATABASE_URL` is missing, wrong, or the DB rejects the connection
 (usually a missing `sslmode=require` or a non-pooled host).
+
+## 3b. Analytics and follow-ups
+
+Nothing else is needed to record traffic: the tracker is part of the site, and the
+tables arrive with the migration in step 3. Set `ADMIN_PASSWORD`, redeploy, and open
+**`/admin`** — see [`docs/ANALYTICS.md`](./docs/ANALYTICS.md).
+
+Two optional extras:
+
+**Prune old raw events** (keeps the database small and the retention promise in the
+privacy policy honest). Add a cron job in *Project → Settings → Cron Jobs*:
+
+```
+/api/cron/retention    Schedule: 0 3 * * *    (daily, 03:00 UTC)
+```
+
+Set `CRON_SECRET` when you add it — Vercel sends it automatically as
+`Authorization: Bearer $CRON_SECRET`, and the endpoint refuses to run in production
+without it.
+
+**Send campaigns in bulk.** Add `RESEND_API_KEY` (or `BREVO_API_KEY`) and
+`MARKETING_FROM_EMAIL`, verify the sending domain with the provider, then send yourself a
+test from `/admin/campaigns`. Run one campaign with `MARKETING_DRY_RUN=true` first —
+it logs everything and delivers nothing. See [`docs/MARKETING.md`](./docs/MARKETING.md).
 
 ## 4. Custom domain
 

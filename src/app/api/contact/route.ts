@@ -1,5 +1,6 @@
 import { getDb } from "@/db";
 import { contactMessages } from "@/db/schema";
+import { identifyContact } from "@/lib/contacts";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +21,8 @@ export async function POST(request: Request) {
   const company = typeof body.company === "string" ? body.company.trim() : "";
   const topicRaw = typeof body.topic === "string" ? body.topic.trim() : "general";
   const message = typeof body.message === "string" ? body.message.trim() : "";
+  // Only ever true when the visitor ticked the marketing box themselves.
+  const marketingOptIn = body.marketingOptIn === true;
 
   if (!name) {
     return Response.json({ ok: false, error: "Please enter your name." }, { status: 400 });
@@ -51,6 +54,20 @@ export async function POST(request: Request) {
         message,
       })
       .returning({ id: contactMessages.id });
+
+    // Add the person to the marketing layer and stitch their browsing to them.
+    // Best effort by design: if this fails, the message is still safely stored.
+    await identifyContact({
+      email,
+      name,
+      phone,
+      businessName: company,
+      source: `contact:${topic}`,
+      marketingOptIn,
+      event: "form_submit",
+      eventName: `contact-${topic}`,
+      request,
+    });
 
     return Response.json({ ok: true, id: row.id });
   } catch {
