@@ -1,0 +1,129 @@
+name: CI
+
+# Replaces the previous "NodeJS with Webpack" job, which ran `npx webpack`
+# against a repo that has no webpack config — it could never have passed, so a
+# green tick never meant anything. This runs what the project actually is:
+# a Next.js app whose real checks are lint, types, a production build, and
+# whether the migrations still apply to an empty database.
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  # Lets you run these checks by hand on any branch (Actions → CI → Run
+  # workflow) without opening a pull request.
+  workflow_dispatch:
+
+# A superseded run has nothing to tell anyone: cancel it and let the newest
+# commit have the queue.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Lint, typecheck & build
+    runs-on: ubuntu-latest
+    # Node 22 matches what Vercel runs in production (see DEPLOY.md), so CI
+    # tests the same runtime the site is served on. Node 18 is EOL and below
+    # Next 16's floor (>= 20.9).
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # Deliberately runs with no environment variables at all: the build must
+      # not need a database or a password. Anything that does is
+      # `force-dynamic` and only connects at request time.
+      - name: Build
+        run: npm run build
+
+  migrations:
+    name: Migrations apply to an empty database
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: ledgr
+          POSTGRES_PASSWORD: ledgr
+          POSTGRES_DB: ledgr
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://ledgr:ledgr@localhost:5432/ledgr
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Catches the failure that hurts most: a migration that won't apply, so
+      # the analytics tables (or the forms' tables) never exist in production.
+      - name: Apply migrations
+        run: npm run db:migrate
+
+      - name: Verify the schema landed
+        run: |
+          node -e '
+          const { Client } = require("pg");
+
+          const expected = [
+            "leads",
+            "contact_messages",
+            "newsletter_subscribers",
+            "analytics_visitors",
+            "analytics_sessions",
+            "analytics_events",
+            "analytics_consent",
+            "contacts",
+            "contact_visitors",
+            "campaign_messages",
+          ];
+
+          (async () => {
+            const client = new Client({ connectionString: process.env.DATABASE_URL });
+            await client.connect();
+            const { rows } = await client.query(
+              "select tablename from pg_tables where schemaname = $1",
+              ["public"],
+            );
+            await client.end();
+
+            const names = rows.map((row) => row.tablename);
+            const missing = expected.filter((table) => !names.includes(table));
+            if (missing.length) {
+              console.error("Missing after migration: " + missing.join(", "));
+              process.exit(1);
+            }
+            console.log("All " + expected.length + " tables present after migration.");
+          })().catch((error) => {
+            console.error(error.message);
+            process.exit(1);
+          });
+          '
