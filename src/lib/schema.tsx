@@ -39,7 +39,7 @@ export function organizationSchema() {
     name: site.name,
     url: site.siteUrl,
     description:
-      "MWK-first, MRA-compliant accounting and business management app for Malawian SMEs.",
+      "MWK-first, Malawi-focused accounting and business management app for Malawian SMEs.",
     email: site.email,
     areaServed: "MW",
   };

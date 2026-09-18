@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s — Ledgr",
   },
   description:
-    "Ledgr is an MWK-first, MRA-compliant accounting app for Malawian SMEs. Works on your phone and computer, offline-capable, and keeps you on top of VAT, PAYE & WHT.",
+    "Ledgr is an MWK-first, Malawi-focused accounting app for Malawian SMEs. Works on your phone and computer, offline-capable, and keeps you on top of VAT, PAYE & WHT.",
   keywords: [
     "Malawi accounting software",
     "MWK accounting",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Ledgr — Built for Malawi. Works everywhere.",
     description:
-      "MWK-first accounting for growing Malawian SMEs. Phone and desktop, offline-ready, MRA tax compliant.",
+      "MWK-first accounting for growing Malawian SMEs. Phone and desktop, offline-ready, Malawi tax tools.",
     type: "website",
     url: site.siteUrl,
     siteName: "Ledgr",

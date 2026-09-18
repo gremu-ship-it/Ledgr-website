@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getDb } from "@/db";
-import { sql } from "drizzle-orm";
 import WaitlistForm from "@/components/WaitlistForm";
 import BrowserMockup from "@/components/BrowserMockup";
 import TaxCalculator from "@/components/TaxCalculator";
@@ -13,8 +11,6 @@ import PwaInstall from "@/components/PwaInstall";
 import { demo, site } from "@/lib/site";
 import { faqs } from "@/lib/faqs";
 import { faqSchema, softwareSchema, JsonLd } from "@/lib/schema";
-
-export const dynamic = "force-dynamic";
 
 const features = [
   {
@@ -29,7 +25,7 @@ const features = [
   },
   {
     icon: "🏛️",
-    title: "MRA tax compliance",
+    title: "Malawi tax tools",
     desc: "Built-in VAT (17.5%), PAYE, WHT and TEVETA with automatic due-date reminders.",
   },
   {
@@ -74,21 +70,7 @@ const usps = [
   { title: "Affordable", desc: "Priced for small businesses that QuickBooks and Sage price out." },
 ];
 
-async function getLeadCount(): Promise<number> {
-  try {
-    const result = await getDb().execute<{ count: number }>(
-      sql`select count(*)::int as count from leads`,
-    );
-    const rows = result.rows as { count: number }[];
-    return rows[0]?.count ?? 0;
-  } catch {
-    return 0;
-  }
-}
-
-export default async function HomePage() {
-  const leadCount = await getLeadCount();
-
+export default function HomePage() {
   return (
     <div className="overflow-x-hidden">
       <JsonLd data={faqSchema(faqs)} />
@@ -115,23 +97,25 @@ export default async function HomePage() {
               <span className="text-brand-700">Malawian businesses</span>
             </h1>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-ink-soft">
-              Ledgr is an MWK-first, MRA-compliant accounting app for your phone{" "}
-              <em className="not-italic font-semibold text-ink">and</em> your computer.
-              Track income, expenses, tax and reports — at the shop, the market or the
-              office, online or offline.
+              Ledgr is an MWK-first accounting and business management app for your
+              phone <em className="not-italic font-semibold text-ink">and</em> your
+              computer. Track income, expenses, stock, tax and reports — at the shop,
+              the market or the office, online or offline.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <a
-                href={site.registerUrl}
+                href={demo.available ? demo.link("hero") : site.registerUrl}
+                data-track="hero-demo"
                 className="rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/30 transition hover:bg-brand-800"
               >
-                Get Started Free →
+                {demo.available ? "Try Ledgr — no sign-up" : "Get Started Free"} →
               </a>
               <a
-                href={demo.available ? demo.link("hero") : "#tour"}
+                href={demo.available ? demo.tourUrl : "#tour"}
+                data-track="hero-tour"
                 className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
               >
-                {demo.available ? "Try the live demo" : "See it in action"}
+                See how it works
               </a>
             </div>
             {demo.available && (
@@ -151,32 +135,9 @@ export default async function HomePage() {
               Windows &amp; Mac <span className="mx-1 text-slate-300">·</span> 🌐 Any
               browser
             </p>
-            <div className="mt-5 flex items-center gap-4 text-sm text-ink-soft">
-              <div className="flex -space-x-2">
-                {["🧑🏿‍💼", "👩🏿‍💼", "👨🏿‍🔧", "👩🏿‍🌾"].map((e, i) => (
-                  <span
-                    key={i}
-                    className="grid h-8 w-8 place-items-center rounded-full border-2 border-white bg-brand-100 text-sm"
-                  >
-                    {e}
-                  </span>
-                ))}
-              </div>
-              <span>
-                {leadCount > 0 ? (
-                  <>
-                    <strong className="text-ink">{leadCount.toLocaleString()}</strong>{" "}
-                    {leadCount === 1 ? "business has" : "businesses have"} joined the
-                    waitlist
-                  </>
-                ) : (
-                  <>
-                    <strong className="text-ink">Free</strong> to start · no card · set up
-                    in minutes
-                  </>
-                )}
-              </span>
-            </div>
+            <p className="mt-5 text-sm font-medium text-ink-soft">
+              Free to explore · no card · no sign-up required for the demo
+            </p>
           </div>
 
           <div className="relative">
@@ -187,14 +148,6 @@ export default async function HomePage() {
               className="relative"
               priority
             />
-            <div className="absolute -right-2 top-6 hidden rotate-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-xl lg:block">
-              <p className="text-xs font-medium text-slate-500">Net profit</p>
-              <p className="text-lg font-bold text-brand-700">MWK 4.25M</p>
-            </div>
-            <div className="absolute -left-3 bottom-10 hidden -rotate-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-xl lg:block">
-              <p className="text-xs font-medium text-slate-500">VAT due in</p>
-              <p className="text-lg font-bold text-ink">6 days</p>
-            </div>
           </div>
         </div>
       </section>
