@@ -65,7 +65,7 @@ export default function PricingPlans() {
         </p>
       </div>
 
-      <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {plans.map((p) => {
           const ctaClass = `mt-7 rounded-xl px-5 py-3 text-center text-sm font-semibold transition ${
             p.highlight
@@ -87,11 +87,15 @@ export default function PricingPlans() {
                   : "border-slate-100 bg-white shadow-sm"
               }`}
             >
-              {p.highlight && (
+              {p.highlight ? (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand-700 px-3 py-1 text-xs font-semibold text-white">
                   Most Popular
                 </span>
-              )}
+              ) : p.name === "Starter" ? (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-amber-400 px-3 py-1 text-xs font-bold text-ink">
+                  New
+                </span>
+              ) : null}
 
               <h3 className="text-lg font-bold text-ink">{p.name}</h3>
 

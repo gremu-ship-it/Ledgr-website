@@ -9,7 +9,7 @@ export type FaqItem = { q: string; a: string };
 export const faqs: FaqItem[] = [
   {
     q: "Is Ledgr really free?",
-    a: "Yes. The Free plan is free forever and includes a basic dashboard and reports plus income and expense tracking for up to 50 transactions a month. Paid plans unlock bank reconciliation, AI insights, API access and higher limits.",
+    a: "Yes. The Free plan is free forever and includes a basic dashboard and reports plus income and expense tracking for up to 50 transactions a month. Paid plans start at MWK 50,000/month (Starter) and unlock professional invoicing, bank reconciliation, AI insights, API access and higher limits.",
   },
   {
     q: "Can I try Ledgr without creating an account?",

@@ -6,13 +6,17 @@ import PricingPlans from "@/components/PricingPlans";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Simple MWK pricing: Free, Growth at MWK 100,000/month, Pro at MWK 200,000/month, Enterprise at MWK 500,000/month. Save two months by paying yearly. Secure PayChangu payments — mobile money or card.",
+    "Simple MWK pricing: Free, Starter at MWK 50,000/month, Growth at MWK 100,000/month, Pro at MWK 200,000/month, Enterprise at MWK 500,000/month. Save two months by paying yearly. Secure PayChangu payments — mobile money or card.",
 };
 
 const faqs = [
   {
     q: "Is there really a free plan?",
     a: "Yes — Free includes a basic dashboard and reports plus income and expense tracking for up to 50 transactions a month, with community support. No card required.",
+  },
+  {
+    q: "What's included in Starter?",
+    a: "Starter is MWK 50,000/month and is built for small shops and freelancers. You get everything in Free plus professional invoices & quotes, up to 200 transactions a month, basic P&L & expense reports, and email support.",
   },
   {
     q: "What counts as a transaction?",
@@ -46,7 +50,7 @@ export default function PricingPage() {
             Priced in Kwacha, <span className="text-brand-700">for Malawian businesses</span>
           </>
         }
-        sub="Start free. Upgrade as your transactions grow — monthly or yearly, paid with mobile money or card."
+        sub="Start free. Paid plans from MWK 50,000/month — monthly or yearly, paid with mobile money or card via PayChangu."
       />
       <section className="mx-auto max-w-6xl px-5 pb-14">
         <PricingPlans />
