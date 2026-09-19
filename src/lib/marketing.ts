@@ -450,7 +450,7 @@ Khwima`,
 
 You spent a bit of time on our pricing page, so let me save you the arithmetic.
 
-Most Malawian SMEs your size start on Growth (MWK 100,000/month): it covers the transactions a growing shop or consultancy actually records in a month, with VAT and invoicing included. Free is genuinely usable if you're under 50 transactions a month. Pro only pays for itself once you have staff on payroll or multiple people issuing invoices.
+Most Malawian SMEs your size start on Starter (MWK 50,000/month) — it covers professional invoicing and up to 200 transactions with VAT included. If you're reconciling bank accounts or need full financial reports, Growth at MWK 100,000/month is the next step. Free is genuinely usable if you're under 50 transactions a month. Pro only pays for itself once you have staff on payroll or multiple people issuing invoices.
 
 Pay yearly and you get two months free — about 17% off.
 

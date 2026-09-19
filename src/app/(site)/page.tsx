@@ -67,7 +67,7 @@ const usps = [
   { title: "Built for Malawi", desc: "MWK currency, MRA tax codes and local payment methods — by design, not retrofitted." },
   { title: "Works offline", desc: "Record transactions without internet. They queue and sync automatically." },
   { title: "Phone, tablet & computer", desc: "One account on every screen. Capture sales on your phone, review reports on your laptop." },
-  { title: "Affordable", desc: "Priced for small businesses that QuickBooks and Sage price out." },
+  { title: "Affordable", desc: "From Free to MWK 50k Starter — priced for small businesses that QuickBooks and Sage price out." },
 ];
 
 export default function HomePage() {
@@ -294,8 +294,9 @@ export default function HomePage() {
             Affordable for every business
           </h2>
           <p className="mt-4 text-ink-soft">
-            Start free. Upgrade only when you grow. No expensive dollar subscriptions —
-            and two months free if you pay yearly.
+            Start free. Paid plans from MWK 50,000/month — Starter for small shops,
+            Growth and Pro when you scale. No dollar subscriptions, and two months
+            free if you pay yearly.
           </p>
         </div>
         <PricingPlans />
