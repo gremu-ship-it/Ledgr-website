@@ -217,7 +217,7 @@ export default function ProductTour() {
             </ul>
             <div className="mt-7 flex flex-wrap gap-3">
               <a
-                href={demo.available ? demo.link("product-tour") : site.registerUrl}
+                href={site.registerUrl}
                 className="rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-800"
               >
                 Try Ledgr →

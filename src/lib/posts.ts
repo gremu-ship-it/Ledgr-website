@@ -117,17 +117,17 @@ export const posts: Post[] = [
   },
   {
     slug: "withholding-tax-teveta-explained",
-    title: "Withholding tax & the TEVETA levy, explained for busy owners",
+    title: "Withholding tax & the TEVET levy, explained for busy owners",
     excerpt:
-      "What WHT is, when you must deduct it, the 1% TEVETA training levy on payroll — and how to track both without spreadsheets.",
+      "What WHT is, when you must deduct it, and the 1% TEVET training levy on your wage bill — the two deductions that catch Malawian employers out.",
     category: "Tax guides",
     date: "2026-08-05",
     readMinutes: 5,
-    keywords: ["Malawi withholding tax", "WHT rates", "TEVETA levy", "MRA deductions"],
+    keywords: ["Malawi withholding tax", "WHT rates", "TEVET levy", "TEVETA", "MRA deductions"],
     blocks: [
       {
         type: "p",
-        text: "Beyond VAT and PAYE, two more deductions catch Malawian businesses by surprise: withholding tax (WHT) on certain payments, and the TEVETA training levy on your wage bill. Both are straightforward once you see them clearly.",
+        text: "Beyond VAT and PAYE, two more deductions catch Malawian businesses by surprise: withholding tax (WHT) on certain payments, and the TEVET training levy on your wage bill. Both are straightforward once you see them clearly.",
       },
       { type: "h2", text: "Withholding tax (WHT)" },
       {
@@ -142,10 +142,10 @@ export const posts: Post[] = [
           "Remit what you withheld to MRA within the prescribed period.",
         ],
       },
-      { type: "h2", text: "The TEVETA levy" },
+      { type: "h2", text: "The TEVET levy" },
       {
         type: "p",
-        text: "Employers in Malawi pay a 1% training levy on the gross wage bill to TEVETA (Technical, Entrepreneurial and Vocational Education and Training Authority). It funds vocational training nationally — and yes, it applies on top of PAYE and pension contributions.",
+        text: "Employers in Malawi pay a 1% training levy on the gross wage bill. It is usually called the TEVET levy, after the Technical, Entrepreneurial and Vocational Education and Training Authority (TEVETA) that collects it, and it funds vocational training nationally. It applies on top of PAYE and pension contributions, and it falls due on 1 April.",
       },
       {
         type: "tip",

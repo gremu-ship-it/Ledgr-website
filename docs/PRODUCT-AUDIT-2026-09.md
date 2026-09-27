@@ -168,10 +168,23 @@ Two real discrepancies:
 
    The app also notes `computeAmount` in
    `supabase/functions/initiate-subscription-payment` must stay in sync, so the
-   checkout price is the app's. A visitor who picks yearly Starter on the site
-   would be charged 20% more at checkout. **Flagged, not changed** — the brief
-   says pricing only changes when the repo shows pricing changed, and this is a
-   commercial decision, not a copy fix.
+   checkout price is the app's. A visitor who picked yearly Starter on the site
+   would have been charged 20% more at checkout.
+   `lib/billing/__tests__/plans.test.ts` asserts
+   `computePriceMWK('starter','annual') === 600_000`, so this is the app's
+   settled behaviour, not a stray constant.
+
+   **Resolution taken: the site no longer quotes a yearly price at all.**
+   Choosing between the two models is a commercial decision and was not made
+   here. But leaving a yearly figure on the page meant publishing a price the
+   checkout contradicts, so the monthly/yearly toggle, the derived yearly
+   totals, the "2 months free" line and the yearly `Offer` entries in
+   `softwareSchema()` were all removed. Monthly prices — which both sides agree
+   on — are what the site advertises, and `/pricing` now says the yearly price
+   is shown in the app at checkout, which is true and model-agnostic.
+
+   **Still required:** decide the annual model, then restore a yearly view in
+   `lib/pricing.ts`, `PricingPlans.tsx` and `softwareSchema()` that matches it.
 
 2. **Plan contents were wrong** — corrected, because the app's `PLANS` array is
    unambiguous about which capability each tier unlocks:
@@ -323,7 +336,9 @@ Production URL is unchanged: `https://ledgr.mw` (`NEXT_PUBLIC_SITE_URL`,
 
 **Left for product/production verification (not done here):**
 
-- The annual-billing discount mismatch (§6.1) — commercial decision.
+- The annual-billing **model** (§6.1) — commercial decision. The conflicting
+  yearly prices were removed from the site so nothing contradicts checkout, but
+  which discount is correct has not been decided.
 - Whether POS should be plan-gated, and on which tier (§6.3).
 - The 16.5% VAT strings inside the app's POS module (§7) — app repo fix.
 - Whether the POS server-side posting path (`post_pos_sale`) and the R07

@@ -66,7 +66,7 @@ export function CtaBand({
         <p className="mx-auto mt-3 max-w-xl text-slate-300">{sub}</p>
         <div className="mt-7 flex flex-wrap justify-center gap-3">
           <a
-            href={demo.available ? demo.link("cta-band") : site.registerUrl}
+            href={site.registerUrl}
             className="rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-brand-800"
           >
             Try Ledgr →

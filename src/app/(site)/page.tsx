@@ -238,16 +238,18 @@ export default function HomePage() {
               bottom line.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
+              {/* Analytics: `hero-demo` and `hero-tour` are kept on the links
+                  they have always measured (hero -> demo, hero -> tour) so the
+                  existing history stays comparable. This slot changed
+                  destination — it used to open the demo and now goes to
+                  sign-up — so it gets its own id rather than inheriting one. */}
               <a
-                href={demo.available ? demo.link("hero") : site.registerUrl}
-                data-track="hero-demo"
+                href={site.registerUrl}
+                data-track="hero-register"
                 className="rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/30 transition hover:bg-brand-800"
               >
                 Try Ledgr →
               </a>
-              {/* Renamed from `hero-tour`: this slot used to open the product
-                  tour and now goes to /contact, so keeping the old label would
-                  merge two different intents in the funnel report. */}
               <Link
                 href="/contact"
                 data-track="hero-contact"
@@ -258,14 +260,24 @@ export default function HomePage() {
             </div>
             {demo.available && (
               <p className="mt-3 text-sm text-ink-soft">
-                Opens a sample Malawian business — an open till shift, stock,
-                invoices, payroll, VAT and the reports — with no sign-up.{" "}
+                Rather look before you sign up?{" "}
                 <a
-                  href={demo.tourUrl}
+                  href={demo.link("hero")}
+                  data-track="hero-demo"
                   className="font-semibold text-brand-700 hover:underline"
                 >
-                  Or watch the 1-minute tour →
+                  Open the live demo
+                </a>{" "}
+                — a sample Malawian business with an open till shift, stock,
+                invoices, payroll, VAT and the reports, and no sign-up. Or{" "}
+                <a
+                  href={demo.tourUrl}
+                  data-track="hero-tour"
+                  className="font-semibold text-brand-700 hover:underline"
+                >
+                  watch the 1-minute tour
                 </a>
+                .
               </p>
             )}
             <p className="mt-5 text-sm font-medium text-ink-soft">

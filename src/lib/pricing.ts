@@ -25,43 +25,26 @@ export type Plan = {
 };
 
 /**
- * Annual billing charges 10 months and gives you 12 — i.e. "2 months free".
+ * ⚠ ANNUAL BILLING IS DELIBERATELY NOT PRICED ON THIS SITE.
  *
- * ⚠ KNOWN DISCREPANCY (2026-09-27, unresolved — needs a commercial decision).
- * The application does NOT use one flat annual discount. `computePriceMWK()`
- * in `Ledgr-react/src/lib/billing/plans.ts` applies a per-tier `annualDiscount`
- * — Starter 0%, Growth 20%, Pro 20%, Enterprise 25% — and the checkout edge
- * function `initiate-subscription-payment` mirrors that. So the yearly prices
- * this file renders differ from what a customer is charged:
+ * The site used to derive a yearly price as "10 months for 12" on every paid
+ * plan. The application does not work that way: `computePriceMWK()` in
+ * `Ledgr-react/src/lib/billing/plans.ts` applies a per-tier `annualDiscount`
+ * — Starter 0%, Growth 20%, Pro 20%, Enterprise 25% — and the checkout modal
+ * charges that. The two disagreed in both directions:
  *
- *   Starter     site 500,000   app 600,000
+ *   Starter     site 500,000   app   600,000
  *   Growth    site 1,000,000   app   960,000
  *   Pro       site 2,000,000   app 1,920,000
  *   Enterprise site 5,000,000  app 4,500,000
  *
- * Monthly prices match exactly and are correct. This was deliberately NOT
- * "fixed" here: aligning it changes advertised prices in both directions, which
- * is a pricing decision rather than a copy fix. See
- * docs/PRODUCT-AUDIT-2026-09.md §6.
+ * Which model is right is a commercial decision, not a copy fix, so the yearly
+ * figures were removed rather than reconciled: monthly prices (which both
+ * sides agree on) are advertised, and the annual price is quoted at checkout
+ * by the app itself. Once the model is settled, add the yearly view back here
+ * and in `softwareSchema()`. See docs/PRODUCT-AUDIT-2026-09.md §6.1.
  */
-export const ANNUAL_MONTHS_CHARGED = 10;
-export const ANNUAL_MONTHS_FREE = 12 - ANNUAL_MONTHS_CHARGED;
-/** Whole-number percentage saved by paying yearly (2/12 ≈ 17%). */
-export const ANNUAL_DISCOUNT_PERCENT = Math.round(
-  (ANNUAL_MONTHS_FREE / 12) * 100,
-);
 
-export function annualTotal(monthly: number): number {
-  return monthly * ANNUAL_MONTHS_CHARGED;
-}
-
-export function annualSaving(monthly: number): number {
-  return monthly * ANNUAL_MONTHS_FREE;
-}
-
-export function monthlyEquivalent(annual: number): number {
-  return Math.round(annual / 12);
-}
 
 /**
  * Deterministic thousands separators. `toLocaleString` output can differ
@@ -83,7 +66,7 @@ export const plans: Plan[] = [
       "Up to 50 transactions/month",
       "Community support",
     ],
-    cta: "Get started free",
+    cta: "Try Ledgr",
     href: site.registerUrl,
     highlight: false,
     free: true,

@@ -1,70 +1,20 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { demo } from "@/lib/site";
-import {
-  ANNUAL_DISCOUNT_PERCENT,
-  ANNUAL_MONTHS_FREE,
-  annualSaving,
-  annualTotal,
-  monthlyEquivalent,
-  mwk,
-  plans,
-} from "@/lib/pricing";
+import { mwk, plans } from "@/lib/pricing";
 
 /**
- * Shared pricing grid with a monthly / annual billing switch. Used by both the
- * homepage and /pricing so the two can never disagree.
+ * Shared pricing grid. Used by both the homepage and /pricing so the two can
+ * never disagree.
+ *
+ * Monthly only, on purpose: the yearly prices this component used to compute
+ * conflicted with what the application charges at checkout. See the note at
+ * the top of `lib/pricing.ts`.
  */
 export default function PricingPlans() {
-  const [annual, setAnnual] = useState(false);
-
   return (
     <div>
-      {/* Billing switch */}
-      <div className="mt-8 flex flex-col items-center gap-2">
-        <div
-          role="group"
-          aria-label="Billing period"
-          className="inline-flex rounded-2xl border border-slate-200 bg-slate-50/70 p-1"
-        >
-          {(
-            [
-              { label: "Monthly", value: false },
-              { label: "Yearly", value: true },
-            ] as const
-          ).map((opt) => {
-            const selected = annual === opt.value;
-            return (
-              <button
-                key={opt.label}
-                type="button"
-                onClick={() => setAnnual(opt.value)}
-                aria-pressed={selected}
-                className={`rounded-xl px-5 py-2.5 text-sm font-semibold transition ${
-                  selected
-                    ? "bg-white text-brand-700 shadow-sm ring-1 ring-slate-200"
-                    : "text-slate-500 hover:text-ink"
-                }`}
-              >
-                {opt.label}
-                {opt.value && (
-                  <span className="ml-2 rounded-full bg-brand-100 px-2 py-0.5 text-[11px] font-bold text-brand-800">
-                    −{ANNUAL_DISCOUNT_PERCENT}%
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </div>
-        <p className="text-xs font-medium text-slate-500" aria-live="polite">
-          {annual
-            ? `Paying yearly gives you ${ANNUAL_MONTHS_FREE} months free — the same plan, ${ANNUAL_DISCOUNT_PERCENT}% cheaper.`
-            : `Pay yearly and get ${ANNUAL_MONTHS_FREE} months free.`}
-        </p>
-      </div>
-
       <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {plans.map((p) => {
           const ctaClass = `mt-7 rounded-xl px-5 py-3 text-center text-sm font-semibold transition ${
@@ -72,11 +22,6 @@ export default function PricingPlans() {
               ? "bg-brand-700 text-white hover:bg-brand-800"
               : "border border-slate-200 text-ink hover:border-brand-300 hover:text-brand-700"
           }`;
-
-          // Free never changes with billing period.
-          const showAnnual = annual && !p.free;
-          const total = annualTotal(p.monthly);
-          const saving = annualSaving(p.monthly);
 
           return (
             <div
@@ -97,24 +42,12 @@ export default function PricingPlans() {
 
               <div className="mt-3 flex flex-wrap items-end gap-x-1.5 gap-y-1">
                 <span className="text-2xl font-extrabold text-ink">
-                  {p.free ? "Free" : showAnnual ? mwk(total) : mwk(p.monthly)}
+                  {p.free ? "Free" : mwk(p.monthly)}
                 </span>
                 <span className="mb-1 text-sm text-slate-500">
-                  {p.free ? "free forever" : showAnnual ? "per year" : "per month"}
+                  {p.free ? "free forever" : "per month"}
                 </span>
-                {showAnnual && (
-                  <span className="mb-1 w-full text-xs text-slate-400">
-                    <s>{mwk(p.monthly * 12)}</s> if paid monthly
-                  </span>
-                )}
               </div>
-
-              {showAnnual && (
-                <p className="mt-1 text-xs font-semibold text-brand-700">
-                  ≈ {mwk(monthlyEquivalent(total))}/month · you save {mwk(saving)} a
-                  year
-                </p>
-              )}
 
               <p className="mt-2 text-sm text-ink-soft">{p.desc}</p>
 
@@ -166,6 +99,12 @@ export default function PricingPlans() {
           <strong className="font-semibold text-ink">Starter</strong>; branches and
           per-branch sales reporting start on{" "}
           <strong className="font-semibold text-ink">Growth</strong>.
+        </p>
+        <p className="mt-2">
+          <strong className="font-semibold text-ink">Paying for a year.</strong>{" "}
+          Annual billing is available when you subscribe, and the discount is not
+          the same on every plan — so your exact yearly price is shown in the app
+          at checkout, before you pay anything.
         </p>
         <p className="mt-2">
           Every sale, invoice, expense and bill counts as one transaction against

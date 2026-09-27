@@ -29,7 +29,7 @@ const faqs = [
   },
   {
     q: "Is there a discount for paying yearly?",
-    a: "Yes. Pay for 10 months and you get 12 — two months free, about 17% off the monthly price. Switch between monthly and yearly at the top of this page to see both prices in Kwacha.",
+    a: "Yes, and it isn't the same on every plan — so rather than print a figure here that might not be the one you're charged, the app shows you the exact yearly price for your plan at checkout, before you pay. The monthly prices on this page are the ones to compare on.",
   },
   {
     q: "How do I pay?",
@@ -55,7 +55,7 @@ export default function PricingPage() {
             Priced in Kwacha, <span className="text-brand-700">for Malawian businesses</span>
           </>
         }
-        sub="Start free. Paid plans from MWK 50,000/month — monthly or yearly, paid with mobile money or card via PayChangu."
+        sub="Start free. Paid plans from MWK 50,000/month, paid with mobile money or card via PayChangu. Monthly or yearly — your yearly price is shown at checkout."
       />
       <section className="mx-auto max-w-6xl px-5 pb-14">
         <PricingPlans />

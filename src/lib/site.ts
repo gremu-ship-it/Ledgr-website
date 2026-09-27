@@ -110,14 +110,16 @@ export const demo = {
 };
 
 /**
- * Where a "try it" CTA points is a call-site decision, because the demo link is
- * tagged with the surface that sent the visitor:
+ * Two actions, two destinations, and they are never mixed:
  *
- *     href={demo.available ? demo.link("hero") : site.registerUrl}
+ *   "Try Ledgr"          -> site.registerUrl   (the primary CTA, everywhere)
+ *   "Open the live demo" -> demo.link(surface) (a clearly separate, secondary
+ *                                               link, tagged with the surface
+ *                                               that sent the visitor)
  *
- * There is deliberately no shared `tryUrl` helper any more — every CTA used to
- * carry its own fallback anyway, and one helper meant one label ("Try the live
- * demo") applied to surfaces where it read badly.
+ * The primary CTA used to fall back between the two depending on whether the
+ * demo was switched on, which meant one label pointed at two different places
+ * on the same page. It doesn't any more.
  */
 
 // wa.me deep link (digits only) with a friendly prefilled message.

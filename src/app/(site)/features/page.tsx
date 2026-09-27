@@ -67,8 +67,8 @@ const groups = [
       },
       {
         icon: "🔁",
-        title: "Transfers between branches",
-        desc: "Move stock from the warehouse to a shop, or between shops, and have both sides of the move reflected.",
+        title: "Warehouses & transfers",
+        desc: "Hold stock in more than one place and move it between them — warehouse to shop, or shop to shop — with both sides of the move recorded.",
       },
       {
         icon: "💸",
@@ -86,9 +86,9 @@ const groups = [
         desc: "One list for the people you buy from and sell to, shared by invoices, bills and the till.",
       },
       {
-        icon: "🏦",
-        title: "Bank reconciliation",
-        desc: "Match what the bank says against what your books say, and find the difference before your accountant does.",
+        icon: "🏬",
+        title: "Branches & departments",
+        desc: "Run more than one shop or site from one account, each with its own stock and its own sales, and split costs by department where that is how you think about the business.",
       },
     ],
   },
@@ -104,7 +104,7 @@ const groups = [
       {
         icon: "📑",
         title: "Financial reports",
-        desc: "Profit or loss, statement of financial position, cash flow, changes in equity and trial balance, generated from proper double-entry books your accountant can read.",
+        desc: "Profit or loss, statement of financial position, cash flow, changes in equity, trial balance and a revenue breakdown — generated from proper double-entry books your accountant can read.",
       },
       {
         icon: "🏬",
@@ -122,9 +122,9 @@ const groups = [
         desc: "Ask questions of your own figures and get an answer grounded in your books rather than a general opinion. Pro plan.",
       },
       {
-        icon: "🔌",
-        title: "API & integrations",
-        desc: "A public API, webhooks and a Zapier integration for businesses that need Ledgr to talk to something else. Pro plan.",
+        icon: "🏦",
+        title: "Bank reconciliation",
+        desc: "Match what the bank says against what your books say, and find the difference before your accountant does. Growth plan.",
       },
     ],
   },
@@ -211,8 +211,9 @@ export default function FeaturesPage() {
             The free plan covers the dashboard, income, expenses, invoices and
             payroll. Products and stock — what the till sells from — plus the
             accounting modules and financial reports start on Starter. Branches,
-            contacts, bank reconciliation and the audit log start on Growth. AI
-            insights and the API are Pro.{" "}
+            departments, contacts, bank reconciliation, journals, period
+            management and the audit log start on Growth. AI insights and the
+            developer side — a public API, webhooks and Zapier — are Pro.{" "}
             <Link
               href="/pricing"
               className="font-semibold text-brand-700 hover:underline"
