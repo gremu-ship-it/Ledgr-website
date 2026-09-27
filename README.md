@@ -1,6 +1,7 @@
 # Ledgr Website
 
-Marketing site + blog for **Ledgr** — MWK-first, MRA-compliant accounting for Malawian SMEs.
+Marketing site + blog for **Ledgr** — sales, POS, stock, invoicing and accounting in one
+place, in Kwacha, for businesses in Malawi.
 
 Built with Next.js 16, Tailwind CSS 4, Drizzle ORM + Postgres. The actual app lives at
 https://ledgr-react.vercel.app — this repo is the public website that links to it.
@@ -9,13 +10,13 @@ https://ledgr-react.vercel.app — this repo is the public website that links to
 
 | Route | Description |
 |---|---|
-| `/` | Landing: hero, features, tax calculator, pricing, testimonials, FAQ, download CTA |
+| `/` | Landing: hero, product tour, features, tax calculator, pricing, FAQ, contact |
 | `/features` | Full feature breakdown |
 | `/pricing` | Plans in MWK + pricing FAQ |
 | `/about` | Story, mission, values |
 | `/contact` | Working contact form → Postgres |
 | `/faq` | Frequently asked questions |
-| `/customers` | Customer stories |
+| `/customers` | Who Ledgr is built for (by business type) |
 | `/blog` | Tax & money guides (SEO content) |
 | `/blog/[slug]` | Individual guides (VAT, PAYE, WHT/TEVETA, invoicing) |
 | `/privacy`, `/terms` | Legal pages (the privacy policy covers analytics + marketing) |

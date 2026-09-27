@@ -4,9 +4,10 @@ import ContactForm from "@/components/ContactForm";
 import { site, whatsappUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Talk to us",
   description:
-    "Talk to the Ledgr team — sales, demos, support and partnerships. We usually reply within one business day.",
+    "Talk to the Ledgr team about pricing, POS and stock setup, demos, support or partnerships. We reply within one business day.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
@@ -16,10 +17,10 @@ export default function ContactPage() {
         eyebrow="Contact"
         title={
           <>
-            Talk to a <span className="text-brand-700">human</span>
+            Talk to <span className="text-brand-700">us</span>
           </>
         }
-        sub="Questions about plans, a demo for your team, or help with setup — send a message and we'll reply within one business day."
+        sub="Have a question about Ledgr, pricing or setup? Send a message and we'll help you work out whether Ledgr fits the way your business operates. We reply within one business day."
       />
       <section className="mx-auto grid max-w-6xl gap-10 px-5 pb-16 lg:grid-cols-[1fr_1.2fr]">
         <div className="space-y-5">

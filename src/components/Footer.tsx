@@ -38,7 +38,8 @@ export default function Footer() {
             <span className="text-xl font-bold text-ink">Ledgr</span>
           </Link>
           <p className="mt-4 max-w-xs text-sm text-ink-soft">
-            MWK-first accounting &amp; business management for growing Malawian SMEs.
+            Sales, POS, stock, invoicing and accounting in one place — in Kwacha,
+            for businesses in Malawi.
           </p>
           <p className="mt-3 text-xs text-slate-500">🇲🇼 Made for Malawi &amp; SADC</p>
           <div className="mt-5 max-w-xs">
@@ -79,7 +80,7 @@ export default function Footer() {
             ["About", "/about"],
             ["Who it's for", "/customers"],
             ["Blog", "/blog"],
-            ["Contact", "/contact"],
+            ["Talk to us", "/contact"],
             ["Sign in", site.loginUrl],
           ]}
         />
@@ -105,7 +106,7 @@ export default function Footer() {
             <a href={`mailto:${site.email}`} className="transition hover:text-brand-700">
               {site.email}
             </a>{" "}
-            · Smart accounting for Malawian businesses.
+            · {site.tagline}
           </p>
         </div>
       </div>

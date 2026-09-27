@@ -39,7 +39,7 @@ export function organizationSchema() {
     name: site.name,
     url: site.siteUrl,
     description:
-      "MWK-first, Malawi-focused accounting and business management app for Malawian SMEs.",
+      "Ledgr is a Malawi-focused business platform: POS and sales, stock, invoicing, expenses and accounting in Malawian Kwacha.",
     email: site.email,
     areaServed: "MW",
   };
@@ -50,10 +50,11 @@ export function softwareSchema() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: site.name,
-    applicationCategory: "FinanceApplication",
+    applicationCategory: "BusinessApplication",
+    applicationSubCategory: "FinanceApplication",
     operatingSystem: "Web, Android, iOS, Windows, macOS",
     description:
-      "MWK-first accounting for Malawian SMEs: invoicing with automatic 17.5% VAT, PAYE and WHT tracking, inventory, payroll and financial reports. Works offline.",
+      "Business software for Malawi: a point of sale that updates stock and the books, invoicing with 17.5% VAT, expenses, payroll, multi-branch stock and financial reports — all in Malawian Kwacha. Works offline.",
     offers: plans.flatMap((p) => {
       const monthly = {
         "@type": "Offer",

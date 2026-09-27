@@ -121,14 +121,15 @@ export default async function PostPage({
         <div className="rounded-3xl border border-slate-100 bg-white p-8 text-center shadow-sm">
           <h2 className="text-lg font-bold text-ink">Do this automatically in Ledgr</h2>
           <p className="mx-auto mt-1.5 max-w-md text-sm text-ink-soft">
-            Everything in this guide — calculated, tracked and reminded. Start free.
+            Ledgr does the calculating, the recording and the reminding. Free to start,
+            no card needed.
           </p>
           <div className="mt-5 flex flex-wrap justify-center gap-3">
             <a
               href={site.registerUrl}
               className="inline-block rounded-xl bg-brand-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-800"
             >
-              Get Started Free →
+              Try Ledgr →
             </a>
             {demo.available && (
               <a

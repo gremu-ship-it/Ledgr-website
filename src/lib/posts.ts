@@ -20,7 +20,7 @@ export const posts: Post[] = [
     slug: "vat-guide-malawi-small-business",
     title: "VAT in Malawi: a plain-language guide for small businesses",
     excerpt:
-      "The 17.5% rate, who must register, monthly returns due on the 25th, e-invoicing — and how Ledgr handles the split automatically.",
+      "The 17.5% rate, who must register, monthly returns due on the 25th — and how Ledgr handles the split on every line automatically.",
     category: "Tax guides",
     date: "2026-09-01",
     readMinutes: 6,
@@ -149,12 +149,12 @@ export const posts: Post[] = [
       },
       {
         type: "tip",
-        text: "WHT + PAYE + TEVETA + pension = four separate monthly calculations. Ledgr tracks each one against your actual payroll and supplier payments, with due-date reminders before every deadline.",
+        text: "PAYE, pension and WHT each have their own rate and their own deadline. Ledgr calculates PAYE and pension on every payroll run, applies WHT codes to the payments you flag, and puts the MRA due dates on your dashboard before each one lands.",
       },
       { type: "h2", text: "How Ledgr helps" },
       {
         type: "p",
-        text: "Flag a supplier as subject to WHT once and Ledgr deducts it on every payment automatically, ready for your monthly remittance. Payroll picks up the TEVETA levy alongside PAYE — one payroll run, every obligation covered.",
+        text: "Ledgr ships the WHT rates you actually use — 10%, 15% and 20% — so you pick the right one on a payment instead of looking it up, and contacts that hold an exemption can be marked WHT-exempt so they are left alone. Payroll handles PAYE and pension contributions. The TEVET levy isn't calculated for you yet, but its due date shows up in your MRA reminders so it doesn't creep past you.",
       },
     ],
   },
@@ -187,7 +187,7 @@ export const posts: Post[] = [
       },
       {
         type: "tip",
-        text: "Ledgr generates numbered, VAT-correct PDF invoices in seconds, sends polite automatic reminders, and shows every outstanding invoice on one ageing screen. No more 'I forgot to invoice' months.",
+        text: "Ledgr generates numbered, VAT-correct PDF invoices in seconds, records part-payments against them, and filters the whole list down to what's overdue. No more 'I forgot to invoice' months.",
       },
       { type: "h2", text: "What a tax invoice must include" },
       {

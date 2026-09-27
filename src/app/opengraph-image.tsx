@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Ledgr — Smart accounting for Malawian businesses";
+export const alt = "Ledgr — Run your business. Know your numbers.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -42,10 +42,10 @@ export default async function Image() {
           <div style={{ fontSize: "52px", fontWeight: 800 }}>Ledgr</div>
         </div>
         <div style={{ marginTop: "36px", fontSize: "68px", fontWeight: 800, lineHeight: 1.1 }}>
-          Smart accounting for Malawian businesses
+          Run your business. Know your numbers.
         </div>
         <div style={{ marginTop: "24px", fontSize: "30px", color: "#a7f3d0" }}>
-          Phone &amp; desktop · MWK-first · Works offline
+          POS · Stock · Invoicing · Accounting · Built for Malawi
         </div>
       </div>
     ),

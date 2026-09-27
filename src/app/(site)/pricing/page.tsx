@@ -6,21 +6,26 @@ import PricingPlans from "@/components/PricingPlans";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Simple MWK pricing: Free, Starter at MWK 50,000/month, Growth at MWK 100,000/month, Pro at MWK 200,000/month, Enterprise at MWK 500,000/month. Save two months by paying yearly. Secure PayChangu payments — mobile money or card.",
+    "Pricing in Kwacha: Free, Starter at MWK 50,000/month, Growth at MWK 100,000/month, Pro at MWK 200,000/month, Enterprise at MWK 500,000/month. Paid by mobile money or card through PayChangu.",
+  alternates: { canonical: "/pricing" },
 };
 
 const faqs = [
   {
     q: "Is there really a free plan?",
-    a: "Yes — Free includes a basic dashboard and reports plus income and expense tracking for up to 50 transactions a month, with community support. No card required.",
+    a: "Yes. Free covers the dashboard, income, expenses, invoices and payroll for up to 50 transactions a month, with community support. No card required.",
   },
   {
     q: "What's included in Starter?",
-    a: "Starter is MWK 50,000/month and is built for small shops and freelancers. You get everything in Free plus professional invoices & quotes, up to 200 transactions a month, basic P&L & expense reports, and email support.",
+    a: "Starter is MWK 50,000/month and is where selling from a product list begins: products, warehouses and stock transfers, plus the chart of accounts, tax settings, assets, capital and the financial reports. Up to 200 transactions a month.",
+  },
+  {
+    q: "Which plan do I need for the point of sale?",
+    a: "The till is part of Ledgr rather than a separate product. What it needs is something to sell: products and stock start on Starter, so that is the practical starting point for a shop. Branches, and therefore per-branch sales reporting, start on Growth. If you are unsure which plan suits how you trade, talk to us before you pay for anything.",
   },
   {
     q: "What counts as a transaction?",
-    a: "Each income, expense, invoice or bill you record counts as one transaction. The counter resets every month, and you can see your usage any time inside the app.",
+    a: "Each sale at the till, income entry, expense, invoice or bill counts as one transaction. The counter resets every month and you can see your usage any time inside the app. A busy till gets through the allowance faster than a desk does, so pick your plan on how much you sell rather than how big the business feels.",
   },
   {
     q: "Is there a discount for paying yearly?",

@@ -45,9 +45,14 @@ export function PageHero({
   );
 }
 
+/**
+ * Shared closing band. The default sub-heading deliberately makes no claim
+ * about how many businesses use Ledgr — there is no verifiable number, and an
+ * invented one is the fastest way to lose a reader who knows the market.
+ */
 export function CtaBand({
-  title = "Ready to balance your books?",
-  sub = "Join hundreds of Malawian businesses running calmer finances with Ledgr.",
+  title = "See it on your own numbers",
+  sub = "Free to start, no card, and setup takes minutes. If it isn't a fit for how you trade, you've lost nothing.",
 }: {
   title?: string;
   sub?: string;
@@ -61,19 +66,11 @@ export function CtaBand({
         <p className="mx-auto mt-3 max-w-xl text-slate-300">{sub}</p>
         <div className="mt-7 flex flex-wrap justify-center gap-3">
           <a
-            href={site.registerUrl}
+            href={demo.available ? demo.link("cta-band") : site.registerUrl}
             className="rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:bg-brand-800"
           >
-            Get Started Free →
+            Try Ledgr →
           </a>
-          {demo.available && (
-            <a
-              href={demo.link("cta-band")}
-              className="rounded-xl border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-semibold transition hover:bg-white/10"
-            >
-              Try the live demo
-            </a>
-          )}
           <Link
             href="/contact"
             className="rounded-xl border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-semibold transition hover:bg-white/10"
@@ -82,7 +79,7 @@ export function CtaBand({
           </Link>
         </div>
         <p className="mt-5 text-xs text-slate-400">
-          Free plan · No credit card · MWK-first
+          Free plan · No credit card · Priced in Kwacha
           {demo.available && " · Demo needs no sign-up"}
         </p>
       </div>

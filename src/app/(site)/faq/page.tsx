@@ -8,7 +8,8 @@ import { faqSchema, JsonLd } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "FAQ",
   description:
-    "Frequently asked questions about Ledgr: pricing, offline mode, MRA compliance, data safety and using Ledgr across SADC.",
+    "Common questions about Ledgr: does it have a POS, can a cashier use it, does a sale update stock, branch reporting, offline working, Malawi VAT and pricing.",
+  alternates: { canonical: "/faq" },
 };
 
 export default function FaqPage() {
@@ -40,7 +41,7 @@ export default function FaqPage() {
       </div>
       <CtaBand
         title="Still curious?"
-        sub="Try Ledgr free for yourself — or send us your question and get a human reply."
+        sub="Try Ledgr on your own numbers — or send us your question and a person will answer it."
       />
     </div>
   );

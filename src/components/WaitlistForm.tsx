@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { businessTypes } from "@/lib/site";
+import { businessTypes, site } from "@/lib/site";
 
 type Props = {
   source?: string;
@@ -61,10 +61,10 @@ export default function WaitlistForm({ source = "waitlist", variant = "card" }: 
           also start using Ledgr right away — the Free plan needs no card.
         </p>
         <a
-          href="https://ledgr-react.vercel.app/register"
+          href={site.registerUrl}
           className="mt-5 inline-flex rounded-xl bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-800"
         >
-          Get Started Free →
+          Try Ledgr →
         </a>
       </div>
     );

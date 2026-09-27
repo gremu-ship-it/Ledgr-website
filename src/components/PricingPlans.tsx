@@ -87,15 +87,11 @@ export default function PricingPlans() {
                   : "border-slate-100 bg-white shadow-sm"
               }`}
             >
-              {p.highlight ? (
+              {p.highlight && (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand-700 px-3 py-1 text-xs font-semibold text-white">
                   Most Popular
                 </span>
-              ) : p.name === "Starter" ? (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-amber-400 px-3 py-1 text-xs font-bold text-ink">
-                  New
-                </span>
-              ) : null}
+              )}
 
               <h3 className="text-lg font-bold text-ink">{p.name}</h3>
 
@@ -155,6 +151,27 @@ export default function PricingPlans() {
             </div>
           );
         })}
+      </div>
+
+      {/* Where POS sits. Stated carefully on purpose: the application does not
+          gate /pos on a plan today, but selling from a product list needs the
+          Products & stock modules, which start on Starter. Nothing here claims
+          "POS included" on a specific tier — see docs/PRODUCT-AUDIT-2026-09.md
+          §6, which flags this as a product decision still to be made. */}
+      <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-slate-100 bg-slate-50/70 p-5 text-sm text-ink-soft">
+        <p>
+          <strong className="font-semibold text-ink">Where the till fits.</strong>{" "}
+          The point of sale is part of Ledgr rather than a separate product. To
+          sell from it you need a product list and stock, which start on{" "}
+          <strong className="font-semibold text-ink">Starter</strong>; branches and
+          per-branch sales reporting start on{" "}
+          <strong className="font-semibold text-ink">Growth</strong>.
+        </p>
+        <p className="mt-2">
+          Every sale, invoice, expense and bill counts as one transaction against
+          your monthly allowance — a busy till uses them faster than a desk does,
+          so size the plan on how much you sell, not how big the business feels.
+        </p>
       </div>
 
       {/* Pre-purchase escape hatch: look around before committing to a plan. */}

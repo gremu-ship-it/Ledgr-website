@@ -24,6 +24,9 @@ function MailIcon({ className }: { className?: string }) {
   );
 }
 
+// "Talk to us" rather than "Contact": the same words appear on the contact
+// page, in the contact band and on every CTA, so one action never goes by two
+// names. The URL is unchanged.
 const links = [
   { label: "Features", href: "/features" },
   { label: "Pricing", href: "/pricing" },
@@ -31,7 +34,7 @@ const links = [
   { label: "Who it's for", href: "/customers" },
   { label: "Blog", href: "/blog" },
   { label: "FAQ", href: "/faq" },
-  { label: "Contact", href: "/contact" },
+  { label: "Talk to us", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -78,7 +81,7 @@ export default function Navbar() {
             href={site.registerUrl}
             className="rounded-xl bg-brand-700 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-brand-500/25 transition hover:bg-brand-800"
           >
-            Get Started Free
+            Try Ledgr
           </a>
         </div>
 
@@ -88,6 +91,7 @@ export default function Navbar() {
           className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 text-ink lg:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
+          aria-controls="mobile-menu"
         >
           {open ? "✕" : "☰"}
         </button>
@@ -95,7 +99,10 @@ export default function Navbar() {
 
       {open && (
         // Scrollable so the contact block stays reachable on short screens.
-        <div className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-slate-100 bg-white px-5 pb-5 pt-2 lg:hidden">
+        <div
+          id="mobile-menu"
+          className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-slate-100 bg-white px-5 pb-5 pt-2 lg:hidden"
+        >
           {links.map((l) => (
             <Link
               key={l.href}
@@ -117,7 +124,7 @@ export default function Navbar() {
               href={site.registerUrl}
               className="rounded-xl bg-brand-700 px-4 py-2.5 text-center text-sm font-semibold text-white"
             >
-              Get Started Free
+              Try Ledgr
             </a>
           </div>
 
