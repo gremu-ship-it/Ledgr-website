@@ -245,6 +245,14 @@ export default function ProductTour() {
                   nothing is sent anywhere — and please don&apos;t enter real financial
                   data.
                 </p>
+                <p className="mt-2 text-sm">
+                  <a
+                    href={demo.link("product-tour")}
+                    className="font-semibold text-brand-700 hover:underline"
+                  >
+                    Open the live demo →
+                  </a>
+                </p>
                 {demo.tourUrl && (
                   <p className="mt-2 text-xs text-slate-500">
                     Prefer to just look?{" "}

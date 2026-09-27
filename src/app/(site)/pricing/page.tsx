@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: "Which plan do I need for the point of sale?",
-    a: "The till is part of Ledgr rather than a separate product. What it needs is something to sell: products and stock start on Starter, so that is the practical starting point for a shop. Branches, and therefore per-branch sales reporting, start on Growth. If you are unsure which plan suits how you trade, talk to us before you pay for anything.",
+    a: "The till is part of Ledgr rather than a separate product, so it isn't sold as a plan of its own. What it needs is something to sell, and the product catalogue and stock it draws on are available from Starter. Branches, and therefore per-branch sales reporting, are available from Growth. If you are unsure which plan suits how you trade, talk to us before you pay for anything.",
   },
   {
     q: "What counts as a transaction?",

@@ -62,8 +62,8 @@ const groups = [
     items: [
       {
         icon: "📦",
-        title: "Stock",
-        desc: "Quantity on hand per branch and warehouse, reorder levels, and a movement history where sales, transfers and goods received all appear together.",
+        title: "Products & stock",
+        desc: "One product list with prices, SKUs and barcodes, then quantity on hand per branch and warehouse, reorder levels, and a movement history where sales, transfers and goods received all appear together.",
       },
       {
         icon: "🔁",

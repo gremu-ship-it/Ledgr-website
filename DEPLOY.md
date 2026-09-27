@@ -133,8 +133,9 @@ simpler option — every push to `main` is production, every PR gets a preview U
 
 | Route | Rendering | Notes |
 |---|---|---|
-| `/` | Server-rendered on demand | reads `select count(*) from leads` for the social-proof counter; falls back to `180+` if the DB is down |
+| `/` | Static (prerendered) | the lead-count "social proof" counter was removed in the 2026-09-27 audit — no repository evidence supported the number — so the homepage no longer touches the database |
 | `/about`, `/pricing`, `/features`, `/faq`, `/customers`, `/contact`, `/privacy`, `/terms`, `/blog` | Static (prerendered) | served from Vercel's CDN |
+| `GET /api/leads` | Serverless | still returns a lead count for internal use; nothing public renders it |
 | `/blog/[slug]` | SSG (4 posts via `generateStaticParams`) | new posts rebuild on deploy |
 | `/opengraph-image` | Static | prerendered at build → a cached 85 KB PNG, no per-request function cost |
 | `/api/{leads,contact,newsletter,health}` | Serverless (Node runtime) | `pg` needs Node, not Edge — leave `runtime` unset |

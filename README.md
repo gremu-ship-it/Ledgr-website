@@ -18,7 +18,7 @@ https://ledgr-react.vercel.app — this repo is the public website that links to
 | `/faq` | Frequently asked questions |
 | `/customers` | Who Ledgr is built for (by business type) |
 | `/blog` | Tax & money guides (SEO content) |
-| `/blog/[slug]` | Individual guides (VAT, PAYE, WHT/TEVETA, invoicing) |
+| `/blog/[slug]` | Individual guides (VAT, PAYE, WHT & the TEVET levy, invoicing) |
 | `/privacy`, `/terms` | Legal pages (the privacy policy covers analytics + marketing) |
 | `/unsubscribe` | One-click opt-out linked from every marketing email |
 | `/admin` | **Private dashboard**: traffic, funnels, contacts, follow-up campaigns |

@@ -539,7 +539,8 @@ export default function HomePage() {
               Ledgr runs in any browser and installs to a home screen or desktop in
               two taps — no app store, no download queue. Sell on a tablet at the
               shop, check the day&apos;s takings from your phone, close the month on
-              a laptop. It keeps working when the network doesn&apos;t.
+              a laptop. When the network drops, you carry on recording and it
+              syncs when you&apos;re back.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <a
