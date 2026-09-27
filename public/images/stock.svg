@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" font-family="Inter, system-ui, -apple-system, sans-serif" role="img" aria-label="Ledgr stock screen listing products with quantity on hand per branch, low-stock warnings and recent stock movements">
+  <rect width="1200" height="760" fill="#f1f5f9"/>
+
+  <!-- sidebar -->
+  <rect width="250" height="760" fill="#0c1f1a"/>
+  <rect x="28" y="28" width="48" height="48" rx="14" fill="#1d9e75"/>
+  <text x="52" y="63" font-size="30" font-weight="800" fill="#fff" text-anchor="middle">L</text>
+  <text x="88" y="60" font-size="26" font-weight="800" fill="#fff">Ledgr</text>
+  <g font-size="20" font-weight="600">
+    <text x="44" y="137" fill="#94a3b8">📊  Dashboard</text>
+    <text x="44" y="189" fill="#94a3b8">🧾  Invoices</text>
+    <text x="44" y="241" fill="#94a3b8">💸  Expenses</text>
+    <rect x="20" y="260" width="210" height="52" rx="14" fill="#1d9e75"/>
+    <text x="44" y="293" fill="#fff">📦  Products</text>
+    <text x="44" y="345" fill="#94a3b8">🏬  Warehouses</text>
+    <text x="44" y="397" fill="#94a3b8">🔁  Transfers</text>
+    <text x="44" y="449" fill="#94a3b8">📑  Reports</text>
+  </g>
+  <rect x="20" y="660" width="210" height="72" rx="16" fill="#ffffff" opacity="0.08"/>
+  <circle cx="56" cy="696" r="20" fill="#1d9e75"/>
+  <text x="56" y="704" font-size="20" font-weight="800" fill="#fff" text-anchor="middle">C</text>
+  <text x="86" y="691" font-size="19" font-weight="700" fill="#fff">Chikondi</text>
+  <text x="86" y="714" font-size="16" fill="#94a3b8">Chikondi&#39;s Shop</text>
+
+  <!-- topbar -->
+  <text x="286" y="62" font-size="30" font-weight="800" fill="#0c1f1a">Products &amp; stock</text>
+  <text x="286" y="92" font-size="18" fill="#64748b">2 branches · all figures in MWK</text>
+  <rect x="900" y="34" width="264" height="48" rx="14" fill="#1d9e75"/>
+  <text x="1032" y="65" font-size="19" font-weight="700" fill="#fff" text-anchor="middle">＋  New stock movement</text>
+
+  <!-- summary cards -->
+  <g>
+    <rect x="286" y="116" width="278" height="124" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="314" y="156" font-size="18" fill="#64748b">Stock on hand</text>
+    <text x="314" y="200" font-size="36" font-weight="800" fill="#0c1f1a">MWK 8.4M</text>
+    <text x="314" y="226" font-size="16" fill="#64748b">at weighted average cost</text>
+
+    <rect x="584" y="116" width="278" height="124" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="612" y="156" font-size="18" fill="#64748b">Low stock</text>
+    <text x="612" y="200" font-size="36" font-weight="800" fill="#b45309">4 items</text>
+    <text x="612" y="226" font-size="16" fill="#64748b">below reorder level</text>
+
+    <rect x="882" y="116" width="282" height="124" rx="20" fill="#0c1f1a"/>
+    <text x="910" y="156" font-size="18" fill="#a7f3d0">Sold today</text>
+    <text x="910" y="200" font-size="36" font-weight="800" fill="#fff">128 units</text>
+    <text x="910" y="226" font-size="16" fill="#6ee7b7">across both branches</text>
+  </g>
+
+  <!-- table -->
+  <rect x="286" y="262" width="878" height="356" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="314" y="302" font-size="21" font-weight="800" fill="#0c1f1a">Stock by product</text>
+  <text x="1136" y="302" font-size="17" font-weight="600" fill="#1d9e75" text-anchor="end">Export →</text>
+
+  <g font-size="16" font-weight="700" fill="#94a3b8">
+    <text x="314" y="342">PRODUCT</text>
+    <text x="640" y="342">LILONGWE</text>
+    <text x="800" y="342">BLANTYRE</text>
+    <text x="960" y="342">REORDER</text>
+    <text x="1136" y="342" text-anchor="end">STATUS</text>
+  </g>
+  <line x1="314" y1="358" x2="1136" y2="358" stroke="#e2e8f0" stroke-width="2"/>
+
+  <g font-size="18">
+    <text x="314" y="396" font-weight="700" fill="#0c1f1a">Rice 10kg</text>
+    <text x="314" y="418" font-size="15" fill="#94a3b8">RC-10</text>
+    <text x="640" y="400" fill="#0c1f1a">42</text>
+    <text x="800" y="400" fill="#0c1f1a">22</text>
+    <text x="960" y="400" fill="#64748b">20</text>
+    <rect x="1050" y="382" width="86" height="28" rx="14" fill="#ecfdf5"/>
+    <text x="1093" y="401" font-size="14" font-weight="700" fill="#0e7a5b" text-anchor="middle">Healthy</text>
+
+    <line x1="314" y1="438" x2="1136" y2="438" stroke="#f1f5f9" stroke-width="2"/>
+    <text x="314" y="476" font-weight="700" fill="#0c1f1a">Cooking oil 2L</text>
+    <text x="314" y="498" font-size="15" fill="#94a3b8">CO-02</text>
+    <text x="640" y="480" fill="#0c1f1a">19</text>
+    <text x="800" y="480" fill="#0c1f1a">12</text>
+    <text x="960" y="480" fill="#64748b">15</text>
+    <rect x="1050" y="462" width="86" height="28" rx="14" fill="#ecfdf5"/>
+    <text x="1093" y="481" font-size="14" font-weight="700" fill="#0e7a5b" text-anchor="middle">Healthy</text>
+
+    <line x1="314" y1="518" x2="1136" y2="518" stroke="#f1f5f9" stroke-width="2"/>
+    <text x="314" y="556" font-weight="700" fill="#0c1f1a">Soap (bar)</text>
+    <text x="314" y="578" font-size="15" fill="#94a3b8">SP-01</text>
+    <text x="640" y="560" font-weight="700" fill="#b45309">6</text>
+    <text x="800" y="560" fill="#0c1f1a">14</text>
+    <text x="960" y="560" fill="#64748b">25</text>
+    <rect x="1036" y="542" width="100" height="28" rx="14" fill="#fef3c7"/>
+    <text x="1086" y="561" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle">Reorder</text>
+  </g>
+
+  <!-- movements -->
+  <rect x="286" y="640" width="878" height="94" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="314" y="674" font-size="18" font-weight="800" fill="#0c1f1a">Latest movements</text>
+  <text x="314" y="706" font-size="16" fill="#64748b">POS sale R-1042 · Lilongwe · <tspan fill="#dc2626" font-weight="700">−6 units</tspan></text>
+  <text x="700" y="706" font-size="16" fill="#64748b">Transfer to Blantyre · <tspan fill="#dc2626" font-weight="700">−20</tspan></text>
+  <text x="980" y="706" font-size="16" fill="#64748b">Goods received · <tspan fill="#0e7a5b" font-weight="700">+60</tspan></text>
+</svg>

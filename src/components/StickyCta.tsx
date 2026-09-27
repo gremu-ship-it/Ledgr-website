@@ -27,7 +27,7 @@ export default function StickyCta() {
           </span>
           <div className="leading-tight">
             <p className="text-xs font-semibold text-ink">Start free today</p>
-            <p className="text-[11px] text-slate-500">No card needed</p>
+            <p className="text-[11px] text-slate-500">POS, stock &amp; books</p>
           </div>
         </div>
         <div className="ml-auto flex items-center gap-2">
@@ -44,7 +44,7 @@ export default function StickyCta() {
             href={site.registerUrl}
             className="rounded-xl bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-800"
           >
-            Get Started
+            Try Ledgr
           </a>
         </div>
       </div>

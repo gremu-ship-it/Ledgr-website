@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import BrowserMockup from "@/components/BrowserMockup";
 import PhoneMockup from "@/components/PhoneMockup";
-import { demo, site } from "@/lib/site";
+import { businessSegments, demo, site } from "@/lib/site";
 
 type Tab = {
   id: string;
@@ -16,70 +16,110 @@ type Tab = {
   kind: "desktop" | "phone";
   src: string;
   alt: string;
+  /** Address shown in the browser chrome, so each screen reads as a real page. */
+  url?: string;
 };
 
+/**
+ * The order is the order a business works in: see where you are, sell, keep
+ * stock straight, bill and stay compliant, then do all of it away from the
+ * desk. POS sits second rather than last because it is where most of the day's
+ * activity actually enters Ledgr.
+ *
+ * Every bullet below maps to something the application does today. Nothing
+ * here is taken from a roadmap, a prototype or a migration that has not run.
+ */
 const tabs: Tab[] = [
   {
     id: "dashboard",
     label: "Dashboard",
-    eyebrow: "The books, at a glance",
-    title: "Know your profit the moment you make it",
+    eyebrow: "The whole business, one screen",
+    title: "Know where you stand without asking anyone",
     blurb:
-      "Open Ledgr and the three numbers that matter are already waiting: income, expenses and net profit — in Malawian Kwacha, updated as you record.",
+      "Open Ledgr and the numbers are already there: what came in, what went out, what you are owed and what you owe MRA — in Kwacha, updated as your business records it.",
     bullets: [
-      "Live income, expenses and net profit for the month",
-      "Automatic month-on-month comparison so you see the trend",
-      "VAT payable to MRA with the due date and days left",
-      "Recent invoices and payments in one list",
+      "Income, expenses and net profit for the month, with last month for comparison",
+      "Money owed to you, and how many invoices it is sitting in",
+      "VAT accrued for the period and whether it is payable or refundable",
+      "Recent entries as they land, whoever recorded them",
     ],
     kind: "desktop",
     src: "/images/dashboard-web.svg",
-    alt: "Ledgr desktop dashboard showing income, expenses, net profit and the VAT payable to MRA in Malawian Kwacha",
+    alt: "Ledgr dashboard showing income, expenses, net profit and VAT payable to MRA in Malawian Kwacha",
+    url: "ledgr-react.vercel.app/dashboard",
   },
   {
-    id: "mobile",
-    label: "Phone & offline",
-    eyebrow: "Capture sales where you trade",
-    title: "Record a sale at the market with no signal",
+    id: "pos",
+    label: "POS",
+    eyebrow: "The till",
+    title: "Sell faster. Keep the books connected.",
     blurb:
-      "Ledgr runs on your phone and keeps working when the network drops. Entries are stored on your device and sync by themselves the moment you reconnect — nothing is lost.",
+      "Give your sales team a simple till while you keep visibility over sales, stock and business performance. A cashier sees the till and little else — you see what it did.",
     bullets: [
-      "Record income and expenses offline, sync automatically later",
-      "Works in any browser — no app store, no download required",
-      "Install it to your home screen like a normal app",
-      "One account across phone, tablet and laptop",
+      "Scan a barcode or search by name to build the sale",
+      "Cash, Airtel Money, TNM Mpamba, bank transfer, card or on credit — split across more than one if you need to",
+      "Print a receipt, or send it straight to a Bluetooth thermal printer",
+      "Open a shift with a float, record cash in and out, close it against the counted drawer and print the Z-report",
+      "Refunds and voids need a manager's approval when you say they do",
+      "Discount limits per role, so nobody quietly gives the shop away",
     ],
-    kind: "phone",
-    src: "/images/dashboard.svg",
-    alt: "Ledgr mobile dashboard showing net profit, income and expenses in Malawian Kwacha",
+    kind: "desktop",
+    src: "/images/pos.svg",
+    alt: "Ledgr point of sale showing a product catalogue, a cart of three items, payment methods and the net payable total in Malawian Kwacha",
+    url: "ledgr-react.vercel.app/pos",
+  },
+  {
+    id: "stock",
+    label: "Stock",
+    eyebrow: "What you actually have",
+    title: "Stock that moves when you sell",
+    blurb:
+      "Every sale at the till takes the items off the shelf it sold them from. No separate stock book, no Friday-afternoon reconciliation.",
+    bullets: [
+      "Quantity on hand per branch or warehouse, not one blurred total",
+      "Sales, transfers and goods received all show up in the same movement history",
+      "Reorder levels so slow-moving and about-to-run-out are both obvious",
+      "Stock valued at weighted average cost, and cost of sales posted with the sale",
+    ],
+    kind: "desktop",
+    src: "/images/stock.svg",
+    alt: "Ledgr stock screen listing products with quantity on hand per branch, low-stock warnings and recent stock movements",
+    url: "ledgr-react.vercel.app/products",
   },
   {
     id: "invoicing",
-    label: "Invoices & VAT",
+    label: "Invoicing & VAT",
     eyebrow: "Get paid, stay compliant",
-    title: "Professional invoices with the VAT already worked out",
+    title: "Invoices with the VAT already worked out",
     blurb:
-      "Create a branded invoice, split VAT at 17.5% automatically and send a clean PDF — then let Ledgr track the PAYE, WHT and TEVETA dates that catch people out.",
+      "Bill a customer properly, split VAT at 17.5% automatically and send a clean PDF — then let Ledgr keep the PAYE, WHT and VAT dates in front of you.",
     bullets: [
-      "Automatic 17.5% VAT split on every invoice line",
-      "One-tap PDF invoices you can send straight to a client",
-      "PAYE, WHT & TEVETA due-date reminders before each filing",
-      "Proper double-entry books behind every report",
+      "17.5% VAT handled per line, including zero-rated and exempt items",
+      "PDF invoices you can send straight to a customer",
+      "Outstanding invoices tracked, so you know who has not paid",
+      "PAYE, WHT, VAT and the TEVET levy shown with their due dates",
     ],
     kind: "phone",
     src: "/images/invoice.svg",
     alt: "Ledgr VAT invoice on a phone showing the 17.5% VAT breakdown and total in Malawian Kwacha",
   },
-];
-
-// Who the product is actually for — the first question a visitor asks.
-const businessTypes = [
-  { icon: "🛒", label: "Shops & traders" },
-  { icon: "📦", label: "Wholesalers" },
-  { icon: "🧱", label: "Contractors" },
-  { icon: "💼", label: "Consultants" },
-  { icon: "🍲", label: "Restaurants & lodges" },
-  { icon: "🚚", label: "Service providers" },
+  {
+    id: "mobile",
+    label: "Mobile & offline",
+    eyebrow: "Where you actually trade",
+    title: "Keep selling when the network stops",
+    blurb:
+      "Ledgr runs in a browser on the phone, tablet or computer you already own. When the connection drops, sales and entries are kept on the device and sync by themselves once you are back.",
+    bullets: [
+      "Sales and expenses recorded offline, synced automatically later",
+      "Nothing to install from an app store — add it to your home screen instead",
+      "One account across phone, tablet and laptop",
+      "Take the reports home with you; the shop keeps trading",
+    ],
+    kind: "phone",
+    src: "/images/dashboard.svg",
+    alt: "Ledgr on a phone showing net profit, income and expenses in Malawian Kwacha",
+  },
 ];
 
 export default function ProductTour() {
@@ -107,12 +147,12 @@ export default function ProductTour() {
             Product tour
           </p>
           <h2 className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold tracking-tight text-ink">
-            Try it yourself before you sign up
+            See it before you sign up
           </h2>
           <p className="mt-4 text-ink-soft">
-            Real screens from the app. {demo.available
-              ? "Open the live demo and click around a sample business — no sign-up, no sales call."
-              : "Tap through the screens below, or start a free account and use it for real in under a minute."}
+            The screens your team would use. {demo.available
+              ? "Open the live demo and click around a sample Malawian business — no sign-up, no sales call."
+              : "Tap through them below, or start a free account and use it for real in under a minute."}
           </p>
         </div>
 
@@ -121,7 +161,7 @@ export default function ProductTour() {
           role="tablist"
           aria-label="Product screenshots"
           onKeyDown={onKeyDown}
-          className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-2 rounded-2xl border border-slate-100 bg-slate-50/70 p-2"
+          className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-2 rounded-2xl border border-slate-100 bg-slate-50/70 p-2"
         >
           {tabs.map((t, i) => {
             const selected = i === active;
@@ -138,7 +178,7 @@ export default function ProductTour() {
                 tabIndex={selected ? 0 : -1}
                 type="button"
                 onClick={() => setActive(i)}
-                className={`flex-1 rounded-xl px-4 py-2.5 text-sm font-semibold transition ${
+                className={`flex-1 whitespace-nowrap rounded-xl px-4 py-2.5 text-sm font-semibold transition ${
                   selected
                     ? "bg-white text-brand-700 shadow-sm ring-1 ring-slate-200"
                     : "text-slate-500 hover:text-ink"
@@ -177,29 +217,14 @@ export default function ProductTour() {
             </ul>
             <div className="mt-7 flex flex-wrap gap-3">
               <a
-                href={demo.available ? demo.link("product-tour") : site.registerUrl}
+                href={site.registerUrl}
                 className="rounded-xl bg-brand-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-800"
               >
-                {demo.available ? "Try the live demo" : "Try it yourself free"} →
+                Try Ledgr →
               </a>
-              {demo.available ? (
-                <a
-                  href={site.registerUrl}
-                  className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
-                >
-                  Create a free account
-                </a>
-              ) : (
-                <Link
-                  href="/pricing"
-                  className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
-                >
-                  See pricing
-                </Link>
-              )}
               <Link
                 href="/features"
-                className="rounded-xl px-6 py-3.5 text-sm font-semibold text-ink-soft transition hover:text-brand-700"
+                className="rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-700"
               >
                 See every feature
               </Link>
@@ -215,9 +240,18 @@ export default function ProductTour() {
                   <code className="rounded bg-white px-1.5 py-0.5 font-mono text-xs text-ink ring-1 ring-slate-200">
                     {demo.email}
                   </code>{" "}
-                  on a sample business with realistic Malawian figures. It lives in
-                  your own browser, so nothing is sent anywhere — and please don&apos;t
-                  enter real financial data.
+                  on a sample business with realistic Malawian figures — including an
+                  open till shift you can sell from. It lives in your own browser, so
+                  nothing is sent anywhere — and please don&apos;t enter real financial
+                  data.
+                </p>
+                <p className="mt-2 text-sm">
+                  <a
+                    href={demo.link("product-tour")}
+                    className="font-semibold text-brand-700 hover:underline"
+                  >
+                    Open the live demo →
+                  </a>
                 </p>
                 {demo.tourUrl && (
                   <p className="mt-2 text-xs text-slate-500">
@@ -237,7 +271,7 @@ export default function ProductTour() {
 
           <div className="order-1 lg:order-2">
             {tab.kind === "desktop" ? (
-              <BrowserMockup src={tab.src} alt={tab.alt} />
+              <BrowserMockup src={tab.src} alt={tab.alt} url={tab.url} />
             ) : (
               <PhoneMockup src={tab.src} alt={tab.alt} />
             )}
@@ -250,7 +284,7 @@ export default function ProductTour() {
             Built for businesses like yours
           </p>
           <ul className="mt-6 flex flex-wrap justify-center gap-2.5">
-            {businessTypes.map((b) => (
+            {businessSegments.map((b) => (
               <li
                 key={b.label}
                 className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-ink-soft shadow-sm"
@@ -260,8 +294,10 @@ export default function ProductTour() {
               </li>
             ))}
           </ul>
-          <p className="mt-5 text-center text-sm text-ink-soft">
-            If you sell anything and pay tax in Malawi, Ledgr is for you.{" "}
+          <p className="mx-auto mt-5 max-w-2xl text-center text-sm text-ink-soft">
+            The till is for businesses that sell face to face. If you invoice instead
+            — a consultant, a contractor, a service business — you skip it and use the
+            same invoicing, expenses, tax and reports.{" "}
             <Link
               href="/customers"
               className="font-semibold text-brand-700 hover:underline"

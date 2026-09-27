@@ -4,7 +4,8 @@ import { PageHero, CtaBand } from "@/components/ui";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Why Ledgr exists: world-class, MWK-first accounting for Malawian SMEs — offline-capable, MRA-aware and affordable.",
+    "Why Ledgr exists: business software built for Malawi — the till, the stock and the books in one place, in Kwacha, working with or without a connection.",
+  alternates: { canonical: "/about" },
 };
 
 const values = [
@@ -15,8 +16,8 @@ const values = [
   },
   {
     icon: "🤝",
-    title: "Owners, not accountants",
-    desc: "Plain language, smart defaults and guardrails. If you can use WhatsApp, you can run your books on Ledgr.",
+    title: "Owners and their teams",
+    desc: "Plain language, sensible defaults and guardrails. A cashier should be productive in ten minutes; an owner shouldn't need a finance degree to read the result.",
   },
   {
     icon: "🔒",
@@ -32,38 +33,31 @@ export default function AboutPage() {
         eyebrow="About Ledgr"
         title={
           <>
-            World-class accounting, <span className="text-brand-700">built for Malawi</span>
+            Business software, <span className="text-brand-700">built for Malawi</span>
           </>
         }
-        sub="Most accounting software is built for London or New York — priced in dollars, assuming perfect internet and a finance degree. We built the opposite."
+        sub="Most of this software is built for London or New York — priced in dollars, assuming perfect internet and a finance degree. We built the opposite."
       />
       <section className="mx-auto max-w-3xl px-5 pb-6">
         <div className="space-y-4 text-[1.05rem] leading-relaxed text-ink-soft">
           <p>
-            Ledgr started with a simple observation: millions of Malawian businesses run on
-            paper books, memory and hope — not because owners don&apos;t care about their
+            Ledgr started with a simple observation: most businesses here run on paper
+            books, memory and hope — not because owners don&apos;t care about their
             numbers, but because the available tools weren&apos;t made for them.
           </p>
           <p>
-            So we built an accounting app that speaks Kwacha first, knows the MRA rulebook,
-            works without internet, and runs on the phone and computer you already have. From
-            the first sale at the market to VAT filing on the 25th, Ledgr walks with you.
+            So we started with the books, in Kwacha, knowing the MRA rulebook, working
+            without internet and running on the phone and computer you already have.
+            Then we followed the work backwards. Numbers come from somewhere: a sale
+            at a counter, stock going out of a door, cash in a drawer. So Ledgr now
+            carries that end of the business too — a till, a product list, stock per
+            branch — and lands all of it in the same books.
           </p>
-        </div>
-        <div className="mt-10 grid gap-5 sm:grid-cols-3">
-          {[
-            ["180+", "businesses getting started"],
-            ["17.5%", "VAT handled automatically"],
-            ["100%", "works offline"],
-          ].map(([big, small]) => (
-            <div
-              key={small}
-              className="rounded-2xl border border-slate-100 bg-white p-5 text-center shadow-sm"
-            >
-              <p className="text-2xl font-extrabold text-brand-700">{big}</p>
-              <p className="mt-1 text-xs text-ink-soft">{small}</p>
-            </div>
-          ))}
+          <p>
+            The point isn&apos;t to become an everything-system. It is that a business
+            shouldn&apos;t have to re-type its own day into a second app to find out
+            whether it made money.
+          </p>
         </div>
       </section>
       <section className="mx-auto max-w-6xl px-5 py-12">

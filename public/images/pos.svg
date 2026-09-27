@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" font-family="Inter, system-ui, -apple-system, sans-serif" role="img" aria-label="Ledgr point of sale showing a product catalogue, a cart with three items and the net payable total in Malawian Kwacha">
+  <rect width="1200" height="760" fill="#f1f5f9"/>
+
+  <!-- top bar -->
+  <rect width="1200" height="74" fill="#ffffff"/>
+  <line x1="0" y1="74" x2="1200" y2="74" stroke="#e2e8f0" stroke-width="2"/>
+  <rect x="24" y="17" width="40" height="40" rx="12" fill="#1d9e75"/>
+  <text x="44" y="46" font-size="24" font-weight="800" fill="#fff" text-anchor="middle">L</text>
+  <text x="76" y="45" font-size="22" font-weight="800" fill="#0c1f1a">Ledgr POS</text>
+  <rect x="186" y="20" width="230" height="34" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="202" y="43" font-size="17" font-weight="600" fill="#0c1f1a">Lilongwe Shop</text>
+  <text x="398" y="43" font-size="15" fill="#94a3b8" text-anchor="end">▾</text>
+
+  <rect x="606" y="20" width="104" height="34" rx="17" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="2"/>
+  <circle cx="628" cy="37" r="5" fill="#1d9e75"/>
+  <text x="642" y="43" font-size="16" font-weight="700" fill="#0e7a5b">Online</text>
+  <rect x="722" y="20" width="104" height="34" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="774" y="43" font-size="16" font-weight="600" fill="#334155" text-anchor="middle">Labels</text>
+  <rect x="838" y="20" width="112" height="34" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="894" y="43" font-size="16" font-weight="600" fill="#334155" text-anchor="middle">Z-Report</text>
+  <rect x="962" y="20" width="122" height="34" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="1023" y="43" font-size="16" font-weight="600" fill="#334155" text-anchor="middle">Cash In/Out</text>
+  <rect x="1096" y="20" width="80" height="34" rx="10" fill="#0c1f1a"/>
+  <text x="1136" y="43" font-size="16" font-weight="700" fill="#fff" text-anchor="middle">Shift</text>
+
+  <!-- shift strip -->
+  <rect x="24" y="92" width="740" height="46" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <circle cx="48" cy="115" r="6" fill="#1d9e75"/>
+  <text x="66" y="121" font-size="16" fill="#475569">Shift open · <tspan font-weight="700" fill="#0c1f1a">John Banda</tspan> · since 07:30 · opening float MWK 50,000</text>
+
+  <!-- search -->
+  <rect x="24" y="152" width="740" height="52" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="48" y="185" font-size="19" fill="#94a3b8">⌨  Scan barcode (Enter) or search by name / SKU…</text>
+  <rect x="694" y="162" width="56" height="32" rx="9" fill="#ecfdf5"/>
+  <text x="722" y="184" font-size="16" font-weight="700" fill="#0e7a5b" text-anchor="middle">Scan</text>
+
+  <!-- category chips -->
+  <g font-size="15" font-weight="600">
+    <rect x="24" y="218" width="74" height="32" rx="16" fill="#1d9e75"/>
+    <text x="61" y="239" fill="#fff" text-anchor="middle">All</text>
+    <rect x="106" y="218" width="108" height="32" rx="16" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="160" y="239" fill="#475569" text-anchor="middle">Groceries</text>
+    <rect x="222" y="218" width="88" height="32" rx="16" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="266" y="239" fill="#475569" text-anchor="middle">Drinks</text>
+    <rect x="318" y="218" width="112" height="32" rx="16" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="374" y="239" fill="#475569" text-anchor="middle">Household</text>
+  </g>
+
+  <!-- product grid -->
+  <g>
+    <rect x="24" y="266" width="236" height="132" rx="16" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <rect x="44" y="286" width="44" height="44" rx="12" fill="#ecfdf5"/>
+    <text x="66" y="316" font-size="22" text-anchor="middle">🌾</text>
+    <text x="44" y="356" font-size="18" font-weight="700" fill="#0c1f1a">Rice 10kg</text>
+    <text x="44" y="382" font-size="17" font-weight="700" fill="#1d9e75">MWK 22,400</text>
+    <text x="240" y="382" font-size="15" fill="#64748b" text-anchor="end">64 in stock</text>
+
+    <rect x="276" y="266" width="236" height="132" rx="16" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <rect x="296" y="286" width="44" height="44" rx="12" fill="#ecfdf5"/>
+    <text x="318" y="316" font-size="22" text-anchor="middle">🛢️</text>
+    <text x="296" y="356" font-size="18" font-weight="700" fill="#0c1f1a">Cooking oil 2L</text>
+    <text x="296" y="382" font-size="17" font-weight="700" fill="#1d9e75">MWK 9,850</text>
+    <text x="492" y="382" font-size="15" fill="#64748b" text-anchor="end">31 in stock</text>
+
+    <rect x="528" y="266" width="236" height="132" rx="16" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <rect x="548" y="286" width="44" height="44" rx="12" fill="#fef3c7"/>
+    <text x="570" y="316" font-size="22" text-anchor="middle">🧼</text>
+    <text x="548" y="356" font-size="18" font-weight="700" fill="#0c1f1a">Soap (bar)</text>
+    <text x="548" y="382" font-size="17" font-weight="700" fill="#1d9e75">MWK 1,200</text>
+    <text x="744" y="382" font-size="15" font-weight="700" fill="#b45309" text-anchor="end">6 left</text>
+
+    <rect x="24" y="414" width="236" height="132" rx="16" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <rect x="44" y="434" width="44" height="44" rx="12" fill="#ecfdf5"/>
+    <text x="66" y="464" font-size="22" text-anchor="middle">🥤</text>
+    <text x="44" y="504" font-size="18" font-weight="700" fill="#0c1f1a">Soft drink 500ml</text>
+    <text x="44" y="530" font-size="17" font-weight="700" fill="#1d9e75">MWK 1,500</text>
+    <text x="240" y="530" font-size="15" fill="#64748b" text-anchor="end">120 in stock</text>
+
+    <rect x="276" y="414" width="236" height="132" rx="16" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <rect x="296" y="434" width="44" height="44" rx="12" fill="#ecfdf5"/>
+    <text x="318" y="464" font-size="22" text-anchor="middle">🧂</text>
+    <text x="296" y="504" font-size="18" font-weight="700" fill="#0c1f1a">Sugar 1kg</text>
+    <text x="296" y="530" font-size="17" font-weight="700" fill="#1d9e75">MWK 2,750</text>
+    <text x="492" y="530" font-size="15" fill="#64748b" text-anchor="end">48 in stock</text>
+
+    <rect x="528" y="414" width="236" height="132" rx="16" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <rect x="548" y="434" width="44" height="44" rx="12" fill="#ecfdf5"/>
+    <text x="570" y="464" font-size="22" text-anchor="middle">🫘</text>
+    <text x="548" y="504" font-size="18" font-weight="700" fill="#0c1f1a">Beans 5kg</text>
+    <text x="548" y="530" font-size="17" font-weight="700" fill="#1d9e75">MWK 14,900</text>
+    <text x="744" y="530" font-size="15" fill="#64748b" text-anchor="end">22 in stock</text>
+  </g>
+
+  <!-- parked orders -->
+  <rect x="24" y="562" width="740" height="44" rx="12" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="48" y="590" font-size="16" fill="#475569">⏸  2 parked orders · press <tspan font-weight="700" fill="#0c1f1a">F8</tspan> to park this one, <tspan font-weight="700" fill="#0c1f1a">F4</tspan> to charge</text>
+
+  <!-- cart panel -->
+  <rect x="788" y="92" width="388" height="514" rx="20" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="812" y="128" font-size="19" font-weight="800" fill="#0c1f1a">Current sale</text>
+  <text x="1152" y="128" font-size="15" fill="#94a3b8" text-anchor="end">Receipt R-1042</text>
+
+  <rect x="812" y="146" width="340" height="44" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="832" y="174" font-size="16" fill="#475569">👤  Walk-in customer</text>
+  <text x="1136" y="174" font-size="15" font-weight="700" fill="#1d9e75" text-anchor="end">Change</text>
+
+  <line x1="812" y1="210" x2="1152" y2="210" stroke="#e2e8f0" stroke-width="2"/>
+
+  <g>
+    <text x="812" y="244" font-size="17" font-weight="700" fill="#0c1f1a">Rice 10kg</text>
+    <text x="812" y="268" font-size="15" fill="#64748b">2 × 22,400</text>
+    <text x="1152" y="250" font-size="17" font-weight="700" fill="#0c1f1a" text-anchor="end">44,800</text>
+
+    <text x="812" y="304" font-size="17" font-weight="700" fill="#0c1f1a">Cooking oil 2L</text>
+    <text x="812" y="328" font-size="15" fill="#64748b">3 × 9,850</text>
+    <text x="1152" y="310" font-size="17" font-weight="700" fill="#0c1f1a" text-anchor="end">29,550</text>
+
+    <text x="812" y="364" font-size="17" font-weight="700" fill="#0c1f1a">Sugar 1kg</text>
+    <text x="812" y="388" font-size="15" fill="#64748b">1 × 2,750</text>
+    <text x="1152" y="370" font-size="17" font-weight="700" fill="#0c1f1a" text-anchor="end">2,750</text>
+  </g>
+
+  <line x1="812" y1="410" x2="1152" y2="410" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="812" y="440" font-size="16" fill="#64748b">Subtotal (6 items)</text>
+  <text x="1152" y="440" font-size="16" font-weight="700" fill="#0c1f1a" text-anchor="end">77,100</text>
+  <text x="812" y="468" font-size="16" fill="#0e7a5b">Discount</text>
+  <text x="1152" y="468" font-size="16" font-weight="700" fill="#0e7a5b" text-anchor="end">−2,100</text>
+  <text x="812" y="496" font-size="16" fill="#64748b">VAT 17.5% (included)</text>
+  <text x="1152" y="496" font-size="16" font-weight="700" fill="#0c1f1a" text-anchor="end">11,170</text>
+
+  <rect x="812" y="514" width="340" height="56" rx="14" fill="#0c1f1a"/>
+  <text x="832" y="549" font-size="17" font-weight="700" fill="#a7f3d0">Net payable</text>
+  <text x="1132" y="551" font-size="26" font-weight="800" fill="#fff" text-anchor="end">MWK 75,000</text>
+
+  <!-- pay button + tenders -->
+  <rect x="788" y="626" width="388" height="62" rx="16" fill="#1d9e75"/>
+  <text x="982" y="665" font-size="21" font-weight="800" fill="#fff" text-anchor="middle">Charge MWK 75,000  (F4)</text>
+  <g font-size="15" font-weight="600">
+    <rect x="788" y="700" width="86" height="34" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="831" y="722" fill="#334155" text-anchor="middle">Cash</text>
+    <rect x="882" y="700" width="112" height="34" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="938" y="722" fill="#334155" text-anchor="middle">Airtel Money</text>
+    <rect x="1002" y="700" width="90" height="34" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="1047" y="722" fill="#334155" text-anchor="middle">Mpamba</text>
+    <rect x="1100" y="700" width="76" height="34" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="1138" y="722" fill="#334155" text-anchor="middle">Card</text>
+  </g>
+
+  <!-- footer note -->
+  <text x="24" y="726" font-size="15" fill="#94a3b8">Sale posts to stock, the drawer and the ledger together.</text>
+</svg>

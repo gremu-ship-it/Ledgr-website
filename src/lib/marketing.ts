@@ -433,7 +433,7 @@ I noticed you took Ledgr for a spin. I hope {{business_or_your_business}} made s
 
 The usual sticking points, and how Ledgr handles them:
 • "Will it cope with MRA filings?" — Ledgr tracks VAT, PAYE and WHT as you work and produces the figures you need at the end of the period.
-• "We're on phones, not laptops." — It works on both, and keeps working when the network drops.
+• "We're on phones, not laptops." — It works on both, and when the network drops you can carry on recording; it syncs when you're back.
 • "Is it in Kwacha?" — MWK-first, no dollar conversions to explain.
 
 If it's easier, reply with what you sell and I'll tell you whether Ledgr fits — no pitch if it doesn't.

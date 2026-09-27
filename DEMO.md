@@ -23,13 +23,19 @@ moving the app to a custom domain is one env var, not a hunt through components.
 
 | Surface | Call to action | Tagged |
 |---|---|---|
-| Home hero | "Try the live demo" · "See the 1-minute tour →" | `?ref=hero` |
-| Product tour (`/#tour`) | primary CTA + a "no sign-up, no password" panel | `?ref=product-tour` |
+| Home hero | "Open the live demo" · "watch the 1-minute tour", under the two CTAs | `?ref=hero` |
+| Product tour (`/#tour`) | "Open the live demo →" in the "no sign-up, no password" panel | `?ref=product-tour` |
 | Pricing (home page and `/pricing`) | "Open the live demo" under the plans | `?ref=pricing` |
-| `CtaBand` — features, about, FAQ, customers, blog index | "Try the live demo" | `?ref=cta-band` |
-| Blog guides | "Open the live demo" beside "Get Started Free" | `?ref=blog` |
+| Blog guides | "Open the live demo" beside "Try Ledgr →" | `?ref=blog` |
 | Who it's for | "Open the live demo" | `?ref=customers` |
+| Win-back email (`src/lib/marketing.ts`) | demo link in the body | `?ref=email` |
 | FAQ (`src/lib/faqs.ts`, and its JSON-LD) | "Can I try Ledgr without creating an account?" | — |
+
+The demo is never the *primary* call to action. Since the 2026-09-27 audit the
+site keeps one name per action — **"Try Ledgr"** (always `site.registerUrl`) and
+**"Talk to us"** — so every demo entry point above is a clearly-labelled
+secondary link rather than a competing button. `CtaBand` mentions the demo in
+its footnote but does not link to it, which is why there is no `?ref=cta-band`.
 
 Two rules, both structural:
 
@@ -66,10 +72,11 @@ other's changes.
 NEXT_PUBLIC_DEMO_ENABLED=false
 ```
 
-Redeploy and every demo call to action disappears: the hero falls back to "See it in
-action", the tour to "Try it yourself free", the `CtaBand` and pricing escape hatches
-vanish, and no demo copy or identity is rendered anywhere. Use this if the demo route
-ever breaks — it needs no code change.
+Redeploy and every demo call to action disappears: the hero's "Open the live demo"
+line, the tour's panel, and the pricing escape hatch all stop rendering, and no demo
+copy or identity appears anywhere. The primary CTA is unaffected — "Try Ledgr" points
+at `site.registerUrl` whether or not the demo is switched on. Use this if the demo
+route ever breaks; it needs no code change.
 
 ## Pointing the demo elsewhere
 

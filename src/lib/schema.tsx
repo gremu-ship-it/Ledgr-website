@@ -1,5 +1,5 @@
 import { site } from "@/lib/site";
-import { annualTotal, plans } from "@/lib/pricing";
+import { plans } from "@/lib/pricing";
 import type { FaqItem } from "@/lib/faqs";
 
 export type { FaqItem };
@@ -39,7 +39,7 @@ export function organizationSchema() {
     name: site.name,
     url: site.siteUrl,
     description:
-      "MWK-first, Malawi-focused accounting and business management app for Malawian SMEs.",
+      "Ledgr is a Malawi-focused business platform: POS and sales, stock, invoicing, expenses and accounting in Malawian Kwacha.",
     email: site.email,
     areaServed: "MW",
   };
@@ -50,27 +50,22 @@ export function softwareSchema() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: site.name,
-    applicationCategory: "FinanceApplication",
+    applicationCategory: "BusinessApplication",
+    applicationSubCategory: "FinanceApplication",
     operatingSystem: "Web, Android, iOS, Windows, macOS",
     description:
-      "MWK-first accounting for Malawian SMEs: invoicing with automatic 17.5% VAT, PAYE and WHT tracking, inventory, payroll and financial reports. Works offline.",
-    offers: plans.flatMap((p) => {
-      const monthly = {
-        "@type": "Offer",
-        name: `${p.name} (monthly)`,
-        price: String(p.monthly),
-        priceCurrency: "MWK",
-      };
-      if (p.free) return [monthly];
-      return [
-        monthly,
-        {
-          "@type": "Offer",
-          name: `${p.name} (yearly)`,
-          price: String(annualTotal(p.monthly)),
-          priceCurrency: "MWK",
-        },
-      ];
-    }),
+      "Business software for Malawi: a point of sale that updates stock and the books, invoicing with 17.5% VAT, expenses, payroll, multi-branch stock and financial reports — all in Malawian Kwacha. Sales and entries can be captured offline and sync when the connection returns.",
+    // Monthly only. Yearly offers were removed with the yearly UI: the site's
+    // derived annual prices contradicted the application's checkout, and
+    // publishing a conflicting price as structured data is worse than
+    // publishing none. See lib/pricing.ts.
+    offers: plans.map((p) => ({
+      "@type": "Offer",
+      name: p.name,
+      price: String(p.monthly),
+      priceCurrency: "MWK",
+      billingIncrement: 1,
+      unitText: "MONTH",
+    })),
   };
 }

@@ -15,26 +15,36 @@ const inter = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(site.siteUrl),
   title: {
-    default: "Ledgr — Smart accounting for Malawian businesses",
+    default: "Ledgr — Run your business. Know your numbers.",
     template: "%s — Ledgr",
   },
   description:
-    "Ledgr is an MWK-first, Malawi-focused accounting app for Malawian SMEs. Works on your phone and computer, offline-capable, and keeps you on top of VAT, PAYE & WHT.",
+    "Ledgr brings sales, POS, stock, expenses, invoicing and accounting together in one place, in Kwacha, for businesses in Malawi. Works on a phone or a computer, online or off.",
   keywords: [
-    "Malawi accounting software",
-    "MWK accounting",
-    "MRA tax compliance",
+    "business management software Malawi",
+    "accounting software Malawi",
+    "POS software Malawi",
+    "inventory management Malawi",
+    "SME accounting Malawi",
     "VAT PAYE WHT Malawi",
-    "SME accounting app",
-    "offline accounting PWA",
   ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Ledgr — Built for Malawi. Works everywhere.",
+    title: "Ledgr — Run your business. Know your numbers.",
     description:
-      "MWK-first accounting for growing Malawian SMEs. Phone and desktop, offline-ready, Malawi tax tools.",
+      "Sales, POS, stock, expenses, invoicing and accounting in one place — built for businesses in Malawi.",
     type: "website",
     url: site.siteUrl,
     siteName: "Ledgr",
+    locale: "en_MW",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ledgr — Run your business. Know your numbers.",
+    description:
+      "Sales, POS, stock, expenses, invoicing and accounting in one place — built for businesses in Malawi.",
   },
   manifest: "/manifest.webmanifest",
   appleWebApp: {

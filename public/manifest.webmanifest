@@ -1,7 +1,7 @@
 {
-  "name": "Ledgr — Smart accounting for Malawian businesses",
+  "name": "Ledgr — Run your business. Know your numbers.",
   "short_name": "Ledgr",
-  "description": "MWK-first, MRA-compliant accounting that works offline. Track income, expenses, tax and reports.",
+  "description": "Sales, POS, stock, expenses, invoicing and accounting in one place — built for businesses in Malawi. Works offline.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

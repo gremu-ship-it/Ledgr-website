@@ -15,7 +15,10 @@ const appOrigin = (
 
 export const site = {
   name: "Ledgr",
-  tagline: "Smart accounting for Malawian businesses",
+  tagline: "Run your business. Know your numbers.",
+  /** One line for places that need the whole proposition, not just the hook. */
+  description:
+    "Sales, POS, stock, expenses, invoicing and accounting in one place — built for businesses in Malawi.",
   siteUrl:
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://ledgr.mw",
   email:
@@ -107,14 +110,16 @@ export const demo = {
 };
 
 /**
- * Where a "try it" CTA points is a call-site decision, because the demo link is
- * tagged with the surface that sent the visitor:
+ * Two actions, two destinations, and they are never mixed:
  *
- *     href={demo.available ? demo.link("hero") : site.registerUrl}
+ *   "Try Ledgr"          -> site.registerUrl   (the primary CTA, everywhere)
+ *   "Open the live demo" -> demo.link(surface) (a clearly separate, secondary
+ *                                               link, tagged with the surface
+ *                                               that sent the visitor)
  *
- * There is deliberately no shared `tryUrl` helper any more — every CTA used to
- * carry its own fallback anyway, and one helper meant one label ("Try the live
- * demo") applied to surfaces where it read badly.
+ * The primary CTA used to fall back between the two depending on whether the
+ * demo was switched on, which meant one label pointed at two different places
+ * on the same page. It doesn't any more.
  */
 
 // wa.me deep link (digits only) with a friendly prefilled message.
@@ -142,12 +147,31 @@ export const socials: Social[] = (
   ] as { label: string; href: string | undefined }[]
 ).filter((s): s is Social => Boolean(s.href));
 
+/**
+ * The kinds of business Ledgr is for — one list, used by the homepage pills and
+ * the lead form's dropdown. They used to be two separate lists that had already
+ * drifted apart (the form had no restaurants, the pills had no "Other").
+ *
+ * `sells` marks the segments that trade face to face, which is where the POS
+ * side of Ledgr earns its keep. Everything else still gets invoicing, expenses,
+ * tax and reports — so the site can say that plainly instead of implying every
+ * feature suits every business.
+ */
+export type BusinessType = { icon: string; label: string; sells: boolean };
+
+export const businessSegments: BusinessType[] = [
+  { icon: "🛒", label: "Shops & retailers", sells: true },
+  { icon: "📦", label: "Wholesalers", sells: true },
+  { icon: "🍲", label: "Restaurants & lodges", sells: true },
+  { icon: "🚚", label: "Distributors & traders", sells: true },
+  { icon: "🧱", label: "Contractors", sells: false },
+  { icon: "💼", label: "Consultants", sells: false },
+  { icon: "🔧", label: "Service businesses", sells: false },
+];
+
+/** Plain labels for the lead form's dropdown. */
 export const businessTypes = [
-  "Trader / Retailer",
-  "Consultant",
-  "Contractor",
-  "Service provider",
-  "Wholesaler",
+  ...businessSegments.map((b) => b.label),
   "Other",
 ];
 

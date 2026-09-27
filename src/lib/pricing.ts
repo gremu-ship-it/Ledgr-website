@@ -2,7 +2,15 @@
  * Single source of truth for pricing. Previously the same four plans were
  * duplicated in `app/page.tsx` and `app/pricing/page.tsx`, which is exactly how
  * the plan copy and the homepage copy drift apart. Both pages now read from here.
+ *
+ * WHAT EACH PLAN CONTAINS is mirrored from the application's own plan map
+ * (`Ledgr-react/src/lib/billing/plans.ts`), because that file is what actually
+ * unlocks the modules — `PlanGate`/`PartnerPlanGate` in `App.tsx` and the
+ * `requiresCapability` / `minPlan` entries in `navConfig.ts`. Keep the two in
+ * step: if a capability moves tier in the app, the bullet moves here.
  */
+
+import { site } from "@/lib/site";
 
 export type Plan = {
   name: string;
@@ -16,25 +24,27 @@ export type Plan = {
   free?: boolean;
 };
 
-/** Annual billing charges 10 months and gives you 12 — i.e. "2 months free". */
-export const ANNUAL_MONTHS_CHARGED = 10;
-export const ANNUAL_MONTHS_FREE = 12 - ANNUAL_MONTHS_CHARGED;
-/** Whole-number percentage saved by paying yearly (2/12 ≈ 17%). */
-export const ANNUAL_DISCOUNT_PERCENT = Math.round(
-  (ANNUAL_MONTHS_FREE / 12) * 100,
-);
+/**
+ * ⚠ ANNUAL BILLING IS DELIBERATELY NOT PRICED ON THIS SITE.
+ *
+ * The site used to derive a yearly price as "10 months for 12" on every paid
+ * plan. The application does not work that way: `computePriceMWK()` in
+ * `Ledgr-react/src/lib/billing/plans.ts` applies a per-tier `annualDiscount`
+ * — Starter 0%, Growth 20%, Pro 20%, Enterprise 25% — and the checkout modal
+ * charges that. The two disagreed in both directions:
+ *
+ *   Starter     site 500,000   app   600,000
+ *   Growth    site 1,000,000   app   960,000
+ *   Pro       site 2,000,000   app 1,920,000
+ *   Enterprise site 5,000,000  app 4,500,000
+ *
+ * Which model is right is a commercial decision, not a copy fix, so the yearly
+ * figures were removed rather than reconciled: monthly prices (which both
+ * sides agree on) are advertised, and the annual price is quoted at checkout
+ * by the app itself. Once the model is settled, add the yearly view back here
+ * and in `softwareSchema()`. See docs/PRODUCT-AUDIT-2026-09.md §6.1.
+ */
 
-export function annualTotal(monthly: number): number {
-  return monthly * ANNUAL_MONTHS_CHARGED;
-}
-
-export function annualSaving(monthly: number): number {
-  return monthly * ANNUAL_MONTHS_FREE;
-}
-
-export function monthlyEquivalent(annual: number): number {
-  return Math.round(annual / 12);
-}
 
 /**
  * Deterministic thousands separators. `toLocaleString` output can differ
@@ -51,51 +61,51 @@ export const plans: Plan[] = [
     monthly: 0,
     desc: "For trying Ledgr and running a side hustle.",
     features: [
-      "Basic dashboard & reports",
-      "Income & expense tracking",
+      "Dashboard in Kwacha",
+      "Income, expenses, invoices & payroll",
       "Up to 50 transactions/month",
       "Community support",
     ],
-    cta: "Get started free",
-    href: "https://ledgr-react.vercel.app/register",
+    cta: "Try Ledgr",
+    href: site.registerUrl,
     highlight: false,
     free: true,
   },
   {
     name: "Starter",
     monthly: 50_000,
-    desc: "For small shops and freelancers ready to look professional.",
+    desc: "For shops and small businesses selling from a product list.",
     features: [
       "Everything in Free",
-      "Professional invoices & quotes",
+      "Products, warehouses & stock transfers",
+      "Chart of accounts, tax, assets & capital",
+      "Financial reports",
       "Up to 200 transactions/month",
-      "Basic P&L & expense reports",
-      "Email support",
     ],
     cta: "Choose Starter",
-    href: "https://ledgr-react.vercel.app/register",
+    href: site.registerUrl,
     highlight: false,
   },
   {
     name: "Growth",
     monthly: 100_000,
-    desc: "For growing businesses ready to reconcile and report.",
+    desc: "For businesses adding branches, people and reconciliation.",
     features: [
       "Everything in Starter",
+      "Branches, departments & contacts",
       "Bank reconciliation",
-      "Full chart of accounts & organisation",
-      "Financial reports (P&L, Balance Sheet, Cash Flow)",
+      "Journals, period locking & audit log",
       "Up to 500 transactions/month",
-      "Priority email support",
+      "Email support",
     ],
     cta: "Choose Growth",
-    href: "https://ledgr-react.vercel.app/register",
+    href: site.registerUrl,
     highlight: false,
   },
   {
     name: "Pro",
     monthly: 200_000,
-    desc: "For data-driven businesses that want AI and integrations.",
+    desc: "For businesses that want insight and integrations.",
     features: [
       "Everything in Growth",
       "AI insights & forecasting",
@@ -105,13 +115,13 @@ export const plans: Plan[] = [
       "Priority support",
     ],
     cta: "Choose Pro",
-    href: "https://ledgr-react.vercel.app/register",
+    href: site.registerUrl,
     highlight: true,
   },
   {
     name: "Enterprise",
     monthly: 500_000,
-    desc: "For multi-branch operations and compliance-heavy teams.",
+    desc: "For larger operations that need branding, roles and an SLA.",
     features: [
       "Everything in Pro",
       "Unlimited transactions",
@@ -120,7 +130,7 @@ export const plans: Plan[] = [
       "Dedicated account manager",
       "SLA & compliance support",
     ],
-    cta: "Contact sales",
+    cta: "Talk to us",
     href: "/contact",
     highlight: false,
   },
