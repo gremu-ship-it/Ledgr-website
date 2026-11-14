@@ -28,6 +28,7 @@ type Tab = {
  *
  * Every bullet below maps to something the application does today. Nothing
  * here is taken from a roadmap, a prototype or a migration that has not run.
+ * Last checked against `Ledgr-react@7fb872d` — docs/PRODUCT-AUDIT-2026-11.md.
  */
 const tabs: Tab[] = [
   {
@@ -36,16 +37,16 @@ const tabs: Tab[] = [
     eyebrow: "The whole business, one screen",
     title: "Know where you stand without asking anyone",
     blurb:
-      "Open Ledgr and the numbers are already there: what came in, what went out, what you are owed and what you owe MRA — in Kwacha, updated as your business records it.",
+      "Open Ledgr and the numbers are already there: what is in the bank, what you are owed, what you owe and what you owe MRA — in Kwacha, updated as your business records it.",
     bullets: [
-      "Income, expenses and net profit for the month, with last month for comparison",
-      "Money owed to you, and how many invoices it is sitting in",
+      "Cash in the bank, money owed to you, bills to pay and the next payroll, side by side at the top",
+      "Income, expenses and net profit for the period, with six months of both on one chart",
       "VAT accrued for the period and whether it is payable or refundable",
-      "Recent entries as they land, whoever recorded them",
+      "A reminder when PAYE, withholding tax or VAT falls due within the week, with a link to the MRA portal",
     ],
     kind: "desktop",
     src: "/images/dashboard-web.svg",
-    alt: "Ledgr dashboard showing income, expenses, net profit and VAT payable to MRA in Malawian Kwacha",
+    alt: "Ledgr dashboard showing cash in the bank, money owed, bills to pay, the next payroll, net profit, VAT accrued and upcoming tax dates in Malawian Kwacha",
     url: "ledgr-react.vercel.app/dashboard",
   },
   {
@@ -58,9 +59,10 @@ const tabs: Tab[] = [
     bullets: [
       "Scan a barcode or search by name to build the sale",
       "Cash, Airtel Money, TNM Mpamba, bank transfer, card or on credit — split across more than one if you need to",
+      "Park a sale while the customer fetches one more thing, and pick it up again",
       "Print a receipt, or send it straight to a Bluetooth thermal printer",
-      "Open a shift with a float, record cash in and out, close it against the counted drawer and print the Z-report",
-      "Refunds and voids need a manager's approval when you say they do",
+      "Open a shift on a named till with a float, record cash in and out, close it against the counted drawer and print the Z-report",
+      "Take a return against the receipt and the items go back into stock — refunds and voids need a manager's approval when you say they do",
       "Discount limits per role, so nobody quietly gives the shop away",
     ],
     kind: "desktop",
@@ -236,14 +238,14 @@ export default function ProductTour() {
                   No sign-up, no password
                 </p>
                 <p className="mt-1.5 text-sm text-ink-soft">
-                  The demo opens the full app signed in as{" "}
+                  The demo opens the app signed in as{" "}
                   <code className="rounded bg-white px-1.5 py-0.5 font-mono text-xs text-ink ring-1 ring-slate-200">
                     {demo.email}
                   </code>{" "}
-                  on a sample business with realistic Malawian figures — including an
-                  open till shift you can sell from. It lives in your own browser, so
-                  nothing is sent anywhere — and please don&apos;t enter real financial
-                  data.
+                  on a sample business with six months of realistic Malawian
+                  figures: a dashboard, invoices, income, expenses and staff. It lives
+                  in your own browser and resets after 24 hours, so nothing is sent
+                  anywhere — and please don&apos;t enter real financial data.
                 </p>
                 <p className="mt-2 text-sm">
                   <a
@@ -295,9 +297,11 @@ export default function ProductTour() {
             ))}
           </ul>
           <p className="mx-auto mt-5 max-w-2xl text-center text-sm text-ink-soft">
-            The till is for businesses that sell face to face. If you invoice instead
-            — a consultant, a contractor, a service business — you skip it and use the
-            same invoicing, expenses, tax and reports.{" "}
+            Ledgr asks how you trade when you set up, and shows the parts that fit.
+            The till is for businesses that sell face to face; if you invoice instead
+            — a consultant, a contractor, a service business — you never see it and
+            use the same invoicing, expenses, tax and reports. Builders and
+            manufacturers get a workspace of their own.{" "}
             <Link
               href="/customers"
               className="font-semibold text-brand-700 hover:underline"

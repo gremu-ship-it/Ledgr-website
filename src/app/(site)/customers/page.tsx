@@ -6,7 +6,7 @@ import { demo, site, whatsappUrl } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Who it's for",
   description:
-    "How shops, wholesalers, traders, multi-branch businesses, contractors, consultants and service businesses in Malawi use Ledgr — the till where it helps, invoicing and reports where it doesn't.",
+    "How shops, wholesalers, traders, multi-branch businesses, contractors, manufacturers, consultants and service businesses in Malawi use Ledgr — the till where it helps, invoicing and reports where it doesn't.",
   alternates: { canonical: "/customers" },
 };
 
@@ -97,6 +97,37 @@ const billingSegments = [
   },
 ];
 
+/**
+ * Added 2026-11: the application now has a construction workspace and a
+ * manufacturing workspace (`Ledgr-react@7fb872d`, both Enterprise capabilities
+ * that appear only for a business set up with that operating model). Bullets
+ * are limited to screens that exist in the app's navigation today.
+ */
+const makingSegments = [
+  {
+    icon: "🏗️",
+    who: "Construction firms",
+    problem: "The job is certified in stages, but the books only know invoices.",
+    fixed: [
+      "A bill of quantities per project, with valuations raised against it",
+      "Payment certificates with retention held and tracked in a register",
+      "Change orders, subcontractors and purchase orders tied to the job",
+      "Profit or loss for each project, not just for the company",
+    ],
+  },
+  {
+    icon: "🏭",
+    who: "Manufacturers",
+    problem: "You know what you sold, not what it cost to make.",
+    fixed: [
+      "A bill of materials for each product you make",
+      "Material requirements worked out from what you plan to produce",
+      "Work orders through to production runs, recording output and scrap",
+      "Finished goods and materials in the same stock as everything else",
+    ],
+  },
+];
+
 function SegmentCard({
   s,
 }: {
@@ -172,6 +203,23 @@ export default function CustomersPage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-6xl px-5 pb-10 pt-6">
+        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-brand-700">
+            If you build or make things
+          </h2>
+          <p className="text-sm text-ink-soft">
+            A workspace of your own, on the Enterprise plan — switched on when
+            you set your business up that way.
+          </p>
+        </div>
+        <div className="mt-5 grid gap-6 md:grid-cols-2">
+          {makingSegments.map((s) => (
+            <SegmentCard key={s.who} s={s} />
+          ))}
+        </div>
+      </section>
+
       <section className="mx-auto max-w-6xl px-5 pb-14 pt-6">
         <div className="rounded-3xl border border-slate-100 bg-brand-50/50 p-7 sm:p-9">
           <h2 className="text-xl font-bold text-ink">
@@ -225,7 +273,7 @@ export default function CustomersPage() {
                 >
                   Open the live demo
                 </a>{" "}
-                — a full sample business with an open till shift, no sign-up — or{" "}
+                — a sample business with six months of figures, no sign-up — or{" "}
                 <Link
                   href="/#tour"
                   className="font-semibold text-brand-700 hover:underline"

@@ -10,18 +10,31 @@ export const metadata: Metadata = {
   alternates: { canonical: "/pricing" },
 };
 
+/**
+ * Plan answers follow the gates in the application (`navConfig.ts` and the
+ * route gates in `App.tsx`), last checked at `Ledgr-react@7fb872d`. If a bullet
+ * in `lib/pricing.ts` moves, the matching answer here moves with it.
+ */
 const faqs = [
   {
     q: "Is there really a free plan?",
-    a: "Yes. Free covers the dashboard, income, expenses, invoices and payroll for up to 50 transactions a month, with community support. No card required.",
+    a: "Yes. Free covers the dashboard, income, expenses and invoices for up to 50 transactions a month, with community support. No card required.",
   },
   {
     q: "What's included in Starter?",
-    a: "Starter is MWK 50,000/month and is where selling from a product list begins: products, warehouses and stock transfers, plus the chart of accounts, tax settings, assets, capital and the financial reports. Up to 200 transactions a month.",
+    a: "Starter is MWK 50,000/month and is where selling from a product list begins: the point of sale with one till, products, warehouses and stock transfers, plus the chart of accounts, tax settings, fixed assets, capital and employee records. Up to 200 transactions a month.",
+  },
+  {
+    q: "Which plan has the financial reports and payroll?",
+    a: "Growth, at MWK 100,000/month. That is where the profit or loss, balance sheet, cash flow, trial balance, VAT return and withholding tax schedule live, along with pay runs, payslips and leave, budgets, the cash forecast and bank reconciliation. Starter lets you keep employee records; running the payroll itself starts on Growth.",
   },
   {
     q: "Which plan do I need for the point of sale?",
-    a: "The till is part of Ledgr rather than a separate product, so it isn't sold as a plan of its own. What it needs is something to sell, and the product catalogue and stock it draws on are available from Starter. Branches, and therefore per-branch sales reporting, are available from Growth. If you are unsure which plan suits how you trade, talk to us before you pay for anything.",
+    a: "Starter. The till is part of Ledgr rather than a separate product, and it appears once your business is set up as retail. Starter gives you one till and lets a sale be split across up to two payment methods. Growth adds more tills, shift history, returns on receipts from earlier shifts and no limit on how many ways a sale is paid — plus branches, and therefore per-branch sales reporting. If you are unsure which plan suits how you trade, talk to us before you pay for anything.",
+  },
+  {
+    q: "Do construction and manufacturing cost extra?",
+    a: "They are part of Enterprise at MWK 500,000/month rather than add-ons. The construction workspace and the manufacturing workspace each switch on when you set your business up as that kind of operation, and stay hidden if you don't. Enterprise also includes approval workflows, custom branding and unlimited transactions.",
   },
   {
     q: "What counts as a transaction?",

@@ -450,9 +450,9 @@ Khwima`,
 
 You spent a bit of time on our pricing page, so let me save you the arithmetic.
 
-Most Malawian SMEs your size start on Starter (MWK 50,000/month) — it covers professional invoicing and up to 200 transactions with VAT included. If you're reconciling bank accounts or need full financial reports, Growth at MWK 100,000/month is the next step. Free is genuinely usable if you're under 50 transactions a month. Pro only pays for itself once you have staff on payroll or multiple people issuing invoices.
+Most Malawian SMEs your size start on Starter (MWK 50,000/month) — it covers the till, stock, professional invoicing and up to 200 transactions with VAT included. If you're reconciling bank accounts, running payroll or need full financial reports, Growth at MWK 100,000/month is the next step. Free is genuinely usable if you're under 50 transactions a month and only need invoices, income and expenses. Pro only pays for itself once you want the AI assistant or to connect Ledgr to other systems.
 
-Pay yearly and you get two months free — about 17% off.
+Yearly billing is available too — the app shows the exact yearly price for your plan at checkout, before you pay.
 
 Two questions and I can tell you which one to pick: roughly how many sales and expenses do you record a month, and do you have employees on payroll?
 

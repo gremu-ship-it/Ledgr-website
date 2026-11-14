@@ -55,6 +55,22 @@ export function mwk(n: number): string {
   return `MWK ${n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 }
 
+/**
+ * Last checked against `Ledgr-react@7fb872d` (2026-11-12) — see
+ * docs/PRODUCT-AUDIT-2026-11.md §2. Three things moved since September:
+ *
+ *  - Payroll is no longer on Free. Employee records need Starter
+ *    (`core_accounting`), pay runs and leave need Growth
+ *    (`accounting_organisation`).
+ *  - The standalone financial reports, the VAT return and the WHT schedule
+ *    are `minPlan: 'growth'`, not Starter.
+ *  - The till is now gated: `/pos` is `minPlan: 'starter'` and only appears
+ *    for a business whose operating models include Retail. A second register,
+ *    shift history and returns across shifts are Growth.
+ *
+ * The bullets below follow the gates, not the app's own plan-card strings,
+ * which still say "payroll" on Free and "Reports" on Starter.
+ */
 export const plans: Plan[] = [
   {
     name: "Free",
@@ -62,7 +78,7 @@ export const plans: Plan[] = [
     desc: "For trying Ledgr and running a side hustle.",
     features: [
       "Dashboard in Kwacha",
-      "Income, expenses, invoices & payroll",
+      "Income, expenses & invoices",
       "Up to 50 transactions/month",
       "Community support",
     ],
@@ -77,9 +93,10 @@ export const plans: Plan[] = [
     desc: "For shops and small businesses selling from a product list.",
     features: [
       "Everything in Free",
+      "Point of sale with one till, for retail",
       "Products, warehouses & stock transfers",
       "Chart of accounts, tax, assets & capital",
-      "Financial reports",
+      "Employee records",
       "Up to 200 transactions/month",
     ],
     cta: "Choose Starter",
@@ -89,11 +106,14 @@ export const plans: Plan[] = [
   {
     name: "Growth",
     monthly: 100_000,
-    desc: "For businesses adding branches, people and reconciliation.",
+    desc: "For businesses adding branches, people and proper month-end reporting.",
     features: [
       "Everything in Starter",
+      "Financial reports, VAT return & WHT schedule",
+      "Pay runs, payslips & leave",
+      "Budgets, cash forecast & bank reconciliation",
       "Branches, departments & contacts",
-      "Bank reconciliation",
+      "More than one till, with shift history",
       "Journals, period locking & audit log",
       "Up to 500 transactions/month",
       "Email support",
@@ -105,10 +125,10 @@ export const plans: Plan[] = [
   {
     name: "Pro",
     monthly: 200_000,
-    desc: "For businesses that want insight and integrations.",
+    desc: "For businesses that want answers from their figures, and integrations.",
     features: [
       "Everything in Growth",
-      "AI insights & forecasting",
+      "Ledgr AI assistant on your own books",
       "Public API access",
       "Webhook integrations",
       "Up to 2,000 transactions/month",
@@ -121,10 +141,13 @@ export const plans: Plan[] = [
   {
     name: "Enterprise",
     monthly: 500_000,
-    desc: "For larger operations that need branding, roles and an SLA.",
+    desc: "For contractors, manufacturers and larger operations that need controls and an SLA.",
     features: [
       "Everything in Pro",
       "Unlimited transactions",
+      "Construction & manufacturing modules",
+      "Approval workflows",
+      "AI checks for unusual entries",
       "Custom branding",
       "Multi-user roles & permissions",
       "Dedicated account manager",

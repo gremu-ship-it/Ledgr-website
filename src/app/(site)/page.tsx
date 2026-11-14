@@ -45,7 +45,7 @@ const saleSteps = [
   {
     n: "03",
     title: "The payment is recorded",
-    desc: "The tender lands against the sale and the drawer, so the shift can be counted at closing.",
+    desc: "The tender lands against the sale, the till and the shift, so the drawer can be counted at closing.",
   },
   {
     n: "04",
@@ -61,8 +61,9 @@ const saleSteps = [
 
 /**
  * Features grouped by what a business does, not by what the software is made
- * of. Every item is implemented in the Ledgr application today — see
- * docs/PRODUCT-AUDIT-2026-09.md for what was removed and why.
+ * of. Every item is implemented in the Ledgr application today — last checked
+ * against `Ledgr-react@7fb872d`. See docs/PRODUCT-AUDIT-2026-11.md for what
+ * changed, and docs/PRODUCT-AUDIT-2026-09.md for what was removed and why.
  */
 const featureGroups = [
   {
@@ -71,7 +72,7 @@ const featureGroups = [
       {
         icon: "🛒",
         title: "Point of sale",
-        desc: "A till your cashier can learn in ten minutes: barcode or search, discounts within their limit, park a sale, print a receipt.",
+        desc: "A till your cashier can learn in ten minutes: barcode or search, discounts within their limit, park a sale and pick it up again, close the shift against the drawer.",
       },
       {
         icon: "🧾",
@@ -80,13 +81,13 @@ const featureGroups = [
       },
       {
         icon: "💵",
-        title: "Payments",
-        desc: "Cash, Airtel Money, TNM Mpamba, bank transfer, card or on credit — split across more than one when a customer needs to.",
+        title: "Payments & receipts",
+        desc: "Cash, Airtel Money, TNM Mpamba, bank transfer, card or on credit — split when a customer needs to — with the receipt printed from the browser or a Bluetooth thermal printer.",
       },
       {
-        icon: "🧷",
-        title: "Receipts",
-        desc: "Print from the browser, or straight to a Bluetooth thermal printer with the cash drawer opening as it prints.",
+        icon: "↩️",
+        title: "Returns & refunds",
+        desc: "Find the receipt, take back all of it or part of it, and the items go back into stock — with a manager's approval when you say one is needed.",
       },
     ],
   },
@@ -111,7 +112,7 @@ const featureGroups = [
       {
         icon: "🧮",
         title: "Payroll",
-        desc: "Payslips with PAYE worked out from the MRA bands and pension handled at the statutory rates.",
+        desc: "Weekly, fortnightly or monthly pay runs with PAYE worked out from the MRA bands and pension at the statutory rates — approved, posted to the books, payslips out. Leave is tracked alongside.",
       },
     ],
   },
@@ -121,22 +122,22 @@ const featureGroups = [
       {
         icon: "📊",
         title: "Business dashboard",
-        desc: "Income, expenses, profit, money owed to you and VAT accrued — this month against last, in Kwacha.",
+        desc: "Cash in the bank, money owed to you, bills to pay and the next payroll at the top; then income, expenses, profit and VAT accrued for the period, in Kwacha.",
       },
       {
         icon: "📑",
         title: "Financial reports",
-        desc: "Profit or loss, balance sheet, cash flow, changes in equity and trial balance, from proper double-entry books.",
+        desc: "Profit or loss, balance sheet, cash flow, changes in equity and trial balance, from proper double-entry books — printed, or exported to CSV for your accountant.",
+      },
+      {
+        icon: "🎯",
+        title: "Budgets & cash forecast",
+        desc: "Set a budget and watch actuals land against it, then project your cash month by month from what you are owed, what you owe and the payroll to come.",
       },
       {
         icon: "🏬",
-        title: "Branch performance",
-        desc: "Compare branches instead of guessing which one carries the business — and which one quietly doesn't.",
-      },
-      {
-        icon: "📈",
-        title: "Sales analytics",
-        desc: "Sales by cashier, by branch and by day, with average sale value, discounts given and returns taken.",
+        title: "Branch & sales analytics",
+        desc: "Compare branches instead of guessing which one carries the business, and see sales by cashier and by day — with discounts given and returns taken.",
       },
     ],
   },
@@ -161,9 +162,70 @@ const featureGroups = [
       {
         icon: "🗓️",
         title: "Filing dates",
-        desc: "PAYE and WHT on the 14th, VAT on the 25th, the TEVET levy on 1 April — shown with days left, before they bite.",
+        desc: "PAYE and WHT on the 14th, VAT on the 25th, the TEVET levy on 1 April — shown with days left, and a reminder when one falls due within the week.",
       },
     ],
+  },
+];
+
+/**
+ * What reached the application between the September and November audits
+ * (`Ledgr-react@4d9aa63..7fb872d`). Each card carries the plan it is on,
+ * because several of these are deliberately not on the cheaper plans and a
+ * visitor should not have to find that out at checkout. `plan` strings follow
+ * the gates in the app's `navConfig.ts` and `plans.ts`.
+ *
+ * This is a "recently added" list, so prune it at the next audit: anything
+ * that has stopped being new belongs in `featureGroups` above or on /features.
+ */
+const recentlyAdded = [
+  {
+    icon: "🏗️",
+    title: "Construction",
+    plan: "Enterprise",
+    desc: "A workspace per project: bill of quantities, valuations and payment certificates with retention, change orders, subcontractors, and profit or loss for each job.",
+  },
+  {
+    icon: "🏭",
+    title: "Manufacturing",
+    plan: "Enterprise",
+    desc: "Bills of materials, material requirements planning, work orders and production runs that record what was made — and what was scrapped.",
+  },
+  {
+    icon: "🎯",
+    title: "Budgets & cash forecast",
+    plan: "Growth",
+    desc: "Budget against actual by account, and a cash forecast you can re-run as a scenario: what if customers pay thirty days later?",
+  },
+  {
+    icon: "🧮",
+    title: "Pay runs & leave",
+    plan: "Growth",
+    desc: "Payroll as a run rather than a spreadsheet: calculate, approve, post and issue payslips, with leave requests handled in the same place.",
+  },
+  {
+    icon: "🏪",
+    title: "Tills, shifts & returns",
+    plan: "Starter",
+    desc: "Name each till, open and reconcile its shifts, and take returns against the receipt. More than one till, and the full shift history, on Growth.",
+  },
+  {
+    icon: "🧠",
+    title: "Ledgr AI assistant",
+    plan: "Pro",
+    desc: "Ask a question in plain words and get an answer worked out from your own books. On Enterprise it also flags duplicate expenses and unusual entries.",
+  },
+  {
+    icon: "✅",
+    title: "Approval workflows",
+    plan: "Enterprise",
+    desc: "Purchase orders and journal entries pass through the approval steps you set, in order, before they take effect.",
+  },
+  {
+    icon: "📥",
+    title: "Bring your records with you",
+    plan: "Setup",
+    desc: "CSV templates for accounts, contacts, products, opening balances, invoices, bills, assets and employees — checked row by row before anything is saved.",
   },
 ];
 
@@ -176,7 +238,7 @@ const steps = [
   {
     n: "02",
     title: "Set up your business",
-    desc: "Business details, branches, tax settings and your product list. Run more than one business from one account.",
+    desc: "Tell Ledgr how you trade — retail, wholesale, services, projects, construction or manufacturing — and it shows the parts that fit. Import your products, contacts and opening balances from a spreadsheet.",
   },
   {
     n: "03",
@@ -268,8 +330,8 @@ export default function HomePage() {
                 >
                   Open the live demo
                 </a>{" "}
-                — a sample Malawian business with an open till shift, stock,
-                invoices, payroll, VAT and the reports, and no sign-up. Or{" "}
+                — a sample Malawian business with six months of invoices,
+                income and expenses behind the dashboard, and no sign-up. Or{" "}
                 <a
                   href={demo.tourUrl}
                   data-track="hero-tour"
@@ -294,7 +356,7 @@ export default function HomePage() {
             <div className="absolute -inset-4 rounded-[3rem] bg-gradient-to-tr from-brand-200/40 to-transparent blur-2xl" />
             <BrowserMockup
               src="/images/dashboard-web.svg"
-              alt="Ledgr dashboard on a computer showing income, expenses and net profit in Malawian Kwacha"
+              alt="Ledgr dashboard on a computer showing cash in the bank, money owed, bills to pay, the next payroll, net profit and VAT accrued in Malawian Kwacha"
               className="relative"
               priority
             />
@@ -419,6 +481,63 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* RECENTLY ADDED — what the app gained since the site was last audited */}
+      <section
+        id="new"
+        aria-labelledby="new-heading"
+        className="border-y border-brand-100 bg-brand-50/50 py-14"
+      >
+        <div className="mx-auto max-w-6xl px-5">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
+              Recently added
+            </p>
+            <h2
+              id="new-heading"
+              className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold tracking-tight text-ink"
+            >
+              Ledgr now goes further than the shop counter
+            </h2>
+            <p className="mt-4 text-ink-soft">
+              Builders and manufacturers get their own workspaces, and every
+              business gets better tools for planning ahead. Each one is marked
+              with the plan it starts on.
+            </p>
+          </div>
+
+          <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {recentlyAdded.map((f) => (
+              <li
+                key={f.title}
+                className="flex flex-col rounded-2xl border border-brand-100 bg-white p-5 shadow-sm"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-xl">
+                    <span aria-hidden>{f.icon}</span>
+                  </div>
+                  <span className="rounded-full border border-brand-200 bg-brand-50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-brand-800">
+                    {f.plan}
+                  </span>
+                </div>
+                <h3 className="mt-4 text-base font-bold text-ink">{f.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-soft">{f.desc}</p>
+              </li>
+            ))}
+          </ul>
+
+          <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-ink-soft">
+            Construction and manufacturing appear when you set your business up
+            as one or the other, so a shop never has to scroll past them.{" "}
+            <Link
+              href="/pricing"
+              className="font-semibold text-brand-700 hover:underline"
+            >
+              See what each plan includes →
+            </Link>
+          </p>
+        </div>
+      </section>
+
       {/* USP / OFFLINE SHOWCASE */}
       <section className="bg-ink py-14 text-white">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 md:grid-cols-2">
@@ -503,8 +622,10 @@ export default function HomePage() {
           </h2>
           <p className="mt-4 text-ink-soft">
             Start free. Paid plans from MWK 50,000/month — Starter once you are
-            selling from a product list, Growth and Pro as you add branches and
-            people. Paid in Kwacha, by mobile money or card.
+            selling from a till and a product list, Growth for the financial
+            reports, pay runs and branches, Pro for the AI assistant and
+            integrations, Enterprise for construction and manufacturing. Paid in
+            Kwacha, by mobile money or card.
           </p>
         </div>
         <PricingPlans />
