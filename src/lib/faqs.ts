@@ -8,12 +8,14 @@ export type FaqItem = { q: string; a: string };
  *
  * Rule for this file: every answer must be true of the application as it is
  * today. Nothing here describes a roadmap item, and nothing claims a
- * certification. See docs/PRODUCT-AUDIT-2026-09.md.
+ * certification. Last checked against `Ledgr-react@7fb872d` (2026-11-12) —
+ * see docs/PRODUCT-AUDIT-2026-11.md, and docs/PRODUCT-AUDIT-2026-09.md for the
+ * audit before it.
  */
 export const faqs: FaqItem[] = [
   {
     q: "Does Ledgr have a point of sale?",
-    a: "Yes. Ledgr includes a till. Build a sale by scanning a barcode or searching your product list, apply a discount within the limit you've set, and take cash, Airtel Money, TNM Mpamba, bank transfer, card or credit — split across more than one method if the customer needs to. Print the receipt from the browser or straight to a Bluetooth thermal printer. Shifts open with a float, record cash in and out, and close against the counted drawer with a Z-report showing the variance.",
+    a: "Yes. Ledgr includes a till. Build a sale by scanning a barcode or searching your product list, apply a discount within the limit you've set, and take cash, Airtel Money, TNM Mpamba, bank transfer, card or credit — split across more than one method if the customer needs to. Print the receipt from the browser or straight to a Bluetooth thermal printer. Park a sale and pick it up again, and take a return against the receipt with the items going back into stock. Shifts open with a float, record cash in and out, and close against the counted drawer with a Z-report showing the variance. The till is for businesses set up as retail and starts on the Starter plan with one till; Growth adds more tills and shift history.",
   },
   {
     q: "Can my cashier use Ledgr?",
@@ -33,11 +35,23 @@ export const faqs: FaqItem[] = [
   },
   {
     q: "Can I use Ledgr without the POS?",
-    a: "Yes. The till is one part of Ledgr, not the whole of it. Plenty of businesses never open it and use Ledgr for invoicing, expenses, payroll, tax and reports. You can also start with the books and turn on the till later, when you need it.",
+    a: "Yes. The till is one part of Ledgr, not the whole of it. Ledgr asks how your business trades when you set it up — retail, wholesale, services, projects, construction, manufacturing — and only shows the parts that fit, so a business that bills rather than sells over a counter never sees the till at all. It uses Ledgr for invoicing, expenses, payroll, tax and reports. If you start selling over a counter later, add retail to your business in Settings and the till appears.",
   },
   {
     q: "Is Ledgr suitable for service businesses?",
     a: "Yes. If you bill rather than sell over a counter — a consultant, a contractor, a lodge, a repair business — you invoice from Ledgr, record payments and expenses against it, and get the same dashboard, tax tools and financial reports. The POS side simply stays out of your way.",
+  },
+  {
+    q: "Does Ledgr work for construction or manufacturing businesses?",
+    a: "Yes, on the Enterprise plan. Set your business up as construction and you get a project workspace: bills of quantities, valuations and payment certificates with retention, change orders, subcontractors, purchase orders and goods received, site records such as RFIs, inspections and safety incidents, and profit or loss per project. Set it up as manufacturing and you get bills of materials, material requirements planning, work orders and production runs that record what was made and what was scrapped. Both post to the same books as everything else in Ledgr.",
+  },
+  {
+    q: "Does Ledgr run payroll?",
+    a: "Yes. Keep employee records from the Starter plan; from Growth you run the payroll itself — weekly, fortnightly or monthly pay runs that work out PAYE on the MRA bands and pension, go through approval, post to your books and produce payslips. Leave requests are managed in the same place. Payroll runs in your business's own currency.",
+  },
+  {
+    q: "Can I bring my existing records into Ledgr?",
+    a: "Yes. Ledgr imports CSV files and gives you a template for each one: your chart of accounts, customers and suppliers, products and opening stock, opening balances or a trial balance, invoices, bills, fixed assets, bank transactions and employees. Each file is checked row by row before anything is saved, so you see what is wrong and fix it first.",
   },
   {
     q: "What happens when the internet goes down?",
@@ -45,11 +59,11 @@ export const faqs: FaqItem[] = [
   },
   {
     q: "Is Ledgr really free?",
-    a: "There is a free plan, and it is genuinely free. It covers the dashboard, income, expenses, invoices and payroll for up to 50 transactions a month, with community support. Selling from a product list — products, stock and warehouses — plus the accounting modules and the financial reports start on Starter at MWK 50,000/month. Growth adds bank reconciliation, branches, contacts and the audit log; Pro adds AI insights, the API and webhooks.",
+    a: "There is a free plan, and it is genuinely free. It covers the dashboard, income, expenses and invoices for up to 50 transactions a month, with community support. Selling from a product list — the till, products, stock and warehouses — plus the chart of accounts, tax settings and employee records start on Starter at MWK 50,000/month. Growth adds the financial reports, the VAT return, pay runs, budgets, bank reconciliation, branches and the audit log; Pro adds the Ledgr AI assistant, the API and webhooks; Enterprise adds the construction and manufacturing modules and approval workflows.",
   },
   {
     q: "Can I try Ledgr without creating an account?",
-    a: "Yes. The live demo opens the full app on a sample Malawian business with six months of books, a product list and an open till shift you can sell from. There is no sign-up, no password and no card, and nothing is sent to a server: the sample data is generated in your own browser and resets after 24 hours. If you'd rather just look, there's a one-minute read-only tour. When you're ready for your own numbers, create a free account — the demo data is deliberately not carried over.",
+    a: "Yes. The live demo opens the app on a sample Malawian business with six months of invoices, income and expenses behind the dashboard, and a few staff on the payroll. It is there to show you how Ledgr looks and feels rather than every module — the till, for one, isn't part of the sample business. There is no sign-up, no password and no card, and nothing is sent to a server: the sample data is generated in your own browser and resets after 24 hours. If you'd rather just look, there's a one-minute read-only tour. When you're ready for your own numbers, create a free account — the demo data is deliberately not carried over.",
   },
   {
     q: "Does Ledgr handle Malawi VAT and the other MRA taxes?",

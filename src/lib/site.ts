@@ -165,6 +165,7 @@ export const businessSegments: BusinessType[] = [
   { icon: "🍲", label: "Restaurants & lodges", sells: true },
   { icon: "🚚", label: "Distributors & traders", sells: true },
   { icon: "🧱", label: "Contractors", sells: false },
+  { icon: "🏭", label: "Manufacturers", sells: false },
   { icon: "💼", label: "Consultants", sells: false },
   { icon: "🔧", label: "Service businesses", sells: false },
 ];

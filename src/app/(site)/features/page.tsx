@@ -5,7 +5,7 @@ import { PageHero, CtaBand } from "@/components/ui";
 export const metadata: Metadata = {
   title: "Features",
   description:
-    "What Ledgr does: point of sale, stock across branches, invoicing with 17.5% VAT, expenses, payroll, financial reports and Malawi tax dates — in Kwacha, online or offline.",
+    "What Ledgr does: point of sale, stock across branches, invoicing with 17.5% VAT, expenses, payroll, budgets, financial reports and Malawi tax dates — plus construction and manufacturing workspaces — in Kwacha, online or offline.",
   alternates: { canonical: "/features" },
 };
 
@@ -18,6 +18,10 @@ export const metadata: Metadata = {
  * were removed in the 2026-09-27 audit because nothing in the app supports
  * them: quotes, automatic reminders chasing late payers, receipt photo capture,
  * and MRA "certificates". See docs/PRODUCT-AUDIT-2026-09.md §2.
+ *
+ * Re-checked against `Ledgr-react@7fb872d` on 2026-11-14: the "Beyond the
+ * counter" group is new, and the plan named on a card follows the gate in the
+ * app's `navConfig.ts`. See docs/PRODUCT-AUDIT-2026-11.md.
  */
 const groups = [
   {
@@ -27,7 +31,7 @@ const groups = [
       {
         icon: "🛒",
         title: "Point of sale",
-        desc: "Scan a barcode or search your product list, apply a discount within the cashier's limit, park a sale and come back to it, and charge with one key. Shifts open with a float and close against the counted drawer with a Z-report.",
+        desc: "Scan a barcode or search your product list, apply a discount within the cashier's limit, park a sale and come back to it, and charge with one key. Each till has a name, and its shifts open with a float and close against the counted drawer with a Z-report. For retail businesses, from the Starter plan.",
       },
       {
         icon: "💵",
@@ -47,7 +51,7 @@ const groups = [
       {
         icon: "↩️",
         title: "Refunds & voids",
-        desc: "Return part of a sale or void it entirely, with a reason recorded — and a manager's approval required when you decide it should be.",
+        desc: "Return part of a sale or void it entirely, with a reason recorded and the items put back into stock — and a manager's approval required when you decide it should be.",
       },
       {
         icon: "👥",
@@ -78,12 +82,12 @@ const groups = [
       {
         icon: "🧮",
         title: "Payroll",
-        desc: "Payslips with PAYE calculated on the MRA bands and pension handled at the statutory rates.",
+        desc: "Weekly, fortnightly or monthly pay runs with PAYE calculated on the MRA bands and pension at the statutory rates — calculated, approved, posted to the books, with a payslip for each employee and leave requests alongside. Employee records from Starter; pay runs and leave on Growth.",
       },
       {
         icon: "🤝",
         title: "Suppliers & contacts",
-        desc: "One list for the people you buy from and sell to, shared by invoices, bills and the till.",
+        desc: "One list for the people you buy from and sell to, shared by invoices, bills and the till. Growth plan.",
       },
       {
         icon: "🏬",
@@ -99,12 +103,12 @@ const groups = [
       {
         icon: "📊",
         title: "Business dashboard",
-        desc: "Income, expenses, net profit, money owed to you and VAT accrued — this month against last, always in Kwacha.",
+        desc: "Cash in the bank, money owed to you, bills to pay and the next payroll at the top, then income, expenses, net profit and VAT accrued for the period — always in Kwacha.",
       },
       {
         icon: "📑",
         title: "Financial reports",
-        desc: "Profit or loss, statement of financial position, cash flow, changes in equity, trial balance and a revenue breakdown — generated from proper double-entry books your accountant can read.",
+        desc: "Profit or loss, statement of financial position, cash flow, changes in equity, trial balance and a revenue breakdown — generated from proper double-entry books your accountant can read, and printed or exported to CSV. Growth plan.",
       },
       {
         icon: "🏬",
@@ -118,13 +122,13 @@ const groups = [
       },
       {
         icon: "🧠",
-        title: "AI insights",
-        desc: "Ask questions of your own figures and get an answer grounded in your books rather than a general opinion. Pro plan.",
+        title: "Ledgr AI assistant",
+        desc: "Ask questions of your own figures and get an answer grounded in your books rather than a general opinion. Pro plan. Enterprise adds checks that flag duplicate expenses, unusual amounts and entries missing a tax code.",
       },
       {
         icon: "🏦",
         title: "Bank reconciliation",
-        desc: "Match what the bank says against what your books say, and find the difference before your accountant does. Growth plan.",
+        desc: "Import the bank statement as a CSV, match it against what your books say, and find the difference before your accountant does. Growth plan.",
       },
     ],
   },
@@ -135,7 +139,7 @@ const groups = [
       {
         icon: "🏛️",
         title: "VAT at 17.5%",
-        desc: "Split automatically on sales and purchases, with zero-rated and exempt items handled per line, and output against input VAT summarised for the period.",
+        desc: "Split automatically on sales and purchases, with zero-rated and exempt items handled per line. The VAT return summarising output against input VAT for the period, and the withholding tax schedule, are on Growth.",
       },
       {
         icon: "👔",
@@ -150,7 +154,7 @@ const groups = [
       {
         icon: "🗓️",
         title: "Filing dates",
-        desc: "PAYE and WHT on the 14th, VAT on the 25th, the TEVET levy on 1 April — each shown with the days left before it's due.",
+        desc: "PAYE and WHT on the 14th, VAT on the 25th, the TEVET levy on 1 April — each shown with the days left, and a reminder with a link to the MRA portal when one is due within the week.",
       },
       {
         icon: "🔒",
@@ -161,6 +165,42 @@ const groups = [
         icon: "🗂️",
         title: "Audit trail",
         desc: "Sequential document numbers and a record of who did what, including who approved a discount, a refund or a void at the till.",
+      },
+    ],
+  },
+  {
+    eyebrow: "Beyond the counter",
+    lead: "For when the business outgrows a till and a cash book.",
+    items: [
+      {
+        icon: "🎯",
+        title: "Budgets",
+        desc: "Set a budget by account for a period, activate it, and see budgeted against actual with the variance — favourable or not. Growth plan.",
+      },
+      {
+        icon: "🔭",
+        title: "Cash forecast",
+        desc: "Project your closing cash month by month from what you are owed, what you owe and the payroll to come. Save a scenario — customers paying later, suppliers paid sooner — and compare. Growth plan.",
+      },
+      {
+        icon: "🏗️",
+        title: "Construction",
+        desc: "A workspace per project: bill of quantities, valuations and payment certificates with retention, change orders, subcontractors, purchase orders and goods received, site records — RFIs, inspections, safety incidents — and profit or loss per job. Enterprise plan.",
+      },
+      {
+        icon: "🏭",
+        title: "Manufacturing",
+        desc: "Bills of materials, material requirements planning, work orders, routings and work centres, and production runs that record what was made and what was scrapped. Enterprise plan.",
+      },
+      {
+        icon: "✅",
+        title: "Approval workflows",
+        desc: "Purchase orders and journal entries pass through the approval steps you set, each one opening once the step before it is approved. Enterprise plan.",
+      },
+      {
+        icon: "📥",
+        title: "Data import",
+        desc: "CSV templates for your chart of accounts, contacts, products and opening stock, opening balances, invoices, bills, fixed assets, bank transactions and employees — checked row by row before anything is saved.",
       },
     ],
   },
@@ -208,12 +248,15 @@ export default function FeaturesPage() {
         <div className="rounded-3xl border border-slate-100 bg-brand-50/50 p-7 sm:p-9">
           <h2 className="text-xl font-bold text-ink">Which plan has what</h2>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-soft">
-            The free plan covers the dashboard, income, expenses, invoices and
-            payroll. Products and stock — what the till sells from — plus the
-            accounting modules and financial reports start on Starter. Branches,
-            departments, contacts, bank reconciliation, journals, period
-            management and the audit log start on Growth. AI insights and the
-            developer side — a public API, webhooks and Zapier — are Pro.{" "}
+            The free plan covers the dashboard, income, expenses and invoices.
+            The till, products and stock, plus the chart of accounts, tax
+            settings, assets and employee records start on Starter. The
+            financial reports, VAT return, pay runs, budgets, cash forecast, bank
+            reconciliation, branches, departments, contacts, journals, period
+            management and the audit log start on Growth. The Ledgr AI assistant
+            and the developer side — a public API, webhooks and Zapier — are
+            Pro. Construction, manufacturing and approval workflows are
+            Enterprise.{" "}
             <Link
               href="/pricing"
               className="font-semibold text-brand-700 hover:underline"

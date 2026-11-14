@@ -53,8 +53,10 @@ export default function PricingPlans() {
 
               <ul className="mt-6 flex-1 space-y-3 text-sm text-ink-soft">
                 {p.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2.5">
-                    <span className="text-brand-700">✓</span>
+                  <li key={f} className="flex items-start gap-2.5">
+                    <span className="text-brand-700" aria-hidden>
+                      ✓
+                    </span>
                     {f}
                   </li>
                 ))}
@@ -86,19 +88,32 @@ export default function PricingPlans() {
         })}
       </div>
 
-      {/* Where POS sits. Stated carefully on purpose: the application does not
-          gate /pos on a plan today, but selling from a product list needs the
-          Products & stock modules, which start on Starter. Nothing here claims
-          "POS included" on a specific tier — see docs/PRODUCT-AUDIT-2026-09.md
-          §6, which flags this as a product decision still to be made. */}
+      {/* Where POS sits. Until November 2026 the application did not gate /pos
+          on a plan, and this note said so. It does now: `navConfig.ts` marks
+          /pos `minPlan: 'starter'` + `requiredOperatingModels: ['RETAIL']`,
+          and /pos/shifts `minPlan: 'growth'`; `PosPage.tsx` caps Starter at one
+          register and two tenders per sale. Keep this in step with those —
+          see docs/PRODUCT-AUDIT-2026-11.md §2. */}
       <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-slate-100 bg-slate-50/70 p-5 text-sm text-ink-soft">
         <p>
           <strong className="font-semibold text-ink">Where the till fits.</strong>{" "}
-          The point of sale is part of Ledgr rather than a separate product. To
-          sell from it you need a product list and stock, which start on{" "}
-          <strong className="font-semibold text-ink">Starter</strong>; branches and
-          per-branch sales reporting start on{" "}
-          <strong className="font-semibold text-ink">Growth</strong>.
+          The point of sale is part of Ledgr rather than a separate product. It
+          starts on <strong className="font-semibold text-ink">Starter</strong>,
+          for businesses set up as retail: one till, with a sale split across up
+          to two payment methods.{" "}
+          <strong className="font-semibold text-ink">Growth</strong> adds more
+          tills, shift history, returns on receipts from earlier shifts, and
+          branches with per-branch sales reporting.
+        </p>
+        <p className="mt-2">
+          <strong className="font-semibold text-ink">
+            Construction and manufacturing.
+          </strong>{" "}
+          Both are part of{" "}
+          <strong className="font-semibold text-ink">Enterprise</strong>
+          {" "}
+          and switch on when you set your business up as one or the other. If
+          that is not your line of work, you never see them.
         </p>
         <p className="mt-2">
           <strong className="font-semibold text-ink">Paying for a year.</strong>{" "}
@@ -124,7 +139,7 @@ export default function PricingPlans() {
           >
             Open the live demo
           </a>{" "}
-          — a full sample business with realistic figures, no sign-up and nothing to
+          — a sample business with realistic figures, no sign-up and nothing to
           pay.{" "}
           {demo.tourUrl && (
             <>

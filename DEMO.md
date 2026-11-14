@@ -61,6 +61,26 @@ Two rules, both structural:
 | Offline cache (IndexedDB) | Bypassed, so demo data never mixes into a real user's cache |
 | AI insights | Work offline against the seeded numbers |
 
+### What the demo does *not* show (checked 2026-11-14, app `7fb872d`)
+
+The site used to describe the demo as "the full app … with an open till shift you
+can sell from". Walking through a production build of the app at `7fb872d` showed
+that is no longer true, so every demo blurb on the site now promises only what was
+seen working: the dashboard, invoices, income, expenses and employees, on six
+months of sample history.
+
+| Area | What happens in the demo today |
+|---|---|
+| Point of sale | Not in the sidebar; `/pos` redirects to `/income`. The demo business has no `operating_models`, and the till now requires Retail |
+| Products, Warehouse, Transfers | The page crashes ("Something went wrong") — `useInventoryPageLabels` returns a new `[]` on every render when `operating_models` is undefined |
+| Profit or loss, balance sheet, trial balance, cash flow | Render empty: the demo client does not emulate the `get_trial_balance` RPC |
+| VAT return, pay runs | Render with zeros / no runs |
+| AI diagnostics (`/ai`) | Shows the Enterprise upgrade gate — the demo tenant is on Pro |
+
+These are application issues, not site issues. When they are fixed, put the till
+and stock back into the copy — search the site for `demo.link(` to find each blurb.
+See `docs/PRODUCT-AUDIT-2026-11.md` §4.
+
 The seeded snapshot regenerates automatically once it is more than 24 hours old
 (`DEMO_RESET_AFTER_MS` in the app), so the books always look current, and *Reset data* in
 the banner reseeds immediately. Because state is per browser, two visitors never see each

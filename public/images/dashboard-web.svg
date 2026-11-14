@@ -1,81 +1,163 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" font-family="Inter, system-ui, -apple-system, sans-serif" role="img" aria-label="Ledgr dashboard on desktop showing revenue, expenses and profit in Malawian Kwacha">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" font-family="Inter, system-ui, -apple-system, sans-serif" role="img" aria-label="Ledgr dashboard on desktop showing cash, money owed, bills to pay, the next payroll, net profit and VAT accrued in Malawian Kwacha">
+  <!--
+    Illustration of the dashboard as it is laid out in Ledgr-react@7fb872d:
+    the "Executive health" strip (cash, receivable, payable, next payroll),
+    then the period figures, the income-vs-expenses chart and the tax dates.
+    Figures are sample data for an invented shop, not a customer's.
+  -->
   <rect width="1200" height="760" fill="#f1f5f9"/>
+
   <!-- sidebar -->
-  <rect width="250" height="760" fill="#0c1f1a"/>
-  <rect x="28" y="28" width="48" height="48" rx="14" fill="#1d9e75"/>
-  <text x="52" y="63" font-size="30" font-weight="800" fill="#fff" text-anchor="middle">L</text>
-  <text x="88" y="60" font-size="26" font-weight="800" fill="#fff">Ledgr</text>
-  <g font-size="20" font-weight="600">
-    <rect x="20" y="104" width="210" height="52" rx="14" fill="#1d9e75"/>
-    <text x="44" y="137" fill="#fff">📊  Dashboard</text>
-    <text x="44" y="189" fill="#94a3b8">🧾  Invoices</text>
-    <text x="44" y="241" fill="#94a3b8">💸  Expenses</text>
-    <text x="44" y="293" fill="#94a3b8">👥  Payroll</text>
-    <text x="44" y="345" fill="#94a3b8">📦  Inventory</text>
-    <text x="44" y="397" fill="#94a3b8">📑  Reports</text>
+  <rect width="230" height="760" fill="#0c1f1a"/>
+  <rect x="24" y="24" width="44" height="44" rx="13" fill="#1d9e75"/>
+  <text x="46" y="56" font-size="27" font-weight="800" fill="#fff" text-anchor="middle">L</text>
+  <text x="80" y="55" font-size="24" font-weight="800" fill="#fff">Ledgr</text>
+
+  <g font-size="12" font-weight="700" fill="#5f7a72" letter-spacing="1.2">
+    <text x="28" y="112">OVERVIEW</text>
+    <text x="28" y="196">FINANCE</text>
+    <text x="28" y="352">PLANNING</text>
+    <text x="28" y="436">PAYROLL</text>
+    <text x="28" y="556">INVENTORY</text>
   </g>
-  <rect x="20" y="660" width="210" height="72" rx="16" fill="#ffffff" opacity="0.08"/>
-  <circle cx="56" cy="696" r="20" fill="#1d9e75"/>
-  <text x="56" y="704" font-size="20" font-weight="800" fill="#fff" text-anchor="middle">C</text>
-  <text x="86" y="691" font-size="19" font-weight="700" fill="#fff">Chikondi</text>
-  <text x="86" y="714" font-size="16" fill="#94a3b8">Chikondi&#39;s Shop</text>
-  <!-- topbar -->
-  <text x="286" y="62" font-size="30" font-weight="800" fill="#0c1f1a">Dashboard</text>
-  <text x="286" y="92" font-size="18" fill="#64748b">August 2026 · All figures in MWK</text>
-  <rect x="820" y="34" width="240" height="48" rx="24" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
-  <text x="844" y="65" font-size="19" fill="#94a3b8">🔍  Search…</text>
-  <circle cx="1108" cy="58" r="26" fill="#1d9e75"/>
-  <text x="1108" y="67" font-size="22" font-weight="800" fill="#fff" text-anchor="middle">C</text>
-  <!-- KPI cards -->
+  <rect x="16" y="124" width="198" height="40" rx="11" fill="#1d9e75"/>
+  <g font-size="17" font-weight="600">
+    <text x="56" y="150" fill="#fff">Dashboard</text>
+    <text x="56" y="234" fill="#a8bab4">Income</text>
+    <text x="56" y="270" fill="#a8bab4">Expenses</text>
+    <text x="56" y="306" fill="#a8bab4">Invoices</text>
+    <text x="56" y="390" fill="#a8bab4">Budgets</text>
+    <text x="56" y="474" fill="#a8bab4">Employees</text>
+    <text x="56" y="510" fill="#a8bab4">Pay runs</text>
+    <text x="56" y="594" fill="#a8bab4">Products</text>
+    <text x="56" y="630" fill="#a8bab4">Warehouse</text>
+  </g>
+  <!-- nav markers -->
+  <rect x="30" y="137" width="14" height="14" rx="4" fill="#fff"/>
+  <g fill="none" stroke="#5f7a72" stroke-width="2">
+    <rect x="30" y="221" width="14" height="14" rx="4"/>
+    <rect x="30" y="257" width="14" height="14" rx="4"/>
+    <rect x="30" y="293" width="14" height="14" rx="4"/>
+    <rect x="30" y="377" width="14" height="14" rx="4"/>
+    <rect x="30" y="461" width="14" height="14" rx="4"/>
+    <rect x="30" y="497" width="14" height="14" rx="4"/>
+    <rect x="30" y="581" width="14" height="14" rx="4"/>
+    <rect x="30" y="617" width="14" height="14" rx="4"/>
+  </g>
+
+  <rect x="16" y="676" width="198" height="64" rx="15" fill="#ffffff" opacity="0.08"/>
+  <circle cx="48" cy="708" r="18" fill="#1d9e75"/>
+  <text x="48" y="715" font-size="18" font-weight="800" fill="#fff" text-anchor="middle">C</text>
+  <text x="76" y="704" font-size="17" font-weight="700" fill="#fff">Chikondi</text>
+  <text x="76" y="725" font-size="14" fill="#a8bab4">Chikondi's Shop</text>
+
+  <!-- top bar -->
+  <text x="262" y="56" font-size="28" font-weight="800" fill="#0c1f1a">Dashboard</text>
+  <text x="262" y="82" font-size="16" fill="#64748b">November 2026 · All figures in MWK</text>
+  <rect x="872" y="32" width="236" height="44" rx="22" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+  <circle cx="896" cy="54" r="6" fill="#1d9e75"/>
+  <text x="912" y="60" font-size="16" font-weight="600" fill="#0c1f1a">Chikondi's Shop</text>
+  <path d="M1080 51 l6 6 l6 -6" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="1146" cy="54" r="24" fill="#1d9e75"/>
+  <text x="1146" y="62" font-size="20" font-weight="800" fill="#fff" text-anchor="middle">C</text>
+
+  <!-- executive health -->
+  <rect x="262" y="104" width="910" height="160" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="286" y="140" font-size="19" font-weight="800" fill="#0c1f1a">Executive health</text>
+  <rect x="1004" y="121" width="144" height="28" rx="14" fill="#ecfdf5"/>
+  <circle cx="1021" cy="135" r="4" fill="#1d9e75"/>
+  <text x="1138" y="140" font-size="13" font-weight="700" fill="#0e7a5b" text-anchor="end">Live summary</text>
+
   <g>
-    <rect x="286" y="116" width="272" height="150" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
-    <text x="314" y="156" font-size="18" fill="#64748b">Income</text>
-    <text x="314" y="200" font-size="40" font-weight="800" fill="#0c1f1a">MWK 6.1M</text>
-    <text x="314" y="236" font-size="19" font-weight="700" fill="#1d9e75">▲ 12% vs July</text>
-    <rect x="578" y="116" width="272" height="150" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
-    <text x="606" y="156" font-size="18" fill="#64748b">Expenses</text>
-    <text x="606" y="200" font-size="40" font-weight="800" fill="#0c1f1a">MWK 1.9M</text>
-    <text x="606" y="236" font-size="19" font-weight="700" fill="#dc2626">▼ 4% vs July</text>
-    <rect x="870" y="116" width="294" height="150" rx="20" fill="#0c1f1a"/>
-    <text x="898" y="156" font-size="18" fill="#a7f3d0">Net profit</text>
-    <text x="898" y="200" font-size="40" font-weight="800" fill="#fff">MWK 4.25M</text>
-    <text x="898" y="236" font-size="19" font-weight="700" fill="#6ee7b7">▲ 18% vs July</text>
+    <rect x="286" y="158" width="206" height="86" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="302" y="182" font-size="12" font-weight="700" fill="#64748b" letter-spacing="0.8">CASH IN THE BANK</text>
+    <text x="302" y="211" font-size="23" font-weight="800" fill="#0c1f1a">MWK 3.42M</text>
+    <text x="302" y="232" font-size="13" fill="#64748b">As of 14 Nov</text>
+
+    <rect x="504" y="158" width="206" height="86" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="520" y="182" font-size="12" font-weight="700" fill="#64748b" letter-spacing="0.8">OWED TO YOU</text>
+    <text x="520" y="211" font-size="23" font-weight="800" fill="#0c1f1a">MWK 1.17M</text>
+    <text x="520" y="232" font-size="13" fill="#64748b">4 open invoices</text>
+
+    <rect x="722" y="158" width="206" height="86" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="738" y="182" font-size="12" font-weight="700" fill="#64748b" letter-spacing="0.8">BILLS TO PAY</text>
+    <text x="738" y="211" font-size="23" font-weight="800" fill="#0c1f1a">MWK 640K</text>
+    <text x="738" y="232" font-size="13" fill="#64748b">3 unpaid expenses</text>
+
+    <rect x="940" y="158" width="208" height="86" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="956" y="182" font-size="12" font-weight="700" fill="#64748b" letter-spacing="0.8">NEXT PAYROLL</text>
+    <text x="956" y="211" font-size="23" font-weight="800" fill="#0c1f1a">MWK 920K</text>
+    <text x="956" y="232" font-size="13" fill="#64748b">Pay date 28 Nov</text>
   </g>
-  <!-- cash flow chart -->
-  <rect x="286" y="286" width="564" height="260" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
-  <text x="314" y="326" font-size="21" font-weight="800" fill="#0c1f1a">Cash flow</text>
-  <text x="822" y="326" font-size="17" font-weight="600" fill="#1d9e75" text-anchor="end">Full report →</text>
+
+  <!-- period figures -->
   <g>
-    <rect x="330" y="430" width="42" height="70" rx="9" fill="#a7f3d0"/>
-    <rect x="388" y="400" width="42" height="100" rx="9" fill="#6ee7b7"/>
-    <rect x="446" y="418" width="42" height="82" rx="9" fill="#a7f3d0"/>
-    <rect x="504" y="376" width="42" height="124" rx="9" fill="#34d399"/>
-    <rect x="562" y="396" width="42" height="104" rx="9" fill="#6ee7b7"/>
-    <rect x="620" y="364" width="42" height="136" rx="9" fill="#1d9e75"/>
-    <rect x="678" y="388" width="42" height="112" rx="9" fill="#34d399"/>
-    <rect x="736" y="408" width="42" height="92" rx="9" fill="#6ee7b7"/>
+    <rect x="262" y="284" width="250" height="132" rx="20" fill="#0e4435"/>
+    <text x="286" y="318" font-size="15" fill="#a7f3d0">Net profit</text>
+    <text x="286" y="360" font-size="34" font-weight="800" fill="#fff">MWK 4.2M</text>
+    <rect x="286" y="378" width="98" height="24" rx="12" fill="#ffffff" opacity="0.14"/>
+    <text x="335" y="395" font-size="13" font-weight="700" fill="#d1fae5" text-anchor="middle">▲ Profitable</text>
+
+    <rect x="532" y="284" width="200" height="132" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="554" y="318" font-size="15" fill="#64748b">Income</text>
+    <text x="554" y="360" font-size="26" font-weight="800" fill="#0c1f1a">MWK 6.1M</text>
+    <text x="554" y="392" font-size="15" font-weight="700" fill="#1d9e75">▲ 12% vs October</text>
+
+    <rect x="752" y="284" width="200" height="132" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="774" y="318" font-size="15" fill="#64748b">Expenses</text>
+    <text x="774" y="360" font-size="26" font-weight="800" fill="#0c1f1a">MWK 1.9M</text>
+    <text x="774" y="392" font-size="15" font-weight="700" fill="#dc2626">▼ 4% vs October</text>
+
+    <rect x="972" y="284" width="200" height="132" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+    <text x="994" y="318" font-size="15" fill="#64748b">VAT accrued</text>
+    <text x="994" y="360" font-size="26" font-weight="800" fill="#0c1f1a">MWK 157K</text>
+    <text x="994" y="392" font-size="15" font-weight="600" fill="#64748b">Payable to MRA</text>
   </g>
-  <!-- VAT card -->
-  <rect x="870" y="286" width="294" height="260" rx="20" fill="#1d9e75"/>
-  <text x="898" y="326" font-size="19" fill="#d1fae5">VAT payable to MRA</text>
-  <text x="898" y="372" font-size="42" font-weight="800" fill="#fff">MWK 157K</text>
-  <rect x="898" y="396" width="238" height="14" rx="7" fill="#ffffff" opacity="0.25"/>
-  <rect x="898" y="396" width="160" height="14" rx="7" fill="#fff"/>
-  <text x="898" y="444" font-size="19" font-weight="700" fill="#fff">Due 25 Sept · 15 days left</text>
-  <rect x="898" y="466" width="238" height="52" rx="14" fill="#fff"/>
-  <text x="1017" y="500" font-size="20" font-weight="800" fill="#0e4435" text-anchor="middle">View VAT return</text>
-  <!-- invoices table -->
-  <rect x="286" y="566" width="878" height="158" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
-  <text x="314" y="606" font-size="21" font-weight="800" fill="#0c1f1a">Recent invoices</text>
-  <text x="1136" y="606" font-size="17" font-weight="600" fill="#1d9e75" text-anchor="end">View all →</text>
-  <line x1="314" y1="622" x2="1136" y2="622" stroke="#e2e8f0" stroke-width="2"/>
-  <text x="314" y="654" font-size="19" font-weight="600" fill="#0c1f1a">INV-0241 · Acme Ltd</text>
-  <text x="314" y="680" font-size="17" fill="#64748b">10 Sept · VAT incl.</text>
-  <text x="900" y="666" font-size="21" font-weight="800" fill="#0c1f1a" text-anchor="end">MWK 850,000</text>
-  <rect x="920" y="642" width="90" height="36" rx="18" fill="#dcfce7"/>
-  <text x="965" y="666" font-size="17" font-weight="800" fill="#166534" text-anchor="middle">Paid</text>
-  <text x="314" y="712" font-size="19" font-weight="600" fill="#0c1f1a">INV-0242 · Banda &amp; Co</text>
-  <text x="900" y="706" font-size="21" font-weight="800" fill="#0c1f1a" text-anchor="end">MWK 320,000</text>
-  <rect x="920" y="684" width="110" height="36" rx="18" fill="#fef9c3"/>
-  <text x="975" y="708" font-size="17" font-weight="800" fill="#854d0e" text-anchor="middle">Pending</text>
+
+  <!-- income vs expenses -->
+  <rect x="262" y="436" width="580" height="296" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="286" y="474" font-size="19" font-weight="800" fill="#0c1f1a">Income vs expenses</text>
+  <text x="286" y="496" font-size="14" fill="#64748b">Last 6 months</text>
+  <circle cx="664" cy="469" r="5" fill="#1d9e75"/>
+  <text x="676" y="474" font-size="13" font-weight="600" fill="#475569">Income</text>
+  <circle cx="762" cy="469" r="5" fill="#dc2626"/>
+  <text x="774" y="474" font-size="13" font-weight="600" fill="#475569">Spent</text>
+  <g stroke="#eef2f6" stroke-width="2">
+    <line x1="286" y1="532" x2="818" y2="532"/>
+    <line x1="286" y1="582" x2="818" y2="582"/>
+    <line x1="286" y1="632" x2="818" y2="632"/>
+    <line x1="286" y1="682" x2="818" y2="682"/>
+  </g>
+  <path d="M300 622 C340 600 366 588 406 584 S472 566 512 568 S578 596 618 590 S684 548 724 544 S780 540 804 530 L804 682 L300 682 Z" fill="#1d9e75" opacity="0.10"/>
+  <path d="M300 622 C340 600 366 588 406 584 S472 566 512 568 S578 596 618 590 S684 548 724 544 S780 540 804 530" fill="none" stroke="#1d9e75" stroke-width="4" stroke-linecap="round"/>
+  <path d="M300 664 C340 656 366 650 406 648 S472 640 512 644 S578 658 618 654 S684 644 724 646 S780 650 804 648" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 9"/>
+  <g fill="#1d9e75">
+    <circle cx="300" cy="622" r="5"/><circle cx="406" cy="584" r="5"/><circle cx="512" cy="568" r="5"/>
+    <circle cx="618" cy="590" r="5"/><circle cx="724" cy="544" r="5"/><circle cx="804" cy="530" r="5"/>
+  </g>
+  <g font-size="13" fill="#94a3b8" text-anchor="middle">
+    <text x="300" y="712">Jun</text><text x="406" y="712">Jul</text><text x="512" y="712">Aug</text>
+    <text x="618" y="712">Sep</text><text x="724" y="712">Oct</text><text x="804" y="712">Nov</text>
+  </g>
+
+  <!-- tax dates -->
+  <rect x="862" y="436" width="310" height="296" rx="20" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="886" y="474" font-size="19" font-weight="800" fill="#0c1f1a">Tax dates coming up</text>
+  <text x="886" y="496" font-size="14" fill="#64748b">Malawi Revenue Authority</text>
+
+  <rect x="886" y="514" width="262" height="62" rx="14" fill="#fffbeb" stroke="#fde68a" stroke-width="2"/>
+  <text x="902" y="540" font-size="16" font-weight="800" fill="#92400e">VAT</text>
+  <text x="902" y="561" font-size="13" fill="#78716c">October return</text>
+  <text x="1132" y="540" font-size="15" font-weight="800" fill="#b45309" text-anchor="end">Due 25 Nov</text>
+  <text x="1132" y="561" font-size="13" fill="#78716c" text-anchor="end">11 days left</text>
+
+  <rect x="886" y="586" width="262" height="62" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="902" y="612" font-size="16" font-weight="800" fill="#0c1f1a">PAYE</text>
+  <text x="902" y="633" font-size="13" fill="#64748b">November payroll</text>
+  <text x="1132" y="612" font-size="15" font-weight="800" fill="#334155" text-anchor="end">Due 14 Dec</text>
+  <text x="1132" y="633" font-size="13" fill="#64748b" text-anchor="end">30 days left</text>
+
+  <rect x="886" y="658" width="262" height="54" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="902" y="691" font-size="16" font-weight="800" fill="#0c1f1a">WHT</text>
+  <text x="1132" y="691" font-size="15" font-weight="800" fill="#334155" text-anchor="end">Due 14 Dec</text>
 </svg>
