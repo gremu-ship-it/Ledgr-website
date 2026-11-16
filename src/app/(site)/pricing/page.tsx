@@ -13,15 +13,23 @@ export const metadata: Metadata = {
 const faqs = [
   {
     q: "Is there really a free plan?",
-    a: "Yes. Free covers the dashboard, income, expenses, invoices and payroll for up to 50 transactions a month, with community support. No card required.",
+    a: "Yes. Free covers the dashboard, income, expenses and invoices for up to 50 transactions a month, with community support. No card required.",
   },
   {
     q: "What's included in Starter?",
-    a: "Starter is MWK 50,000/month and is where selling from a product list begins: products, warehouses and stock transfers, plus the chart of accounts, tax settings, assets, capital and the financial reports. Up to 200 transactions a month.",
+    a: "Starter is MWK 50,000/month and is where selling from a product list begins: products, warehouses and stock transfers, the point of sale, plus the chart of accounts, tax settings, assets, capital and payroll for up to 200 transactions a month.",
+  },
+  {
+    q: "Which plan do I need for the financial reports?",
+    a: "Growth. Profit or loss, the balance sheet, cash flow, changes in equity, trial balance, revenue breakdown, branch performance and the VAT and WHT schedules are all on Growth and above, along with budgets, depreciation runs, the cash forecast and FX revaluation. Starter gives you the records those reports are built from, but not the statements.",
   },
   {
     q: "Which plan do I need for the point of sale?",
-    a: "The till is part of Ledgr rather than a separate product, so it isn't sold as a plan of its own. What it needs is something to sell, and the product catalogue and stock it draws on are available from Starter. Branches, and therefore per-branch sales reporting, are available from Growth. If you are unsure which plan suits how you trade, talk to us before you pay for anything.",
+    a: "The till is part of Ledgr rather than a separate product, and it starts on Starter — the same plan as the product catalogue and stock it sells from. Branches, and therefore per-branch sales reporting, start on Growth. The till only appears in accounts whose business profile includes retail; a consultant or a contractor invoices instead. If you are unsure which plan suits how you trade, talk to us before you pay for anything.",
+  },
+  {
+    q: "Where do construction and manufacturing sit?",
+    a: "Both are Enterprise, and both only appear if the business profile is set up for them. Construction adds a project workspace with procurement, subcontractors, payment certificates, retention, RFIs, change orders, quality and HSE records and a schedule. Manufacturing adds bills of materials, MRP, production runs, routings and work centres. A business that also retails keeps the till alongside whichever it chooses.",
   },
   {
     q: "What counts as a transaction?",

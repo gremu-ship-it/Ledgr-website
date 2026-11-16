@@ -111,7 +111,7 @@ export const posts: Post[] = [
       { type: "h2", text: "How Ledgr helps" },
       {
         type: "p",
-        text: "Ledgr payroll applies the current bands to every employee, generates compliant payslips, and tracks exactly what you owe MRA each month — so payday takes minutes, not a spreadsheet wrestling match.",
+        text: "Ledgr payroll applies the current bands to every employee, generates a printable payslip, and records what is owed to MRA each month — so payday takes minutes, not a spreadsheet wrestling match. Payroll is on Starter and above; pay runs and leave requests are on Growth.",
       },
     ],
   },
@@ -154,7 +154,7 @@ export const posts: Post[] = [
       { type: "h2", text: "How Ledgr helps" },
       {
         type: "p",
-        text: "Ledgr ships the WHT rates you actually use — 10%, 15% and 20% — so you pick the right one on a payment instead of looking it up, and contacts that hold an exemption can be marked WHT-exempt so they are left alone. Payroll handles PAYE and pension contributions. The TEVET levy isn't calculated for you yet, but its due date shows up in your MRA reminders so it doesn't creep past you.",
+        text: "Ledgr ships the WHT rates you actually use — 10%, 15% and 20% — so you pick the right one on a payment instead of looking it up, and contacts that hold an exemption can be marked WHT-exempt so they are left alone. On Growth you can print a WHT schedule from the payments you have flagged. Payroll handles PAYE and pension contributions. The TEVET levy isn't calculated for you yet, but its due date shows up in your MRA reminders so it doesn't creep past you.",
       },
     ],
   },

@@ -97,6 +97,11 @@ Checked from this repo on 2026-09-17 against the deployed app:
 - `<app>/demo/enter` lands on `/dashboard` in demo mode: the amber "Demo account — sample
   data, not your books" banner, `demo@ledgr.test`, "Saved in this browser only · resets in
   24h", and **Reset data** / **Create free account** / **Exit demo** all present.
+- The demo business runs the app's `DEMO_PLAN_TIER = 'pro'` tier, so the tour's copy may
+  promise what Pro unlocks (AI assistant, API, webhooks) but **not** Enterprise-only
+  surfaces: `/ai` shows its Enterprise upgrade gate, and construction/manufacturing only
+  appear if the seeded profile selects those operating models. The homepage and pricing
+  copy keep the same split — assistant on Pro, AI Financial Intelligence on Enterprise.
 - The app's own login page links to the demo too ("Or try the public demo"), so the
   sign-in route does not dead-end a curious visitor.
 

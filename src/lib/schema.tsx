@@ -54,7 +54,7 @@ export function softwareSchema() {
     applicationSubCategory: "FinanceApplication",
     operatingSystem: "Web, Android, iOS, Windows, macOS",
     description:
-      "Business software for Malawi: a point of sale that updates stock and the books, invoicing with 17.5% VAT, expenses, payroll, multi-branch stock and financial reports — all in Malawian Kwacha. Sales and entries can be captured offline and sync when the connection returns.",
+      "Business software for Malawi: a point of sale that updates stock and the books, invoicing with 17.5% VAT, payroll with PAYE, multi-branch stock, budgets, bank reconciliation, VAT and WHT returns, financial reports and an AI assistant — all in Malawian Kwacha. Sales and entries can be captured offline and sync when the connection returns.",
     // Monthly only. Yearly offers were removed with the yearly UI: the site's
     // derived annual prices contradicted the application's checkout, and
     // publishing a conflicting price as structured data is worse than

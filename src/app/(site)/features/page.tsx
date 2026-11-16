@@ -18,6 +18,14 @@ export const metadata: Metadata = {
  * were removed in the 2026-09-27 audit because nothing in the app supports
  * them: quotes, automatic reminders chasing late payers, receipt photo capture,
  * and MRA "certificates". See docs/PRODUCT-AUDIT-2026-09.md §2.
+ *
+ * Re-checked 2026-11-16 against `Ledgr-react` @ 7fb872d. The November pass added
+ * what the app grew since September (pay runs and leave, budgets, depreciation
+ * runs, a cash forecast, FX revaluation, VAT and WHT schedules, imports,
+ * approval workflows, construction and manufacturing) and moved two tier
+ * statements that had drifted: the financial reports are Growth, not Starter,
+ * and AI Financial Intelligence is Enterprise, not Pro. Payroll is Starter, not
+ * Free. See docs/PRODUCT-AUDIT-2026-11.md.
  */
 const groups = [
   {
@@ -78,7 +86,12 @@ const groups = [
       {
         icon: "🧮",
         title: "Payroll",
-        desc: "Payslips with PAYE calculated on the MRA bands and pension handled at the statutory rates.",
+        desc: "Payslips with PAYE calculated on the MRA bands and pension at the statutory rates. Employees, payslips and tax configuration are Starter; pay runs and leave requests are Growth.",
+      },
+      {
+        icon: "🔀",
+        title: "Imports & onboarding",
+        desc: "Bring your chart of accounts, contacts, products and opening balances across from CSV — with column mappings for QuickBooks and Xero exports — and preview every row before anything is written.",
       },
       {
         icon: "🤝",
@@ -104,7 +117,7 @@ const groups = [
       {
         icon: "📑",
         title: "Financial reports",
-        desc: "Profit or loss, statement of financial position, cash flow, changes in equity, trial balance and a revenue breakdown — generated from proper double-entry books your accountant can read.",
+        desc: "Profit or loss, statement of financial position, cash flow, changes in equity, trial balance and a revenue breakdown — generated from proper double-entry books your accountant can read. Growth plan.",
       },
       {
         icon: "🏬",
@@ -117,9 +130,19 @@ const groups = [
         desc: "Sales by cashier, branch and day, with average sale value, discounts given and returns taken, over today, a week, a month or the lot.",
       },
       {
+        icon: "🎯",
+        title: "Budgets vs actuals",
+        desc: "Build a budget by account and period, then see what you planned against what you spent, line by line. Growth plan.",
+      },
+      {
+        icon: "🔁",
+        title: "Depreciation, forecast & FX",
+        desc: "Run depreciation across fixed assets, forecast cash over the coming months, and revalue foreign-currency balances at the current rate. Growth plan.",
+      },
+      {
         icon: "🧠",
         title: "AI insights",
-        desc: "Ask questions of your own figures and get an answer grounded in your books rather than a general opinion. Pro plan.",
+        desc: "Ask questions of your own figures and get an answer grounded in your books rather than a general opinion. The assistant is Pro; anomaly checks and runway forecasts are Enterprise.",
       },
       {
         icon: "🏦",
@@ -144,8 +167,8 @@ const groups = [
       },
       {
         icon: "✂️",
-        title: "Withholding tax",
-        desc: "WHT at 10%, 15% or 20% applied per line and posted where it belongs in the accounts.",
+        title: "Withholding tax & returns",
+        desc: "WHT at 10%, 15% or 20% applied per line and posted where it belongs in the accounts, then a WHT schedule and a VAT return built from your own books. Growth plan.",
       },
       {
         icon: "🗓️",
@@ -161,6 +184,42 @@ const groups = [
         icon: "🗂️",
         title: "Audit trail",
         desc: "Sequential document numbers and a record of who did what, including who approved a discount, a refund or a void at the till.",
+      },
+    ],
+  },
+  {
+    eyebrow: "Run the business",
+    lead: "The parts that never touch a receipt.",
+    items: [
+      {
+        icon: "🏢",
+        title: "Several businesses",
+        desc: "One login, several businesses — plus branches, departments and, for construction and manufacturing, sites and site stores. Switch between them without signing out, with each business's books walled off from the others.",
+      },
+      {
+        icon: "🔐",
+        title: "Roles & approvals",
+        desc: "Owner, admin, accountant, payroll manager, auditor, viewer and a till-only cashier — each with a reach you set, enforced on the server rather than hidden in the menu. Enterprise adds approval workflows so a journal or a purchase order waits for a second pair of eyes.",
+      },
+      {
+        icon: "💱",
+        title: "Multi-currency",
+        desc: "Record in eight currencies including USD, GBP, ZAR, ZMW, TZS and MZN, keep exchange rates up to date, and revalue foreign-currency balances rather than pretending the rate never moved.",
+      },
+      {
+        icon: "🏗️",
+        title: "Construction",
+        desc: "Enterprise, and only for a construction profile: project procurement, subcontractors, payment certificates and the retention register, RFIs, change orders, inspection and test plans, NCRs, HSE incidents, toolbox talks and a schedule.",
+      },
+      {
+        icon: "🏭",
+        title: "Manufacturing",
+        desc: "Enterprise, and only for a manufacturing profile: bills of materials, an MRP workbench, production runs, routings and work centres — with materials coming out of stock as production consumes them.",
+      },
+      {
+        icon: "🔌",
+        title: "API, webhooks & Zapier",
+        desc: "A documented JSON API with hashed keys, outbound webhooks, and a Zapier path for the tools you already use. Pro plan.",
       },
     ],
   },
@@ -208,12 +267,14 @@ export default function FeaturesPage() {
         <div className="rounded-3xl border border-slate-100 bg-brand-50/50 p-7 sm:p-9">
           <h2 className="text-xl font-bold text-ink">Which plan has what</h2>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-soft">
-            The free plan covers the dashboard, income, expenses, invoices and
-            payroll. Products and stock — what the till sells from — plus the
-            accounting modules and financial reports start on Starter. Branches,
-            departments, contacts, bank reconciliation, journals, period
-            management and the audit log start on Growth. AI insights and the
-            developer side — a public API, webhooks and Zapier — are Pro.{" "}
+            Free covers the dashboard, income, expenses and invoices. Starter
+            adds products and stock, the till, the accounting modules and
+            payroll. Growth adds the financial reports, branches, departments,
+            contacts, bank reconciliation, budgets, depreciation, cash forecast,
+            FX revaluation, journals, period management and the audit log. Pro
+            adds the AI assistant and the developer side — API, webhooks and
+            Zapier. Enterprise adds AI Financial Intelligence, construction and
+            manufacturing, custom branding and approval workflows.{" "}
             <Link
               href="/pricing"
               className="font-semibold text-brand-700 hover:underline"

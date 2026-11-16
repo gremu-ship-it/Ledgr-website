@@ -86,19 +86,21 @@ export default function PricingPlans() {
         })}
       </div>
 
-      {/* Where POS sits. Stated carefully on purpose: the application does not
-          gate /pos on a plan today, but selling from a product list needs the
-          Products & stock modules, which start on Starter. Nothing here claims
-          "POS included" on a specific tier — see docs/PRODUCT-AUDIT-2026-09.md
-          §6, which flags this as a product decision still to be made. */}
+      {/* Where POS sits. Stated carefully on purpose: the till route itself is
+          gated `minPlan: 'starter'` and only appears for a business whose
+          profile includes the retail operating model, and it needs the Products
+          & stock modules to sell anything — which are also Starter. See
+          docs/PRODUCT-AUDIT-2026-11.md §3. */}
       <div className="mx-auto mt-8 max-w-3xl rounded-2xl border border-slate-100 bg-slate-50/70 p-5 text-sm text-ink-soft">
         <p>
           <strong className="font-semibold text-ink">Where the till fits.</strong>{" "}
-          The point of sale is part of Ledgr rather than a separate product. To
-          sell from it you need a product list and stock, which start on{" "}
-          <strong className="font-semibold text-ink">Starter</strong>; branches and
-          per-branch sales reporting start on{" "}
-          <strong className="font-semibold text-ink">Growth</strong>.
+          The point of sale is part of Ledgr rather than a separate product. It
+          starts on <strong className="font-semibold text-ink">Starter</strong>,
+          alongside the product list and stock it sells from. Branches, per-branch
+          sales reporting and the financial reports start on{" "}
+          <strong className="font-semibold text-ink">Growth</strong>. The till only
+          appears in accounts whose business profile includes retail — a
+          consultancy or a contractor invoices instead and never sees it.
         </p>
         <p className="mt-2">
           <strong className="font-semibold text-ink">Paying for a year.</strong>{" "}

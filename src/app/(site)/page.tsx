@@ -9,6 +9,7 @@ import ContactStrip from "@/components/ContactStrip";
 import Faq from "@/components/Faq";
 import PwaInstall from "@/components/PwaInstall";
 import { demo, site } from "@/lib/site";
+import { planTiers } from "@/lib/pricing";
 import { faqs } from "@/lib/faqs";
 import {
   faqSchema,
@@ -61,8 +62,13 @@ const saleSteps = [
 
 /**
  * Features grouped by what a business does, not by what the software is made
- * of. Every item is implemented in the Ledgr application today — see
- * docs/PRODUCT-AUDIT-2026-09.md for what was removed and why.
+ * of. Every item is implemented in the Ledgr application today — checked
+ * against `Ledgr-react` @ 7fb872d (2026-11-12). See
+ * docs/PRODUCT-AUDIT-2026-09.md for what was removed in September and
+ * docs/PRODUCT-AUDIT-2026-11.md for what changed since.
+ *
+ * `tier` is only set where a feature starts above Free, so the card can say so
+ * without the reader having to cross-reference the pricing table.
  */
 const featureGroups = [
   {
@@ -72,6 +78,7 @@ const featureGroups = [
         icon: "🛒",
         title: "Point of sale",
         desc: "A till your cashier can learn in ten minutes: barcode or search, discounts within their limit, park a sale, print a receipt.",
+        tier: "Starter",
       },
       {
         icon: "🧾",
@@ -85,8 +92,8 @@ const featureGroups = [
       },
       {
         icon: "🧷",
-        title: "Receipts",
-        desc: "Print from the browser, or straight to a Bluetooth thermal printer with the cash drawer opening as it prints.",
+        title: "Receipts & shifts",
+        desc: "Print from the browser or to a Bluetooth thermal printer, and close the shift against the counted drawer with a Z-report.",
       },
     ],
   },
@@ -97,11 +104,13 @@ const featureGroups = [
         icon: "📦",
         title: "Stock",
         desc: "Quantity on hand per branch and warehouse, transfers between them, reorder levels, and movement history that includes every sale.",
+        tier: "Starter",
       },
       {
         icon: "👥",
         title: "Customers & suppliers",
         desc: "One contact list for the people you sell to and buy from, reusable on invoices and at the till.",
+        tier: "Growth",
       },
       {
         icon: "💸",
@@ -110,8 +119,9 @@ const featureGroups = [
       },
       {
         icon: "🧮",
-        title: "Payroll",
-        desc: "Payslips with PAYE worked out from the MRA bands and pension handled at the statutory rates.",
+        title: "Payroll & leave",
+        desc: "Payslips with PAYE from the MRA bands, pension at the statutory rates, pay runs and leave requests.",
+        tier: planTiers.payroll,
       },
     ],
   },
@@ -127,16 +137,19 @@ const featureGroups = [
         icon: "📑",
         title: "Financial reports",
         desc: "Profit or loss, balance sheet, cash flow, changes in equity and trial balance, from proper double-entry books.",
+        tier: planTiers.reports,
       },
       {
         icon: "🏬",
-        title: "Branch performance",
-        desc: "Compare branches instead of guessing which one carries the business — and which one quietly doesn't.",
+        title: "Branches & budgets",
+        desc: "Compare branches side by side, and put a budget next to the actuals when the month closes.",
+        tier: planTiers.branches,
       },
       {
-        icon: "📈",
-        title: "Sales analytics",
-        desc: "Sales by cashier, by branch and by day, with average sale value, discounts given and returns taken.",
+        icon: "🤖",
+        title: "Ledgr AI",
+        desc: "Ask your own books a question and get an answer. Enterprise adds anomaly checks and runway forecasts.",
+        tier: planTiers.aiAssistant,
       },
     ],
   },
@@ -152,11 +165,13 @@ const featureGroups = [
         icon: "👔",
         title: "PAYE",
         desc: "Calculated on the MRA bands for the fiscal year, and editable if your business has its own arrangement.",
+        tier: planTiers.payroll,
       },
       {
         icon: "✂️",
-        title: "Withholding tax",
-        desc: "WHT at 10%, 15% or 20% applied per line and tracked where it belongs in the accounts.",
+        title: "VAT & WHT schedules",
+        desc: "Withholding tax at 10%, 15% or 20% applied per line, then a return and a schedule built from your own books.",
+        tier: planTiers.reports,
       },
       {
         icon: "🗓️",
@@ -164,6 +179,44 @@ const featureGroups = [
         desc: "PAYE and WHT on the 14th, VAT on the 25th, the TEVET levy on 1 April — shown with days left, before they bite.",
       },
     ],
+  },
+];
+
+/**
+ * The parts of Ledgr that are not about a shop counter. These exist in the app
+ * today and were invisible on this page: the wider platform (branches, multi-
+ * currency, roles, imports, the API) and the two vertical workspaces.
+ */
+const platform = [
+  {
+    icon: "🏢",
+    title: "More than one business",
+    desc: "Run several businesses, or several branches, departments and sites from one login — each with its own books, stock and people.",
+  },
+  {
+    icon: "💱",
+    title: "Multi-currency",
+    desc: "Record in eight currencies including USD, GBP, ZAR and ZMW, with exchange rates applied to the books and FX revaluation on Growth.",
+  },
+  {
+    icon: "🔐",
+    title: "Roles that hold",
+    desc: "Owner, admin, accountant, payroll manager, auditor and viewer — plus a cashier role that reaches the till and little else. The rules are enforced on the server, not just hidden in the menu.",
+  },
+  {
+    icon: "🧾",
+    title: "Bring your books across",
+    desc: "Import chart of accounts, contacts, products and opening balances from CSV, with mappings for QuickBooks and Xero exports.",
+  },
+  {
+    icon: "🔌",
+    title: "API, webhooks & Zapier",
+    desc: "On Pro, connect the rest of your stack: a documented JSON API with hashed keys, outbound webhooks and a Zapier path.",
+  },
+  {
+    icon: "🏗️",
+    title: "Construction & manufacturing",
+    desc: "On Enterprise: project procurement, certificates and retention, or bills of materials, MRP and production runs.",
   },
 ];
 
@@ -395,8 +448,15 @@ export default function HomePage() {
                     key={f.title}
                     className="group rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-brand-200 hover:shadow-lg hover:shadow-brand-500/5"
                   >
-                    <div className="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-xl transition group-hover:bg-brand-100">
-                      <span aria-hidden>{f.icon}</span>
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-xl transition group-hover:bg-brand-100">
+                        <span aria-hidden>{f.icon}</span>
+                      </div>
+                      {f.tier && (
+                        <span className="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-semibold text-slate-500">
+                          {f.tier}+
+                        </span>
+                      )}
                     </div>
                     <h4 className="mt-4 text-base font-bold text-ink">{f.title}</h4>
                     <p className="mt-2 text-sm leading-relaxed text-ink-soft">
@@ -457,6 +517,45 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* THE REST OF THE PLATFORM — what the product grew into since the
+          September audit: several businesses, currencies, roles, imports, the
+          API and the two vertical workspaces. */}
+      <section className="border-b border-slate-100 bg-slate-50/70 py-14">
+        <div className="mx-auto max-w-6xl px-5">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
+              Beyond the counter
+            </p>
+            <h2 className="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] font-extrabold tracking-tight text-ink">
+              It is a business platform, not just a till
+            </h2>
+            <p className="mt-4 text-ink-soft">
+              The same account carries the parts of running a business that never
+              touch a receipt: people, currencies, paperwork and the systems
+              around you.
+            </p>
+          </div>
+          <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {platform.map((p) => (
+              <div
+                key={p.title}
+                className="flex gap-4 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm"
+              >
+                <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-xl">
+                  <span aria-hidden>{p.icon}</span>
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-ink">{p.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
+                    {p.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* HOW IT WORKS */}
       <section id="how" className="mx-auto max-w-6xl px-5 py-14">
         <div className="mx-auto max-w-2xl text-center">
@@ -503,8 +602,9 @@ export default function HomePage() {
           </h2>
           <p className="mt-4 text-ink-soft">
             Start free. Paid plans from MWK 50,000/month — Starter once you are
-            selling from a product list, Growth and Pro as you add branches and
-            people. Paid in Kwacha, by mobile money or card.
+            selling from a product list, Growth when you need the reports and
+            several branches, Pro when you want the AI and the API. Paid in
+            Kwacha, by mobile money or card.
           </p>
         </div>
         <PricingPlans />

@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Ledgr — Run your business. Know your numbers.",
     description:
-      "Sales, POS, stock, expenses, invoicing and accounting in one place — built for businesses in Malawi.",
+      "Sales, POS, stock, payroll, expenses, invoicing and accounting in one place — built for businesses in Malawi, in Kwacha, online or offline.",
     type: "website",
     url: site.siteUrl,
     siteName: "Ledgr",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ledgr — Run your business. Know your numbers.",
     description:
-      "Sales, POS, stock, expenses, invoicing and accounting in one place — built for businesses in Malawi.",
+      "Sales, POS, stock, payroll, expenses, invoicing and accounting in one place — built for businesses in Malawi, in Kwacha, online or offline.",
   },
   manifest: "/manifest.webmanifest",
   appleWebApp: {

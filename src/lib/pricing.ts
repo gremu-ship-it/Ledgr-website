@@ -4,10 +4,34 @@
  * the plan copy and the homepage copy drift apart. Both pages now read from here.
  *
  * WHAT EACH PLAN CONTAINS is mirrored from the application's own plan map
- * (`Ledgr-react/src/lib/billing/plans.ts`), because that file is what actually
- * unlocks the modules — `PlanGate`/`PartnerPlanGate` in `App.tsx` and the
- * `requiresCapability` / `minPlan` entries in `navConfig.ts`. Keep the two in
- * step: if a capability moves tier in the app, the bullet moves here.
+ * (`Ledgr-react/src/lib/billing/plans.ts`, re-read 2026-11-16), because that file
+ * is what actually unlocks the modules: `PlanGate` / `PartnerPlanGate` /
+ * `CapabilityGate` in `App.tsx`, the `requiresCapability` / `minPlan` entries in
+ * `navConfig.ts`, and the capability each feature's own gate names. Keep the two
+ * in step — if a capability moves tier in the app, the bullet moves here.
+ *
+ * What changed in this pass (application @ Ledgr-react 7fb872d, 2026-11-12):
+ *
+ *   - **Payroll is no longer on Free.** Every payroll route sits behind
+ *     `PartnerPlanGate capability="core_accounting"` (`core_accounting` starts
+ *     on Starter), and employee management additionally carries
+ *     `minPlan: 'starter'`. The site had been promising payroll on Free since
+ *     the 2026-09 audit; the app never allowed it.
+ *   - **The financial reports are Growth, not Starter.** `TrialBalanceRoute`,
+ *     `ProfitLossRoute`, `BalanceSheetRoute`, `CashFlowRoute`,
+ *     `ChangesInEquityRoute`, `RevenueBreakdownRoute`, `BranchPerformanceRoute`,
+ *     `VatReturnRoute`, `WhtScheduleRoute` all gate on
+ *     `accounting_organisation`, which the app only grants from Growth. Starter
+ *     keeps the modules that feed them — chart of accounts, tax codes, assets,
+ *     capital — but not the statements.
+ *   - **Budgets & actuals, depreciation runs, cash forecast and FX revaluation
+ *     are Growth** (`minPlan: 'growth'` / `accounting_organisation`).
+ *   - **AI Financial Intelligence (`/ai`) is Enterprise, not Pro.** The page
+ *     renders `EnterpriseUpgradeGate` for every other tier. The assistant
+ *     drawer's Ledgr AI tab is still gated on the `ai_insights` capability
+ *     (Pro+); the *diagnostics and forecasting* module is Enterprise.
+ *   - **Construction and Manufacturing are Enterprise modules**, gated on the
+ *     business profile as well as the plan.
  */
 
 import { site } from "@/lib/site";
@@ -45,7 +69,6 @@ export type Plan = {
  * and in `softwareSchema()`. See docs/PRODUCT-AUDIT-2026-09.md §6.1.
  */
 
-
 /**
  * Deterministic thousands separators. `toLocaleString` output can differ
  * between the Node runtime and the browser, which causes React hydration
@@ -62,7 +85,7 @@ export const plans: Plan[] = [
     desc: "For trying Ledgr and running a side hustle.",
     features: [
       "Dashboard in Kwacha",
-      "Income, expenses, invoices & payroll",
+      "Income, expenses & invoices",
       "Up to 50 transactions/month",
       "Community support",
     ],
@@ -78,8 +101,9 @@ export const plans: Plan[] = [
     features: [
       "Everything in Free",
       "Products, warehouses & stock transfers",
+      "Point of sale with shifts and Z-reports",
       "Chart of accounts, tax, assets & capital",
-      "Financial reports",
+      "Payroll: employees, payslips & PAYE",
       "Up to 200 transactions/month",
     ],
     cta: "Choose Starter",
@@ -92,8 +116,10 @@ export const plans: Plan[] = [
     desc: "For businesses adding branches, people and reconciliation.",
     features: [
       "Everything in Starter",
-      "Branches, departments & contacts",
-      "Bank reconciliation",
+      "Financial reports: P&L, balance sheet, cash flow",
+      "Branches, departments, contacts & locations",
+      "Bank reconciliation & cash deposits",
+      "Budgets, depreciation & FX revaluation",
       "Journals, period locking & audit log",
       "Up to 500 transactions/month",
       "Email support",
@@ -108,7 +134,7 @@ export const plans: Plan[] = [
     desc: "For businesses that want insight and integrations.",
     features: [
       "Everything in Growth",
-      "AI insights & forecasting",
+      "Ledgr AI assistant on your own books",
       "Public API access",
       "Webhook integrations",
       "Up to 2,000 transactions/month",
@@ -125,8 +151,10 @@ export const plans: Plan[] = [
     features: [
       "Everything in Pro",
       "Unlimited transactions",
-      "Custom branding",
-      "Multi-user roles & permissions",
+      "AI Financial Intelligence & anomaly checks",
+      "Construction & manufacturing workspaces",
+      "Custom branding on invoices & receipts",
+      "Multi-user roles, approval workflows & permissions",
       "Dedicated account manager",
       "SLA & compliance support",
     ],
@@ -135,3 +163,26 @@ export const plans: Plan[] = [
     highlight: false,
   },
 ];
+
+/**
+ * The few tier facts that appear in prose elsewhere on the site, so copy can
+ * say "Branches are Growth and above" without hard-coding the word twice in
+ * two places and drifting. Keys are what the sentence needs, not the app's
+ * internal capability names.
+ */
+export const planTiers = {
+  payroll: "Starter",
+  reports: "Growth",
+  branches: "Growth",
+  bankReconciliation: "Growth",
+  aiAssistant: "Pro",
+  aiIntelligence: "Enterprise",
+  construction: "Enterprise",
+  manufacturing: "Enterprise",
+  customBranding: "Enterprise",
+} as const;
+
+/** `plans` entries keyed by name, for prose that quotes a price. */
+export function planNamed(name: string): Plan | undefined {
+  return plans.find((p) => p.name.toLowerCase() === name.toLowerCase());
+}
