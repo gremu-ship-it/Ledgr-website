@@ -2,26 +2,36 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/ui";
 import PricingPlans from "@/components/PricingPlans";
+import { yearlyAnswer } from "@/lib/faqs";
+import { ANNUAL_DISCOUNT_PCT } from "@/lib/pricing";
 
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Pricing in Kwacha: Free, Starter at MWK 50,000/month, Growth at MWK 100,000/month, Pro at MWK 200,000/month, Enterprise at MWK 500,000/month. Paid by mobile money or card through PayChangu.",
+    "Pricing in Kwacha: Free, Starter at MWK 50,000/month, Growth at MWK 100,000/month, Pro at MWK 200,000/month, Enterprise at MWK 500,000/month. Save 20% paying yearly. Paid by mobile money or card through PayChangu.",
   alternates: { canonical: "/pricing" },
 };
 
 const faqs = [
   {
     q: "Is there really a free plan?",
-    a: "Yes. Free covers the dashboard, income, expenses, invoices and payroll for up to 50 transactions a month, with community support. No card required.",
+    a: "Yes. Free covers the dashboard, income, expenses and invoices for up to 50 transactions a month, with community support. No card required.",
   },
   {
     q: "What's included in Starter?",
-    a: "Starter is MWK 50,000/month and is where selling from a product list begins: products, warehouses and stock transfers, plus the chart of accounts, tax settings, assets, capital and the financial reports. Up to 200 transactions a month.",
+    a: "Starter is MWK 50,000/month and is where selling from a product list begins: products, warehouses and stock transfers, the point of sale, plus the chart of accounts, tax settings, assets, capital and payroll for up to 200 transactions a month.",
+  },
+  {
+    q: "Which plan do I need for the financial reports?",
+    a: "Growth. Profit or loss, the balance sheet, cash flow, changes in equity, trial balance, revenue breakdown, branch performance and the VAT and WHT schedules are all on Growth and above, along with budgets, depreciation runs, the cash forecast and FX revaluation. Starter gives you the records those reports are built from, but not the statements.",
   },
   {
     q: "Which plan do I need for the point of sale?",
-    a: "The till is part of Ledgr rather than a separate product, so it isn't sold as a plan of its own. What it needs is something to sell, and the product catalogue and stock it draws on are available from Starter. Branches, and therefore per-branch sales reporting, are available from Growth. If you are unsure which plan suits how you trade, talk to us before you pay for anything.",
+    a: "The till is part of Ledgr rather than a separate product, and it starts on Starter — the same plan as the product catalogue and stock it sells from. Branches, and therefore per-branch sales reporting, start on Growth. The till only appears in accounts whose business profile includes retail; a consultant or a contractor invoices instead. If you are unsure which plan suits how you trade, talk to us before you pay for anything.",
+  },
+  {
+    q: "Where do construction and manufacturing sit?",
+    a: "Both are Enterprise, and both only appear if the business profile is set up for them. Construction adds a project workspace with procurement, subcontractors, payment certificates, retention, RFIs, change orders, quality and HSE records and a schedule. Manufacturing adds bills of materials, MRP, production runs, routings and work centres. A business that also retails keeps the till alongside whichever it chooses.",
   },
   {
     q: "What counts as a transaction?",
@@ -29,7 +39,7 @@ const faqs = [
   },
   {
     q: "Is there a discount for paying yearly?",
-    a: "Yes, and it isn't the same on every plan — so rather than print a figure here that might not be the one you're charged, the app shows you the exact yearly price for your plan at checkout, before you pay. The monthly prices on this page are the ones to compare on.",
+    a: yearlyAnswer(),
   },
   {
     q: "How do I pay?",
@@ -55,7 +65,7 @@ export default function PricingPage() {
             Priced in Kwacha, <span className="text-brand-700">for Malawian businesses</span>
           </>
         }
-        sub="Start free. Paid plans from MWK 50,000/month, paid with mobile money or card via PayChangu. Monthly or yearly — your yearly price is shown at checkout."
+        sub={`Start free. Paid plans from MWK 50,000/month, paid with mobile money or card via PayChangu. Pay for a year and it is ${ANNUAL_DISCOUNT_PCT}% less, on every plan.`}
       />
       <section className="mx-auto max-w-6xl px-5 pb-14">
         <PricingPlans />

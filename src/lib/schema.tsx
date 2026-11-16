@@ -1,5 +1,5 @@
 import { site } from "@/lib/site";
-import { plans } from "@/lib/pricing";
+import { ANNUAL_DISCOUNT_PCT, billingSwitchLive, plans } from "@/lib/pricing";
 import type { FaqItem } from "@/lib/faqs";
 
 export type { FaqItem };
@@ -54,18 +54,34 @@ export function softwareSchema() {
     applicationSubCategory: "FinanceApplication",
     operatingSystem: "Web, Android, iOS, Windows, macOS",
     description:
-      "Business software for Malawi: a point of sale that updates stock and the books, invoicing with 17.5% VAT, expenses, payroll, multi-branch stock and financial reports — all in Malawian Kwacha. Sales and entries can be captured offline and sync when the connection returns.",
-    // Monthly only. Yearly offers were removed with the yearly UI: the site's
-    // derived annual prices contradicted the application's checkout, and
-    // publishing a conflicting price as structured data is worse than
-    // publishing none. See lib/pricing.ts.
-    offers: plans.map((p) => ({
-      "@type": "Offer",
-      name: p.name,
-      price: String(p.monthly),
-      priceCurrency: "MWK",
-      billingIncrement: 1,
-      unitText: "MONTH",
-    })),
+      "Business software for Malawi: a point of sale that updates stock and the books, invoicing with 17.5% VAT, payroll with PAYE, multi-branch stock, budgets, bank reconciliation, VAT and WHT returns, financial reports and an AI assistant — all in Malawian Kwacha. Sales and entries can be captured offline and sync when the connection returns.",
+    // Monthly offers are always published — both sides agree on them. Yearly
+    // offers come on with the billing switch: a flat ANNUAL_DISCOUNT_PCT off
+    // twelve months on every paid plan. They stay off while the application
+    // still charges a per-tier discount, because structured data is a price
+    // promise to a search engine and must not front-run checkout.
+    offers: plans.flatMap((p) => {
+      const monthly = {
+        "@type": "Offer",
+        name: p.name,
+        price: String(p.monthly),
+        priceCurrency: "MWK",
+        billingIncrement: 1,
+        unitText: "MONTH",
+      };
+      if (p.free || !billingSwitchLive) return [monthly];
+      return [
+        monthly,
+        {
+          "@type": "Offer",
+          name: `${p.name} (yearly)`,
+          price: String(p.yearly),
+          priceCurrency: "MWK",
+          billingIncrement: 12,
+          unitText: "MONTH",
+          description: `Twelve months, ${ANNUAL_DISCOUNT_PCT}% less than paying monthly.`,
+        },
+      ];
+    }),
   };
 }

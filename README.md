@@ -10,8 +10,8 @@ https://ledgr-react.vercel.app — this repo is the public website that links to
 
 | Route | Description |
 |---|---|
-| `/` | Landing: hero, product tour, features, tax calculator, pricing, FAQ, contact |
-| `/features` | Full feature breakdown |
+| `/` | Landing: hero, product tour, features, platform, tax calculator, pricing, FAQ, contact |
+| `/features` | Full feature breakdown, including the Enterprise verticals |
 | `/pricing` | Plans in MWK + pricing FAQ |
 | `/about` | Story, mission, values |
 | `/contact` | Working contact form → Postgres |
@@ -115,9 +115,37 @@ src/
 ├── db/                     # Drizzle client + schema (10 tables)
 ├── lib/                    # analytics, tracker, contacts, marketing, reporting, esp
 drizzle/                    # SQL migrations (generated, committed)
-docs/                       # ANALYTICS.md, MARKETING.md
+docs/                       # ANALYTICS.md, MARKETING.md, product audits
 public/                     # PWA manifest, service worker, SVG screens, icon
 ```
+
+## Keeping the copy true
+
+Every product claim on the site is checked against the application's source, not
+its documentation — `PLANS` and the capability gates in `Ledgr-react` decide what
+a plan unlocks, and the marketing copy is meant to repeat that, not round it up.
+
+- `src/lib/pricing.ts` mirrors `Ledgr-react/src/lib/billing/plans.ts` and the
+  route gates in `App.tsx`. Tier statements in prose live there (`planTiers`)
+  so one edit moves them all.
+- `src/lib/faqs.ts` is the single source for the FAQ accordion, its JSON-LD and
+  anything else that quotes an answer.
+- **[`docs/PRODUCT-AUDIT-2026-09.md`](./docs/PRODUCT-AUDIT-2026-09.md)** — the
+  repositioning around POS and the claims removed as unsupported.
+- **[`docs/PRODUCT-AUDIT-2026-11.md`](./docs/PRODUCT-AUDIT-2026-11.md)** — the
+  November re-check: payroll moved to Starter, the reports to Growth, AI
+  Financial Intelligence to Enterprise, and what the app gained since.
+
+When a feature or a tier changes in the app, update `pricing.ts` first — the
+homepage, `/features`, `/pricing` and the FAQ all read from there.
+
+Annual billing is **20% off twelve months on every paid plan** (`ANNUAL_DISCOUNT_PCT`).
+The yearly totals, the billing switch on the pricing grid and the annual `Offer`s
+in the structured data are all derived from that one number and gated behind
+`billingSwitchLive`; it is `false` until `Ledgr-react`'s `PLANS[*].annualDiscount`
+and the `initiate-subscription-payment` edge function both apply 20% too, because
+the site must never advertise a yearly price checkout does not charge. The switch
+was tested on and off — flipping the flag is the only change needed.
 
 ## Configuration
 

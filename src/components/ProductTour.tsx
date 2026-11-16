@@ -80,6 +80,7 @@ const tabs: Tab[] = [
       "Sales, transfers and goods received all show up in the same movement history",
       "Reorder levels so slow-moving and about-to-run-out are both obvious",
       "Stock valued at weighted average cost, and cost of sales posted with the sale",
+      "Bring an existing product list across from a CSV, with a preview before anything is written",
     ],
     kind: "desktop",
     src: "/images/stock.svg",
@@ -97,11 +98,31 @@ const tabs: Tab[] = [
       "17.5% VAT handled per line, including zero-rated and exempt items",
       "PDF invoices you can send straight to a customer",
       "Outstanding invoices tracked, so you know who has not paid",
+      "A VAT return and a WHT schedule built from your own books",
       "PAYE, WHT, VAT and the TEVET levy shown with their due dates",
     ],
     kind: "phone",
     src: "/images/invoice.svg",
     alt: "Ledgr VAT invoice on a phone showing the 17.5% VAT breakdown and total in Malawian Kwacha",
+  },
+  {
+    id: "reports",
+    label: "Payroll & reports",
+    eyebrow: "The month end, without the shoebox",
+    title: "Payslips, statements and the numbers behind them",
+    blurb:
+      "Run payroll, then close the month on reports built from the same entries — no second spreadsheet, no re-keying into a template your accountant sent.",
+    bullets: [
+      "Employee list, pay runs and leave requests, with PAYE from the MRA bands and pension at the statutory rates",
+      "A printable payslip per employee, and payroll posted to the right accounts",
+      "Profit or loss, balance sheet, cash flow, changes in equity and trial balance — Growth plan",
+      "Branch performance, revenue breakdown, budgets against actuals and depreciation runs",
+      "Journals, period locking and an audit log of who changed what",
+    ],
+    kind: "desktop",
+    src: "/images/dashboard-web.svg",
+    alt: "Ledgr financial reports and payroll on a desktop, showing profit or loss and a pay run in Malawian Kwacha",
+    url: "ledgr-react.vercel.app/reports/profit-loss",
   },
   {
     id: "mobile",
@@ -240,10 +261,10 @@ export default function ProductTour() {
                   <code className="rounded bg-white px-1.5 py-0.5 font-mono text-xs text-ink ring-1 ring-slate-200">
                     {demo.email}
                   </code>{" "}
-                  on a sample business with realistic Malawian figures — including an
-                  open till shift you can sell from. It lives in your own browser, so
-                  nothing is sent anywhere — and please don&apos;t enter real financial
-                  data.
+                  on a sample business with months of realistic Malawian figures —
+                  stock, an open till shift you can sell from, payroll, VAT and the
+                  reports. It lives in your own browser, so nothing is sent anywhere —
+                  and please don&apos;t enter real financial data.
                 </p>
                 <p className="mt-2 text-sm">
                   <a

@@ -58,6 +58,15 @@ export default function AboutPage() {
             shouldn&apos;t have to re-type its own day into a second app to find out
             whether it made money.
           </p>
+          <p>
+            What has grown since is the rest of the work around that: payroll and
+            leave, budgets against actuals, depreciation, a cash forecast,
+            bank reconciliation, VAT and WHT returns, several businesses and
+            currencies under one login, roles that hold up when nobody is
+            watching, and — for the trades that need it — a full construction or
+            manufacturing workspace. The books are still the point. Everything
+            else exists to keep them honest.
+          </p>
         </div>
       </section>
       <section className="mx-auto max-w-6xl px-5 py-12">

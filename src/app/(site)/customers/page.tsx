@@ -72,7 +72,17 @@ const billingSegments = [
     fixed: [
       "WHT at 10%, 15% or 20% applied per line and tracked",
       "Invoice from site on your phone before you leave",
-      "Profit reported per branch or department, from real double-entry books",
+      "On Enterprise: projects, subcontractors, payment certificates, retention and RFIs in one workspace",
+    ],
+  },
+  {
+    icon: "🏭",
+    who: "Manufacturers",
+    problem: "Nobody can tell what a finished item actually costs.",
+    fixed: [
+      "Bills of materials, routings and work centres",
+      "Production runs that consume materials out of stock",
+      "An MRP workbench for what to buy and what to make next — Enterprise",
     ],
   },
   {
@@ -165,7 +175,7 @@ export default function CustomersPage() {
             You never open the till — the rest of Ledgr is the same.
           </p>
         </div>
-        <div className="mt-5 grid gap-6 md:grid-cols-3">
+        <div className="mt-5 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {billingSegments.map((s) => (
             <SegmentCard key={s.who} s={s} />
           ))}
@@ -182,8 +192,8 @@ export default function CustomersPage() {
             make money?&rdquo; and becomes &ldquo;which one made it?&rdquo;. Each
             branch keeps its own stock, every sale is tagged with the branch that
             made it, stock moves between them with a record on both sides, and
-            the branch performance report puts them side by side. Branches are
-            part of the Growth plan and above.
+            the branch performance report puts them side by side. Branches,
+            departments and locations are part of the Growth plan and above.
           </p>
         </div>
 
