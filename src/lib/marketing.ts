@@ -452,7 +452,7 @@ You spent a bit of time on our pricing page, so let me save you the arithmetic.
 
 Most Malawian SMEs your size start on Starter (MWK 50,000/month) — invoicing, the till, products and stock, the accounting modules and payroll, up to 200 transactions. If you're reconciling bank accounts or need the financial reports, Growth at MWK 100,000/month is the next step. Free is genuinely usable if you're under 50 transactions a month and just need income, expenses and invoices. Pro is for the AI assistant, the API and webhooks.
 
-Annual billing is available, and the discount differs by plan — so the app shows you the exact yearly price at checkout rather than us printing one here.
+Pay for a year and it is 20% less on every plan — Starter, Growth, Pro, Enterprise alike — with the exact amount shown in the app before you pay.
 
 Two questions and I can tell you which one to pick: roughly how many sales and expenses do you record a month, and do you need the financial reports or several branches?
 

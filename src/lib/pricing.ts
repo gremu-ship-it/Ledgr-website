@@ -38,8 +38,12 @@ import { site } from "@/lib/site";
 
 export type Plan = {
   name: string;
-  /** MWK per month. 0 for the Free plan. */
+  /** MWK per month on monthly billing. 0 for the Free plan. */
   monthly: number;
+  /** MWK per month over a year when billed annually (20% off). 0 for Free. */
+  monthlyAnnual: number;
+  /** MWK charged once a year on annual billing. 0 for Free. */
+  yearly: number;
   desc: string;
   features: string[];
   cta: string;
@@ -49,25 +53,51 @@ export type Plan = {
 };
 
 /**
- * ⚠ ANNUAL BILLING IS DELIBERATELY NOT PRICED ON THIS SITE.
+ * ANNUAL BILLING: 20% OFF, ON EVERY PAID PLAN.
  *
- * The site used to derive a yearly price as "10 months for 12" on every paid
- * plan. The application does not work that way: `computePriceMWK()` in
- * `Ledgr-react/src/lib/billing/plans.ts` applies a per-tier `annualDiscount`
- * — Starter 0%, Growth 20%, Pro 20%, Enterprise 25% — and the checkout modal
- * charges that. The two disagreed in both directions:
+ * The open question from the 2026-09 audit (§6.1) is settled: a year is
+ * 12 months less 20%, on Starter, Growth, Pro and Enterprise alike. That is
+ * what this file advertises, what `PricingPlans` shows on the billing switch,
+ * and what `softwareSchema()` publishes as an annual Offer.
  *
- *   Starter     site 500,000   app   600,000
- *   Growth    site 1,000,000   app   960,000
- *   Pro       site 2,000,000   app 1,920,000
- *   Enterprise site 5,000,000  app 4,500,000
+ * ⚠ THE APPLICATION DOES NOT CHARGE THIS YET. `computePriceMWK()` in
+ * `Ledgr-react/src/lib/billing/plans.ts` still holds a per-tier
+ * `annualDiscount` — Starter 0%, Growth 20%, Pro 20%, Enterprise 25% — and
+ * `ANNUAL_DISCOUNT_PCT` in the `initiate-subscription-payment` edge function
+ * (which is the amount PayChangu actually collects) repeats exactly that map.
+ * Until those two are 20/20/20/20 the yearly figures here are **targets, not
+ * quotations**:
  *
- * Which model is right is a commercial decision, not a copy fix, so the yearly
- * figures were removed rather than reconciled: monthly prices (which both
- * sides agree on) are advertised, and the annual price is quoted at checkout
- * by the app itself. Once the model is settled, add the yearly view back here
- * and in `softwareSchema()`. See docs/PRODUCT-AUDIT-2026-09.md §6.1.
+ *   Plan        Year at 20%   App charges today   Difference
+ *   Starter        480,000            600,000     site is 120,000 lower
+ *   Growth         960,000            960,000     agree
+ *   Pro          1,920,000          1,920,000     agree
+ *   Enterprise   4,800,000          4,500,000     site is 300,000 higher
+ *
+ * So the site does not print a yearly total anywhere yet. `billingSwitchLive`
+ * below is the single flag that turns the yearly column on once the app is
+ * updated; pricing every plan in `plans` means flipping it is a one-line
+ * change, and the numbers are already correct for the settled model.
+ * See docs/PRODUCT-AUDIT-2026-11.md §3.
  */
+
+/** The settled commercial model, in one place. */
+export const ANNUAL_DISCOUNT_PCT = 20;
+
+/**
+ * False until the app's `PLANS[*].annualDiscount` and the
+ * `initiate-subscription-payment` edge function both apply 20% to every paid
+ * tier. While false, the site says "20% off when you pay yearly" (true of the
+ * model, and the checkout is where the amount is confirmed) but prints no
+ * yearly total and publishes no annual `Offer`.
+ */
+export const billingSwitchLive = false;
+
+/** 12 months at the annual discount. Kept deterministic (no toLocaleString). */
+function yearlyAtDiscount(monthly: number): number {
+  if (monthly === 0) return 0;
+  return Math.round(monthly * 12 * (1 - ANNUAL_DISCOUNT_PCT / 100));
+}
 
 /**
  * Deterministic thousands separators. `toLocaleString` output can differ
@@ -78,7 +108,14 @@ export function mwk(n: number): string {
   return `MWK ${n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 }
 
-export const plans: Plan[] = [
+/**
+ * The plans as a human edits them: monthly price and copy only. Annual figures
+ * are derived below from `ANNUAL_DISCOUNT_PCT`, so the two views of a plan can
+ * never disagree with the discount they claim.
+ */
+type PlanInput = Omit<Plan, "monthlyAnnual" | "yearly">;
+
+const planInputs: PlanInput[] = [
   {
     name: "Free",
     monthly: 0,
@@ -163,6 +200,17 @@ export const plans: Plan[] = [
     highlight: false,
   },
 ];
+
+export const plans: Plan[] = planInputs.map((plan) => {
+  const yearly = yearlyAtDiscount(plan.monthly);
+  return {
+    ...plan,
+    yearly,
+    // Per-month equivalent of the yearly price, rounded — used for the
+    // "MWK 40,000/month billed yearly" line, never as a charged amount.
+    monthlyAnnual: yearly === 0 ? 0 : Math.round(yearly / 12),
+  };
+});
 
 /**
  * The few tier facts that appear in prose elsewhere on the site, so copy can

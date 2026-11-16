@@ -183,8 +183,12 @@ Two real discrepancies:
    on — are what the site advertises, and `/pricing` now says the yearly price
    is shown in the app at checkout, which is true and model-agnostic.
 
-   **Still required:** decide the annual model, then restore a yearly view in
-   `lib/pricing.ts`, `PricingPlans.tsx` and `softwareSchema()` that matches it.
+   ~~**Still required:** decide the annual model, then restore a yearly view in
+   `lib/pricing.ts`, `PricingPlans.tsx` and `softwareSchema()` that matches it.~~
+   **Resolved 2026-11-16:** the model is 20% off for twelve months on every paid
+   plan. The yearly view is restored behind `billingSwitchLive` in
+   `lib/pricing.ts`, pending the two app-side constants catching up — see
+   [`PRODUCT-AUDIT-2026-11.md`](./PRODUCT-AUDIT-2026-11.md) §3.1.
 
 2. **Plan contents were wrong** — corrected, because the app's `PLANS` array is
    unambiguous about which capability each tier unlocks:

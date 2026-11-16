@@ -139,6 +139,14 @@ a plan unlocks, and the marketing copy is meant to repeat that, not round it up.
 When a feature or a tier changes in the app, update `pricing.ts` first — the
 homepage, `/features`, `/pricing` and the FAQ all read from there.
 
+Annual billing is **20% off twelve months on every paid plan** (`ANNUAL_DISCOUNT_PCT`).
+The yearly totals, the billing switch on the pricing grid and the annual `Offer`s
+in the structured data are all derived from that one number and gated behind
+`billingSwitchLive`; it is `false` until `Ledgr-react`'s `PLANS[*].annualDiscount`
+and the `initiate-subscription-payment` edge function both apply 20% too, because
+the site must never advertise a yearly price checkout does not charge. The switch
+was tested on and off — flipping the flag is the only change needed.
+
 ## Configuration
 
 All site config lives in `src/lib/site.ts`. Public env vars (see `.env.example`):

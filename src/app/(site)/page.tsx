@@ -603,8 +603,9 @@ export default function HomePage() {
           <p className="mt-4 text-ink-soft">
             Start free. Paid plans from MWK 50,000/month — Starter once you are
             selling from a product list, Growth when you need the reports and
-            several branches, Pro when you want the AI and the API. Paid in
-            Kwacha, by mobile money or card.
+            several branches, Pro when you want the AI and the API. Pay for a
+            year and it is 20% less, on every paid plan. Paid in Kwacha, by
+            mobile money or card.
           </p>
         </div>
         <PricingPlans />

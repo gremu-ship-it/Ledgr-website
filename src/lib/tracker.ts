@@ -401,7 +401,11 @@ export function installAutoTracking(): () => void {
 
       // Plan pickers get a second, funnel-friendly event. The href is resolved
       // first, so a relative "/register" link counts the same as an absolute one.
+      // `cycle` is attached here rather than in the event name, so every
+      // existing `plan-*` id and its history stay intact while yearly intent
+      // becomes measurable once the billing switch goes live.
       const plan = el.getAttribute("data-plan") || dataTrack?.replace(/^plan-/, "");
+      const cycle = el.getAttribute("data-cycle") || undefined;
       if (plan) {
         let absolute = "";
         try {
@@ -410,7 +414,11 @@ export function installAutoTracking(): () => void {
           absolute = href;
         }
         if (absolute.includes(site.appUrl)) {
-          track({ type: "plan_select", name: plan, props: { plan } });
+          track({
+            type: "plan_select",
+            name: plan,
+            props: cycle ? { plan, cycle } : { plan },
+          });
         }
       }
     } catch {

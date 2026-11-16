@@ -1,3 +1,5 @@
+import { ANNUAL_DISCOUNT_PCT, billingSwitchLive, mwk, plans } from "@/lib/pricing";
+
 export type FaqItem = { q: string; a: string };
 
 /**
@@ -75,6 +77,10 @@ export const faqs: FaqItem[] = [
     a: "There is a free plan, and it is genuinely free. It covers the dashboard, income, expenses and invoices for up to 50 transactions a month, with community support. Starter at MWK 50,000/month adds products and stock, the till, the accounting modules, payroll and 200 transactions. Growth at MWK 100,000/month adds the financial reports, branches, bank reconciliation, budgets, journals and the audit log. Pro at MWK 200,000/month adds the AI assistant, the API and webhooks. Enterprise adds AI Financial Intelligence, construction and manufacturing, custom branding and approval workflows.",
   },
   {
+    q: "Is there a discount for paying yearly?",
+    a: yearlyAnswer(),
+  },
+  {
     q: "Can I try Ledgr without creating an account?",
     a: "Yes. The live demo opens the full app on a sample Malawian business with months of books, a product list and an open till shift you can sell from. There is no sign-up, no password and no card, and nothing is sent to a server: the sample data is generated in your own browser and resets after 24 hours. If you'd rather just look, there's a one-minute read-only tour. When you're ready for your own numbers, create a free account — the demo data is deliberately not carried over.",
   },
@@ -95,3 +101,27 @@ export const faqs: FaqItem[] = [
     a: "Ledgr is Kwacha-first and its tax tools are Malawi's. You can record transactions in other currencies — Zambian kwacha, Tanzanian shilling, Mozambican metical, rand, US dollars, euro and pounds — with exchange rates applied to your books and FX revaluation on Growth, so cross-border trade works. But if your business files its taxes somewhere other than Malawi, Ledgr won't do that part for you.",
   },
 ];
+
+/**
+ * One billing answer, shared by the homepage FAQ (and its JSON-LD) and the
+ * /pricing FAQ, so the two can never state two different discounts.
+ *
+ * `billingSwitchLive` decides how specific it can be: while the application
+ * still charges a per-tier discount, the honest answer is the model plus "the
+ * amount is confirmed at checkout". Once the switch is on, the answer prints
+ * the actual yearly totals, which are derived from `ANNUAL_DISCOUNT_PCT` in
+ * `lib/pricing.ts`.
+ */
+export function yearlyAnswer(): string {
+  const paid = plans.filter((p) => !p.free);
+  const names = paid.map((p) => p.name).join(", ");
+
+  if (!billingSwitchLive) {
+    return `Yes — ${ANNUAL_DISCOUNT_PCT}% off, on every paid plan: ${names} alike, with no tier that quietly gets a worse deal. That is twelve months billed once instead of twelve monthly payments. The exact amount for your plan is confirmed in the app before you pay anything, so nothing is charged that you haven't seen.`;
+  }
+
+  // `mwk()` already carries the currency, so the sentence must not add it again.
+  const totals = paid.map((p) => `${p.name} ${mwk(p.yearly)}`).join(", ");
+
+  return `Yes — ${ANNUAL_DISCOUNT_PCT}% off, on every paid plan: ${names} alike. A year costs ${totals} — twelve months billed once instead of twelve monthly payments. You can start monthly and switch to yearly whenever you like, and the app shows the exact amount before you pay.`;
+}

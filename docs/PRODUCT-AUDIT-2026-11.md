@@ -68,15 +68,52 @@ Monthly prices **unchanged and still exact** against `PLANS`:
 | Pro | 200,000 | 200,000 |
 | Enterprise | 500,000 | 500,000 |
 
-Annual billing is **still not priced on the site** (`lib/pricing.ts` §"Annual
-billing is deliberately not priced"): the app applies per-tier discounts —
-Starter 0%, Growth 20%, Pro 20%, Enterprise 25% — so the yearly figure the site
-used to derive contradicted checkout in both directions. That remains a
-commercial decision, not a copy fix. `/pricing` says the exact yearly price is
-shown at checkout, which is true whatever the model becomes.
+### 3.1 Annual billing — DECIDED: 20% off, every paid plan
 
-**Still open, from September:** choose the annual model, then restore a yearly
-view in `lib/pricing.ts`, `PricingPlans.tsx` and `softwareSchema()`.
+The open question from September (§6.1) is settled by the owner: a year is
+twelve months less **20%**, on Starter, Growth, Pro and Enterprise alike. That
+is now `ANNUAL_DISCOUNT_PCT` in `src/lib/pricing.ts`, and every annual figure on
+the site is derived from it:
+
+| Plan | Monthly | Year at 20% | Effective monthly |
+| --- | --- | --- | --- |
+| Starter | 50,000 | **480,000** | 40,000 |
+| Growth | 100,000 | **960,000** | 80,000 |
+| Pro | 200,000 | **1,920,000** | 160,000 |
+| Enterprise | 500,000 | **4,800,000** | 400,000 |
+
+**⚠ The application does not charge this yet, so the site does not print a
+yearly total yet.** `Ledgr-react` still holds the old per-tier map in two
+places, and they must change together because one of them is the amount
+PayChangu collects:
+
+- `src/lib/billing/plans.ts` — `PLANS[*].annualDiscount`: starter **0**, growth
+  20, pro 20, enterprise **25**. `plans.test.ts` asserts
+  `computePriceMWK('starter','annual') === 600_000`.
+- `supabase/functions/initiate-subscription-payment/index.ts` —
+  `ANNUAL_DISCOUNT_PCT`: the same 0/20/20/25. `computeAmount()` here produces
+  the amount actually requested from the gateway.
+- `src/components/billing/CheckoutModal.tsx` prints "save N%" from the plan
+  object, so it follows whichever map is loaded.
+
+Until both say 20, a visitor paying yearly would be charged **120,000 more on
+Starter** and **300,000 less on Enterprise** than a flat-20% site would imply.
+So:
+
+- The site **does** say "20% off when you pay yearly", on the pricing section,
+  `/pricing`, the FAQ (one shared answer, `yearlyAnswer()`) and the plan card
+  footnote — that is the settled model and it is not a price quotation.
+- The site **does not** print yearly totals, show the billing switch, or publish
+  annual `Offer`s in `softwareSchema()`. `billingSwitchLive` in
+  `lib/pricing.ts` is the one flag that turns all three on at once; the yearly
+  numbers, the saving line and the per-month equivalent are already computed and
+  waiting behind it.
+
+**Release step (app repo):** set `annualDiscount: 20` on all four paid tiers,
+update `ANNUAL_DISCOUNT_PCT` in the edge function to match, update
+`plans.test.ts` (`600_000` becomes `480_000`), deploy the function, then set
+`billingSwitchLive = true` here and redeploy. Nothing else on the site needs
+touching.
 
 ## 4. Things the app does that the site still should not claim
 

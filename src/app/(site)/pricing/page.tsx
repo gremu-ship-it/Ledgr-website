@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/ui";
 import PricingPlans from "@/components/PricingPlans";
+import { yearlyAnswer } from "@/lib/faqs";
+import { ANNUAL_DISCOUNT_PCT } from "@/lib/pricing";
 
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Pricing in Kwacha: Free, Starter at MWK 50,000/month, Growth at MWK 100,000/month, Pro at MWK 200,000/month, Enterprise at MWK 500,000/month. Paid by mobile money or card through PayChangu.",
+    "Pricing in Kwacha: Free, Starter at MWK 50,000/month, Growth at MWK 100,000/month, Pro at MWK 200,000/month, Enterprise at MWK 500,000/month. Save 20% paying yearly. Paid by mobile money or card through PayChangu.",
   alternates: { canonical: "/pricing" },
 };
 
@@ -37,7 +39,7 @@ const faqs = [
   },
   {
     q: "Is there a discount for paying yearly?",
-    a: "Yes, and it isn't the same on every plan — so rather than print a figure here that might not be the one you're charged, the app shows you the exact yearly price for your plan at checkout, before you pay. The monthly prices on this page are the ones to compare on.",
+    a: yearlyAnswer(),
   },
   {
     q: "How do I pay?",
@@ -63,7 +65,7 @@ export default function PricingPage() {
             Priced in Kwacha, <span className="text-brand-700">for Malawian businesses</span>
           </>
         }
-        sub="Start free. Paid plans from MWK 50,000/month, paid with mobile money or card via PayChangu. Monthly or yearly — your yearly price is shown at checkout."
+        sub={`Start free. Paid plans from MWK 50,000/month, paid with mobile money or card via PayChangu. Pay for a year and it is ${ANNUAL_DISCOUNT_PCT}% less, on every plan.`}
       />
       <section className="mx-auto max-w-6xl px-5 pb-14">
         <PricingPlans />
